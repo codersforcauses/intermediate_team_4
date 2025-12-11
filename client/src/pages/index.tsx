@@ -1,36 +1,33 @@
-import { Inter as FontSans } from "next/font/google";
-import { useState } from "react";
+// this is the path to this page
+// src/pages/index.tsx
 
-import { usePings } from "@/hooks/pings";
-import { cn } from "@/lib/utils";
+import ButtonGoOrganizationDashboard from "../components/ui/button_go_organization_dashboard";
 
-import { Button } from "../components/ui/button";
-
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-export default function Home() {
-  const [clicked, setClicked] = useState(false);
-  const { data, isLoading } = usePings({
-    enabled: clicked,
-  });
-
+// this is a react functional component
+// it returns a html element that will render the jsx inside it
+const LandingPage = () => {
   return (
-    <main
-      className={cn(
-        "flex min-h-screen flex-col items-center gap-4 p-24 font-sans",
-        fontSans.variable,
-      )}
+    <div
+      // Simple inline styles for centering content
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        textAlign: "center",
+      }}
     >
-      <h1 className="text-3xl text-primary">Test title</h1>
-      <Button onClick={() => setClicked(true)}>
-        {isLoading ? "Loading" : "Ping"}
-      </Button>
-      <p>
-        Response from server: <span>{data as string}</span>
-      </p>
-    </main>
+      <h1>Welcome to the Inventory Management System</h1>
+      <p>This is the main landing page for your application.</p>
+
+      {/* The Next.js Link component handles navigation. 
+        href="/dashboard" will take us to the page we just renamed.
+      */}
+
+      <ButtonGoOrganizationDashboard />
+    </div>
   );
-}
+};
+
+export default LandingPage;
