@@ -8,6 +8,7 @@ Django + Nextjs Template: Standardised CFC Tech Stack
 
 - **Node.js 18+** and **npm** - [Download here](https://nodejs.org/)
 - **uv 0.8+** (Python package manager) - [Installation guide](https://docs.astral.sh/uv/getting-started/installation/)
+-- **Next.js** use this command in bash npm install -g next
 
 ### Installation Steps
 
@@ -111,24 +112,30 @@ python manage.py test
 ```bash
 cd client
 
+### Start development server ###
 # Development server
 npm run dev
 
+### Start production server ###
 # Build for production
 npm run build
 
 # Start production server
 npm start
 
+### Checks for code problems ### 
 # Run linting
 npm run lint
 
+### Fix found code problems ###
 # Fix linting issues
 npm run lint:fix
 
+### Checks for typescript issues ###
 # Type checking
 npm run typecheck
 
+### Formats code, Technically its the Prettier extension ###
 # Format code
 npm run format
 ```
