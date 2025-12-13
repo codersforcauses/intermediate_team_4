@@ -1,6 +1,7 @@
 // this is the path to this page
 // src/pages/index.tsx
 
+import ButtonGoUserDashboard from "../components/ui/button_go_user_dashboard";
 import ButtonGoOrganizationDashboard from "../components/ui/button_go_organization_dashboard";
 import ButtonGoUserPage from "../components/ui/button_go_user_page";
 
@@ -27,6 +28,7 @@ const LandingPage = () => {
       */}
 
       <ButtonGoOrganizationDashboard />
+      <ButtonGoUserDashboard />
       <ButtonGoUserPage />
     </div>
   );
