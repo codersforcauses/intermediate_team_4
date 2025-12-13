@@ -1,7 +1,8 @@
 // this is the path to this page
 // src/pages/index.tsx
 
-import ButtonGoOrganizationDashboard from "../components/ui/button_go_user_page";
+import ButtonGoOrganizationDashboard from "../components/ui/button_go_organization_dashboard";
+import ButtonGoUserPage from "../components/ui/button_go_user_page";
 
 // this is a react functional component
 // it returns a html element that will render the jsx inside it
@@ -26,6 +27,7 @@ const LandingPage = () => {
       */}
 
       <ButtonGoOrganizationDashboard />
+      <ButtonGoUserPage />
     </div>
   );
 };
