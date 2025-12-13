@@ -1,6 +1,7 @@
 // this is the path to this page
 // src/pages/index.tsx
 
+import ButtonGoUserDashboard from "../components/ui/button_go_user_dashboard";
 import ButtonGoOrganizationDashboard from "../components/ui/button_go_user_page";
 
 // this is a react functional component
@@ -26,6 +27,7 @@ const LandingPage = () => {
       */}
 
       <ButtonGoOrganizationDashboard />
+      <ButtonGoUserDashboard />
     </div>
   );
 };
