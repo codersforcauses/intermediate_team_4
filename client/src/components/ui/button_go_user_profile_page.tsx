@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-export default function ButtonGoUserPage() {
+export default function ButtonGoUserProfilePage() {
   return (
-    <Link href="/user_page">
+    <Link href="/user_profile_page">
       <button
         style={{
           padding: "10px 20px",
@@ -14,7 +14,7 @@ export default function ButtonGoUserPage() {
           fontSize: "1.1em",
         }}
       >
-        Go to User Page
+        Go to User Profile Page
       </button>
     </Link>
   );
