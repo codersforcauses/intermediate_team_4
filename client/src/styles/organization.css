@@ -1,0 +1,104 @@
+/* --- HEADER STYLES --- */
+
+/* 
+Remember to add in pages/_app.tsx
+import '../styles/organization.css'; 
+
+syntax
+- for readability 
+example: .header-nav ul {}
+this means to the class that is applying header-nav, the ul tag will have these styles
+
+: for special states
+example: .header-nav li:hover
+other possible states :hover :focus :active 
+
+. for selector
+example: .app-header 
+this is to apply the style to all html elemetns that apply this class ( Class Selector )
+
+# for selector 
+example: #main-header ( in css ) nav-id="main-header" ( in html )
+this is to apply the style to the html element that has this specific id ( ID Selector )
+*/
+
+/* 
+This is for the header tag
+flex: makes the children align in a row
+justify-content: space-between: spaces out the children to the edges
+align-items: center: vertically centers the children
+padding: adds space inside the header
+*/
+.app-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px 40px; 
+    border-bottom: 1px solid #e0e0e0; 
+    background-color: #c0c0c0; 
+}
+
+/* 
+This is for the header navigation links
+list-style: none: removes the bullet points
+padding: 0: removes the padding
+margin: 0: removes the margin
+display: flex: makes the children align in a row
+gap: 30px: adds space between the children
+*/
+.header-nav ul {
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 30px; 
+    font-size: 18px; 
+    font-weight: 500; 
+}
+
+/*
+This is for the individual navigation links
+cursor: pointer: changes the cursor to a pointer on hover
+color: #444444: sets the color to gray
+*/
+.header-nav li {
+    cursor: pointer;
+    color: #444444; 
+    transition: color 0.2s;
+}
+
+/*
+This is to make the navigation links change color on hover
+*/
+.header-nav li:hover {
+    color: #964545; 
+}
+
+/*
+This is for the logo section
+*/
+.header-logo {
+    font-size: 20px;
+    font-weight: bold;
+    min-width: 150px; 
+}
+
+/*
+
+*/
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 150px; 
+    justify-content: flex-end; 
+}
+
+.user-avatar-placeholder {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; 
+    background-color: #4a77e5; 
+    border: 2px solid #ffffff; 
+    box-shadow: 0 0 0 2px #4a77e5; 
+}

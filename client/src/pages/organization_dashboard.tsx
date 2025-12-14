@@ -1,19 +1,15 @@
 // src/pages/organization_dashboard.tsx (Update the import path)
 
-import Head from "next/head";
 // The Header component is now one directory level up from 'pages',
 // so the path is '../components/Header'
-//import Header from '../components/Header';
+import Header from "../components/ui/navbar_organization";
 
 const DashboardPage = () => {
   return (
     <>
-      <Head>
-        <title>Inventory Dashboard</title>
-      </Head>
       <div className="dashboard-container">
         {/* 1. Navigation Bar */}
-        {/* <Header /> */}
+        <Header />
 
         {/* 2. Main content wrapper */}
         <main className="dashboard-content">
