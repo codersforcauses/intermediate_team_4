@@ -22,6 +22,21 @@ example: #main-header ( in css ) nav-id="main-header" ( in html )
 this is to apply the style to the html element that has this specific id ( ID Selector )
 */
 
+/* 
+Custom Variables (Good Practice for colors)
+
+color-success: #198754; Green for up/positive trends 
+color-error: #dc3545;   Red for down/negative trends 
+color-card-background: #eeeeee; Light gray for the card body 
+color-text-dark: #333333;
+ */
+:root {
+    --color-success: #198754; /* Green for up/positive trends */
+    --color-error: #dc3545;   /* Red for down/negative trends */
+    --color-card-background: #eeeeee; /* Light gray for the card body */
+    --color-text-dark: #333333;
+}
+
 .dashboard-container {
     display: flex;
     flex-direction: column;
@@ -96,9 +111,6 @@ This is for the logo section
     min-width: 150px; 
 }
 
-/*
-
-*/
 .header-user {
     cursor: pointer;
     display: flex;
@@ -173,4 +185,59 @@ This is for the logo section
     /* You might need to adjust the min-width/justify-content 
        if the layout seems off, but the original styles should still work. */
     display: flex;
+}
+
+/* This is for the 5 statistics card in the dashboard */
+/* --- STATISTICS CARD STYLES --- */
+.stat-card {
+    /* The main wrapper for the gray box */
+    background-color: var(--color-card-background);
+    border-radius: 12px; /* Rounded corners */
+    padding: 20px;
+    position: relative; /* Essential for positioning the arrow absolutely */
+    min-height: 120px;
+    display: flex; /* Helps ensure content is aligned */
+    flex-direction: column;
+    justify-content: flex-end; /* Pushes content to the bottom of the card */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.stat-indicator {
+    /* Styles for the large arrow (Green or Red) */
+    position: absolute; /* Positioned relative to the .stat-card parent */
+    top: 15px;
+    right: 20px;
+    font-size: 36px; /* Large arrow size */
+    font-weight: bold;
+    line-height: 1; /* Ensures the arrow sits nicely */
+}
+
+.stat-title {
+    font-size: 14px;
+    color: var(--color-text-dark);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.stat-value {
+    font-size: 30px;
+    font-weight: 700;
+    color: #000;
+    margin: 5px 0 10px 0;
+}
+
+.stat-delta {
+    font-size: 14px;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* --- Layout for the 5 Stats Cards --- */
+.stats-grid {
+    /* Use CSS Grid to display 5 columns of equal width */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 20px; /* Space between the cards */
+    margin-bottom: 25px; /* Space below the stats row */
+    padding: 0 40px; /* Keep padding consistent with header/main content */
 }
