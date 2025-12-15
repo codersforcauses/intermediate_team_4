@@ -1,4 +1,14 @@
-// src/components/InventoryStatusItem.tsx
+// src/components/ui/card_organization_inventory_status_data.tsx
+
+/* 
+Idea for this how the recent activities like Recently Borrowed Items will be displayed
+- This component represents a single item in the inventory status list, showing the item name and its status detail.
+
+
+card_organization_inventory_status_card.tsx 
+- uses mulitple of this component to show the list
+- the card also is just to hold the data and the View All link
+*/
 
 import React from "react";
 

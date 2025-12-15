@@ -1,4 +1,11 @@
-// src/components/InventoryStatusCard.tsx
+// src/components/card_organization_inventory_status_card.tsx
+
+/*
+This is to hold the inventory status summary cards like Expiring Inventory, Inventory Due, Borrowed Items, Returned Items
+- Each card shows a list of items with their status details
+- it also requires a list of items to display, passed as props
+- Also includes a "View All" link to navigate to the full list page
+*/
 
 import Link from "next/link";
 import React from "react";

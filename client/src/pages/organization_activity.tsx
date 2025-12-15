@@ -31,6 +31,7 @@ const ActivityPage = () => {
       <div className="dashboard-container">
         <NavbarOrganization />
 
+        {/* 2. @See card_organization_inventory_status_data to understand how it works */}
         <main className="activity-page-main">
           {/* NEW SECTION: Inventory Status Cards (Summary/Filters) */}
           <div className="inv-cards-grid">
