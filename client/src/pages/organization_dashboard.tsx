@@ -2,6 +2,7 @@
 
 // The Header component is now one directory level up from 'pages',
 // so the path is '../components/Header'
+import QuickActions from "../components/ui/button_quick_actions";
 import StatisticsCard from "../components/ui/card_organization_statistics";
 import Header from "../components/ui/navbar_organization";
 
@@ -50,6 +51,29 @@ const DashboardPage = () => {
               delta="-10 this week"
               status="down"
             />
+          </div>
+          {/* NEW: Two-Column Layout for Activity and Actions */}
+          <div className="dashboard-content-layout">
+            {/* 1. LEFT COLUMN: Recent Activity */}
+            <section className="activity-panel">
+              {/* This is where the RecentActivity component will go */}
+              <h2>Recent Activity</h2>
+              {/* Temporary placeholder to see the layout */}
+              <div
+                style={{
+                  padding: "20px",
+                  backgroundColor: "#f5f5f5",
+                  borderRadius: "8px",
+                }}
+              >
+                Activity List Placeholder
+              </div>
+            </section>
+
+            {/* 2. RIGHT COLUMN: Quick Actions */}
+            <aside className="actions-panel">
+              <QuickActions />
+            </aside>
           </div>
         </main>
       </div>

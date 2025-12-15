@@ -241,3 +241,97 @@ This is for the logo section
     margin-bottom: 25px; /* Space below the stats row */
     padding: 0 40px; /* Keep padding consistent with header/main content */
 }
+
+/* --- MAIN DASHBOARD CONTENT LAYOUT --- */
+.dashboard-content-layout {
+    /* Use CSS Grid for the two-column structure */
+    display: grid;
+    /* Define the columns: a large column (3 parts) and a smaller column (1 part) */
+    grid-template-columns: 3fr 1fr; 
+    gap: 30px; /* Space between the two columns */
+    padding: 0 40px 40px 40px; /* Consistent padding around the main content */
+}
+
+/* --- QUICK ACTIONS STYLES (Blue Panel) --- */
+.quick-actions-card {
+    /* Main blue background */
+    background-color: #4a77e5; /* The prominent blue color */
+    color: white;
+    border-radius: 12px;
+    padding: 20px;
+    /* Use Flexbox to stack content (title and button group) */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Important: makes the panel stretch to match activity height */
+}
+
+.quick-actions-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.action-button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px; /* Space between the two buttons */
+}
+
+.action-button {
+    /* Base button styling */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: relative;
+}
+
+/* Specific style for the 'Add Product' button */
+.action-button.primary {
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly transparent white on blue */
+    color: white;
+}
+
+/* Specific style for the 'View Whole Inventory' button */
+.action-button.secondary {
+    background-color: #ffffff; /* White background */
+    color: #333; /* Dark text */
+}
+
+/* Icon styling */
+.icon-plus {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.icon-box {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* Badge (the 'B' circle) */
+.badge {
+    position: absolute;
+    bottom: -10px;
+    right: 10px;
+    background-color: #dc3545; /* Red color for visibility */
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid white;
+}
