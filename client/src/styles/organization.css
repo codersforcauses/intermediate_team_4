@@ -443,3 +443,61 @@ gap: 30px: adds space between the two columns
     font-size: 12px;
     color: #888;
 }
+
+/* --- INVENTORY STATUS CARDS GRID --- */
+.inv-cards-grid {
+    /* Use CSS Grid to display 4 columns of equal width */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; /* Space between the cards */
+    margin: 25px 40px; /* Top/Bottom margin, Left/Right padding */
+}
+
+/* --- INDIVIDUAL INVENTORY STATUS CARD --- */
+.inv-status-card {
+    background-color: #f0f0f0; /* Light gray background */
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.inv-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.inv-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.inv-view-all {
+    color: #4a77e5; /* Blue color */
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* --- INVENTORY STATUS ITEM STYLES --- */
+.inv-status-item {
+    background-color: #ffffff; /* White background for the item box */
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.inv-item-name {
+    font-weight: 500;
+    color: var(--color-text-dark);
+}
+
+.inv-item-detail {
+    font-weight: 400;
+    color: #4a77e5; /* Make the status detail blue for visibility */
+}
