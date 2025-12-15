@@ -243,6 +243,12 @@ This is for the logo section
 }
 
 /* --- MAIN DASHBOARD CONTENT LAYOUT --- */
+/* 
+This is how we create the two-column layout for Recent Activity and Quick Actions
+display: grid: enables CSS Grid layout 
+grid-template-columns: 3fr 1fr: defines the two columns, 3fr ( fractional units ) for the first column and 1fr for the second column 
+gap: 30px: adds space between the two columns
+*/
 .dashboard-content-layout {
     /* Use CSS Grid for the two-column structure */
     display: grid;
@@ -318,20 +324,122 @@ This is for the logo section
     font-size: 20px;
 }
 
-/* Badge (the 'B' circle) */
-.badge {
-    position: absolute;
-    bottom: -10px;
-    right: 10px;
-    background-color: #dc3545; /* Red color for visibility */
-    color: white;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
+
+
+
+/* --- RECENT ACTIVITY PANEL --- */
+.recent-activity-card {
+    background-color: #ffffff; /* White background for the card */
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    /* REMOVE min-height: 300px; - We will control height on the list itself */
+    height: 100%; /* Keep this to fill the parent grid cell height */
+    display: block; /* Changed from flex to block to avoid conflicts */
+    flex-direction: column;
+}
+
+.activity-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline; /* Align text baselines */
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0; /* Separator line */
+    padding-bottom: 10px;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.activity-card-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.activity-view-all {
+    color: #4a77e5; /* Blue color */
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* --- SCROLLABLE RECENT ACTIVITY LIST CONTAINER --- */
+.activity-list {
+    /* Critical: Set a maximum height relative to the parent card's height, 
+       and tell the browser to show a vertical scrollbar if content overflows. */
+    overflow-y: scroll; 
+    
+    /* Optional: Improves aesthetics by hiding the scrollbar on some browsers, 
+       but keeping scroll functionality (e.g., Safari/Firefox on Mac). */
+    overflow-x: hidden;
+    
+    /* Adds internal padding to make sure scrollbar doesn't stick to the content edge */
+    padding-right: 15px; 
+    padding-top: 10px;
+
+    max-height: 50vh; /* vh is for viewport height, you need to have a fixed height, or no use */
+    
+    /* Keep these: */
+    overflow-y: scroll; 
+    overflow-x: hidden;
+    padding-right: 15px;
+}
+
+
+/* --- INDIVIDUAL ACTIVITY ITEM --- */
+.activity-item {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0; /* Separator between list items */
+}
+
+.activity-item:last-child {
+    border-bottom: none; /* Remove border from the last item */
+}
+
+.activity-status {
+    /* Arrow container */
+    font-size: 20px;
     font-weight: bold;
-    border: 2px solid white;
+    margin-right: 15px;
+    line-height: 1;
+}
+
+.activity-info {
+    /* Title and Detail (left-aligned) */
+    flex-grow: 1; /* Allows this section to take up all available space */
+}
+
+.activity-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.activity-detail {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.activity-meta {
+    /* Quantity and Time (right-aligned) */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    width: 100px; /* Gives a fixed width to ensure right alignment */
+}
+
+.activity-quantity {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.activity-time {
+    font-size: 12px;
+    color: #888;
 }

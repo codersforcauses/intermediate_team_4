@@ -3,6 +3,7 @@
 // The Header component is now one directory level up from 'pages',
 // so the path is '../components/Header'
 import QuickActions from "../components/ui/button_quick_actions";
+import RecentActivityPanel from "../components/ui/card_organization_recent_activities_panel";
 import StatisticsCard from "../components/ui/card_organization_statistics";
 import Header from "../components/ui/navbar_organization";
 
@@ -16,8 +17,7 @@ const DashboardPage = () => {
         {/* 2. Main content wrapper */}
         <main className="dashboard-content">
           {/* Components for Statistics, Recent Activity, and Quick Actions */}
-          <h1>Welcome to the Dashboard!</h1>{" "}
-          {/* NEW SECTION: Statistics Cards */}
+          {/* Statistics Cards */}
           <div className="stats-grid">
             {" "}
             {/* This class will control the layout of the 5 cards */}
@@ -52,25 +52,15 @@ const DashboardPage = () => {
               status="down"
             />
           </div>
-          {/* NEW: Two-Column Layout for Activity and Actions */}
+
+          {/* Two-Column Layout for Activity and Actions */}
           <div className="dashboard-content-layout">
-            {/* 1. LEFT COLUMN: Recent Activity */}
+            {/* LEFT COLUMN: Recent Activity, used section here to group some assets */}
             <section className="activity-panel">
-              {/* This is where the RecentActivity component will go */}
-              <h2>Recent Activity</h2>
-              {/* Temporary placeholder to see the layout */}
-              <div
-                style={{
-                  padding: "20px",
-                  backgroundColor: "#f5f5f5",
-                  borderRadius: "8px",
-                }}
-              >
-                Activity List Placeholder
-              </div>
+              <RecentActivityPanel />
             </section>
 
-            {/* 2. RIGHT COLUMN: Quick Actions */}
+            {/* 2. RIGHT COLUMN: Quick Actions, aside here is used for accessibility, it does not make it appear on the right*/}
             <aside className="actions-panel">
               <QuickActions />
             </aside>
