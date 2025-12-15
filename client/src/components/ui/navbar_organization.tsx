@@ -28,6 +28,7 @@ onMouseDown vs onClick
 */
 
 // this is for the dropdown menu from user profile side
+import Link from "next/dist/client/link";
 import React, { useState } from "react"; // <-- Import useState
 
 const Header = () => {
@@ -55,9 +56,15 @@ const Header = () => {
       {/* Center: Navigation Links */}
       <nav className="header-nav">
         <ul>
-          <li>Home</li>
-          <li>Activity</li>
-          <li>Management</li>
+          <Link href="/organization_dashboard">
+            <li>Home</li>
+          </Link>
+          <Link href="/organization_activity">
+            <li>Activity</li>
+          </Link>
+          <Link href="/organization_management">
+            <li>Management</li>
+          </Link>
         </ul>
       </nav>
 

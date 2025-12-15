@@ -1,4 +1,14 @@
-// src/components/RecentActivityPanel.tsx
+// src/components/card_organization_recent_activities_panel.tsx
+
+/*
+How does it show all the components in the list?
+1. pass the list of data from the mockActivityData array
+2. use the map function to iterate over each item in the array
+3. for each item, render a RecentActivityItem component, passing the relevant props
+
+so what happens is, it will run the map and iterate over every item and then create a RecentActivityItem component 
+for each one, passing in the data and placing it under the div with class activity-list
+*/
 
 import Link from "next/link"; // For the 'View All' link
 import React from "react";
@@ -121,7 +131,7 @@ const RecentActivityPanel = () => {
       {/* Header with Title and View All Link */}
       <div className="activity-card-header">
         <h2 className="activity-card-title">Recent Activity</h2>
-        <Link href="/activity/all" legacyBehavior>
+        <Link href="/organization_activity" legacyBehavior>
           <a className="activity-view-all">View All</a>
         </Link>
       </div>
