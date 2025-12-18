@@ -13,11 +13,13 @@ for each one, passing in the data and placing it under the div with class activi
 import Link from "next/link"; // For the 'View All' link
 import React from "react";
 
-import RecentActivityItem from "./card_organization_recent_activities_item"; // Import the item component
+import Recent_Activities_Item from "./card_organization_recent_activities_item";
 
 // Example data structure that the component might use (or receive as props later)
 const mockActivityData = [
   {
+    id: 1,
+    type: "member" as const,
     status: "up" as const,
     title: "New Member",
     detail: "Cody",
@@ -25,6 +27,8 @@ const mockActivityData = [
     time: "5 minutes ago",
   },
   {
+    id: 2,
+    type: "member" as const,
     status: "up" as const,
     title: "Inventory increase",
     detail: "Cool Potato",
@@ -32,6 +36,8 @@ const mockActivityData = [
     time: "5 minutes ago",
   },
   {
+    id: 3,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -39,6 +45,8 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 4,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -46,6 +54,8 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 5,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -53,6 +63,8 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 6,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -60,6 +72,8 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 7,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -67,6 +81,8 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 8,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -74,6 +90,8 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 9,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -81,6 +99,8 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 10,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -88,6 +108,8 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 11,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -95,6 +117,8 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 12,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -102,6 +126,8 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 13,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -109,6 +135,8 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 14,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -116,6 +144,17 @@ const mockActivityData = [
     time: "3 minutes ago",
   },
   {
+    id: 15,
+    type: "member" as const,
+    status: "down" as const,
+    title: "Lost Member",
+    detail: "Cody",
+    quantity: -1,
+    time: "3 minutes ago",
+  },
+  {
+    id: 16,
+    type: "member" as const,
     status: "down" as const,
     title: "Lost Member",
     detail: "Cody",
@@ -125,7 +164,14 @@ const mockActivityData = [
   // Add more items here...
 ];
 
-const RecentActivityPanel = () => {
+// Define the interface for the Panel so it knows it receives onItemClick
+interface Recent_Activity_Panel_Props {
+  onItemClick: (id: number) => void;
+}
+
+const Recent_Activity_Panel: React.FC<Recent_Activity_Panel_Props> = ({
+  onItemClick,
+}) => {
   return (
     <div className="recent-activity-card">
       {/* Header with Title and View All Link */}
@@ -137,19 +183,22 @@ const RecentActivityPanel = () => {
       </div>
 
       {/* The Activity List */}
+      {/* react requires a key for each item in list */}
       <div className="activity-list">
         {
           // Use the JavaScript map function to render one RecentActivityItem for each data entry
           mockActivityData.map((item, index) => (
-            <RecentActivityItem
-              key={index} // Key is necessary for lists in React
+            <Recent_Activities_Item
+              key={index}
+              id={item.id} // Pass the id to the item
+              type={item.type} // type is not used in the item but required by interface
               status={item.status}
               title={item.title}
               detail={item.detail}
               quantity={item.quantity}
               time={item.time}
-              // We'll add 'type' later if we need different styling for items vs. members
-              type={"member"} // Temporary type assignment
+              // PASS THE HANDLER DOWN TO THE ITEM
+              onItemClick={onItemClick}
             />
           ))
         }
@@ -158,4 +207,4 @@ const RecentActivityPanel = () => {
   );
 };
 
-export default RecentActivityPanel;
+export default Recent_Activity_Panel;

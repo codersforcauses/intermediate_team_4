@@ -3,21 +3,26 @@
 import React from "react";
 
 // Define the shape of the data for a single activity item
-interface ActivityItemProps {
-  type: "increase" | "decrease" | "member"; // e.g., Inventory increase, Lost Member
-  status: "up" | "down"; // Green or Red arrow
-  title: string; // Main action (e.g., "New Member", "Inventory increase")
-  detail: string; // The item or person involved (e.g., "Cody", "Cool Potato")
-  quantity: number; // The numerical change (e.g., +1, -1)
-  time: string; // The time elapsed (e.g., "5 minutes ago")
+interface Recent_Activities_Item_Interface {
+  id: number; // Ensure id is part of the interface
+  type: "increase" | "decrease" | "member" | null;
+  status: "up" | "down";
+  title: string;
+  detail: string;
+  quantity: number;
+  time: string;
+  onItemClick: (id: number) => void; // Click handler is mandatory here to work
 }
 
-const RecentActivityItem: React.FC<ActivityItemProps> = ({
+const Recent_Activities_Item: React.FC<Recent_Activities_Item_Interface> = ({
+  id, // You must destructure 'id' here to use it below
+  type,
   status,
   title,
   detail,
   quantity,
   time,
+  onItemClick,
 }) => {
   // Logic to determine arrow symbol and color
   const arrow = status === "up" ? "↑" : "↓";
@@ -30,19 +35,22 @@ const RecentActivityItem: React.FC<ActivityItemProps> = ({
   const formattedQuantity = `${quantity > 0 ? "+" : ""}${quantity}`;
 
   return (
-    <div className="activity-item">
-      {/* 1. Status Arrow */}
+    /* When clicked, it sends its specific 'id' back up the chain to the Page */
+    <div
+      className="activity-item"
+      onClick={() => onItemClick(id)}
+      style={{ cursor: "pointer" }}
+    >
       <div className="activity-status" style={{ color: statusColor }}>
         {arrow}
       </div>
 
-      {/* 2. Title and Detail (Stacked) */}
       <div className="activity-info">
         <p className="activity-title">{title}</p>
         <p className="activity-detail">{detail}</p>
+        <p className="activity-type">{type}</p>
       </div>
 
-      {/* 3. Time and Quantity (Aligned Right) */}
       <div className="activity-meta">
         <span className="activity-quantity" style={{ color: statusColor }}>
           {formattedQuantity}
@@ -53,4 +61,4 @@ const RecentActivityItem: React.FC<ActivityItemProps> = ({
   );
 };
 
-export default RecentActivityItem;
+export default Recent_Activities_Item;

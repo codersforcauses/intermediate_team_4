@@ -2,12 +2,46 @@
 
 // The Header component is now one directory level up from 'pages',
 // so the path is '../components/Header'
+import { useState } from "react";
+
+import Inventory_Details_Modal, { Inventory_Details_Interface } from "@/components/ui/card_organization_inventory_details_modal";
+
 import QuickActions from "../components/ui/button_quick_actions";
 import RecentActivityPanel from "../components/ui/card_organization_recent_activities_panel";
 import StatisticsCard from "../components/ui/card_organization_statistics";
 import Header from "../components/ui/navbar_organization";
 
 const DashboardPage = () => {
+  // --- MOVE HOOKS INSIDE THE FUNCTION BODY ---
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItemData, setSelectedItemData] =
+    useState<Inventory_Details_Interface | null>(null);
+
+  // Mock data for the overlay fields
+  const mockItemDetails = {
+    name: "Cool Potato",
+    details: "A cool potato",
+    categories: "Food item",
+    availability: "Available",
+    organization: "Coders For Cause",
+    borrowLocation: "UWA Crawley",
+    borrowerName: "Arush",
+    borrowedOn: "10 Nov 2025",
+    returnedOn: "10 Nov 2025",
+    dueOn: "10 Nov 2026",
+    expiryDate: "11 Nov 2026",
+  };
+
+  // --- MOVE LOGIC FUNCTIONS INSIDE TOO ---
+  const handleItemClick = (itemId: number) => {
+    console.log("Item clicked with ID:", itemId);
+    setSelectedItemData(mockItemDetails);
+    setIsModalOpen(true);
+
+    // PENDING, remove after figuring out how to pass the correct data
+    console.log("Selected Item Data:", selectedItemData);
+  };
+
   return (
     <>
       <div className="dashboard-container">
@@ -57,7 +91,7 @@ const DashboardPage = () => {
           <div className="dashboard-content-layout">
             {/* LEFT COLUMN: Recent Activity, used section here to group some assets */}
             <section className="activity-panel">
-              <RecentActivityPanel />
+              <RecentActivityPanel onItemClick={handleItemClick} />
             </section>
 
             {/* 2. RIGHT COLUMN: Quick Actions, aside here is used for accessibility, it does not make it appear on the right*/}
@@ -67,6 +101,12 @@ const DashboardPage = () => {
           </div>
         </main>
       </div>
+      {/* RENDER THE MODAL HERE */}
+      <Inventory_Details_Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        itemData={mockItemDetails}
+      />
     </>
   );
 };
