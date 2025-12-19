@@ -1,4 +1,4 @@
-// src/pages/organization_dashboard.tsx (Update the import path)
+// src/pages/organization_dashboard.tsx
 
 // The Header component is now one directory level up from 'pages',
 // so the path is '../components/Header'
@@ -14,7 +14,7 @@ import RecentActivityPanel from "../components/ui/card_organization_recent_activ
 import StatisticsCard from "../components/ui/card_organization_statistics";
 import Header from "../components/ui/navbar_organization";
 
-const DashboardPage = () => {
+const Organization_Dashboard = () => {
   // This is for the overlay modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItemData, setSelectedItemData] =
@@ -102,4 +102,4 @@ const DashboardPage = () => {
 };
 
 // export to make the function available to other parts of the app
-export default DashboardPage;
+export default Organization_Dashboard;
