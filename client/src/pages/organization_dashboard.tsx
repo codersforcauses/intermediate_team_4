@@ -15,7 +15,7 @@ import StatisticsCard from "../components/ui/card_organization_statistics";
 import Header from "../components/ui/navbar_organization";
 
 const DashboardPage = () => {
-  // --- MOVE HOOKS INSIDE THE FUNCTION BODY ---
+  // This is for the overlay modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItemData, setSelectedItemData] =
     useState<Inventory_Details_Interface | null>(null);

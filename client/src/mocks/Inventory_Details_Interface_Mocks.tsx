@@ -63,6 +63,7 @@ export const generateRandomMockInventoryDetails =
       arr[Math.floor(Math.random() * arr.length)];
 
     return {
+      id: Math.floor(Math.random() * 10000), // Random ID between 0-9999
       name: getRandom(names),
       details: getRandom(details),
       categories: getRandom(categories),
