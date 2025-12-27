@@ -7,6 +7,10 @@ import { useState } from "react";
 import Inventory_Details_Modal, {
   Inventory_Details_Interface,
 } from "@/components/ui/card_organization_inventory_details_modal";
+import {
+  organization_clean_backend_calls_return_interface,
+  useRecentActivities,
+} from "@/hooks/organization_clean_backend_calls";
 import { generateRandomMockInventoryDetails } from "@/mocks/Inventory_Details_Interface_Mocks";
 
 import QuickActions from "../components/ui/button_quick_actions";
@@ -15,6 +19,19 @@ import StatisticsCard from "../components/ui/card_organization_statistics";
 import Header from "../components/ui/navbar_organization";
 
 const Organization_Dashboard = () => {
+  // this is for calling the data for the modal
+  const {
+    data,
+    loading,
+    error,
+    refresh,
+  }: organization_clean_backend_calls_return_interface =
+    useRecentActivities("all");
+  console.log("Data from useRecentActivities:", data);
+  console.log("Loading state:", loading);
+  console.log("Error state:", error);
+  console.log("Refresh function:", refresh);
+
   // This is for the overlay modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItemData, setSelectedItemData] =
@@ -39,6 +56,7 @@ const Organization_Dashboard = () => {
         <Header />
 
         {/* 2. Main content wrapper */}
+        {/* <p>{JSON.stringify(data)}</p> */}
         <main className="dashboard-content">
           {/* Components for Statistics, Recent Activity, and Quick Actions */}
           {/* Statistics Cards */}
