@@ -2,7 +2,7 @@
 import useSWR, { KeyedMutator } from "swr";
 
 import type { Inventory_Details_Interface } from "../components/ui/card_organization_inventory_details_modal";
-import { BASE_URL,getItems } from "./organization_call_backend";
+import { BASE_URL, getItems } from "./organization_call_backend";
 
 // remember to
 // cd intermediate_team_4
@@ -14,7 +14,7 @@ export interface organization_clean_backend_calls_return_interface {
   data: Inventory_Details_Interface[];
   loading: boolean;
   error: Error | null;
-  refresh: () => KeyedMutator<Inventory_Details_Interface>; // Optional refresh function
+  refresh: KeyedMutator<Inventory_Details_Interface[]>; // Optional refresh function
 }
 
 /*
