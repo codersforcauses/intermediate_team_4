@@ -13,164 +13,18 @@ for each one, passing in the data and placing it under the div with class activi
 import Link from "next/link"; // For the 'View All' link
 import React from "react";
 
+import { Inventory_Details_Interface } from "./card_organization_inventory_details_modal";
 import Recent_Activities_Item from "./card_organization_recent_activities_item";
 
-// Example data structure that the component might use (or receive as props later)
-const mockActivityData = [
-  {
-    id: 1,
-    type: "member" as const,
-    status: "up" as const,
-    title: "New Member",
-    detail: "Cody",
-    quantity: 1,
-    time: "5 minutes ago",
-  },
-  {
-    id: 2,
-    type: "member" as const,
-    status: "up" as const,
-    title: "Inventory increase",
-    detail: "Cool Potato",
-    quantity: 1,
-    time: "5 minutes ago",
-  },
-  {
-    id: 3,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 4,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 5,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 6,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 7,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 8,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 9,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 10,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 11,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 12,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 13,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 14,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 15,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  {
-    id: 16,
-    type: "member" as const,
-    status: "down" as const,
-    title: "Lost Member",
-    detail: "Cody",
-    quantity: -1,
-    time: "3 minutes ago",
-  },
-  // Add more items here...
-];
-
 // Define the interface for the Panel so it knows it receives onItemClick
-interface Recent_Activity_Panel_Props {
-  onItemClick: (id: number) => void;
+interface Recent_Activity_Panel_Interface {
+  onItemClick: (data: Inventory_Details_Interface) => void;
+  data: Inventory_Details_Interface[];
 }
 
-const Recent_Activity_Panel: React.FC<Recent_Activity_Panel_Props> = ({
+const Recent_Activity_Panel: React.FC<Recent_Activity_Panel_Interface> = ({
   onItemClick,
+  data,
 }) => {
   return (
     <div className="recent-activity-card">
@@ -187,16 +41,13 @@ const Recent_Activity_Panel: React.FC<Recent_Activity_Panel_Props> = ({
       <div className="activity-list">
         {
           // Use the JavaScript map function to render one RecentActivityItem for each data entry
-          mockActivityData.map((item, index) => (
+          data.map((item, index) => (
             <Recent_Activities_Item
               key={index}
-              id={item.id} // Pass the id to the item
-              type={item.type} // type is not used in the item but required by interface
-              status={item.status}
-              title={item.title}
-              detail={item.detail}
-              quantity={item.quantity}
-              time={item.time}
+              type={null} // Placeholder, adjust as needed
+              status={Math.random() > 0.5 ? "up" : "down"} // Random status for demo
+              time="Just now" // Placeholder, adjust as needed
+              data={item}
               // PASS THE HANDLER DOWN TO THE ITEM
               onItemClick={onItemClick}
             />

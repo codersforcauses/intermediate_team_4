@@ -2,26 +2,25 @@
 
 import React from "react";
 
+import { Inventory_Details_Interface } from "./card_organization_inventory_details_modal";
+
 // Define the shape of the data for a single activity item
 interface Recent_Activities_Item_Interface {
-  id: number; // Ensure id is part of the interface
   type: "increase" | "decrease" | "member" | null;
   status: "up" | "down";
-  title: string;
-  detail: string;
-  quantity: number;
   time: string;
-  onItemClick: (id: number) => void; // Click handler is mandatory here to work
+
+  data: Inventory_Details_Interface;
+
+  onItemClick: (data: Inventory_Details_Interface) => void; // Click handler is mandatory here to work
 }
 
 const Recent_Activities_Item: React.FC<Recent_Activities_Item_Interface> = ({
-  id, // You must destructure 'id' here to use it below
   type,
   status,
-  title,
-  detail,
-  quantity,
   time,
+  data,
+
   onItemClick,
 }) => {
   // Logic to determine arrow symbol and color
@@ -32,13 +31,13 @@ const Recent_Activities_Item: React.FC<Recent_Activities_Item_Interface> = ({
     status === "up" ? "var(--color-success)" : "var(--color-error)";
 
   // Format quantity to include + or - sign
-  const formattedQuantity = `${quantity > 0 ? "+" : ""}${quantity}`;
+  // const formattedQuantity = `${quantity > 0 ? "+" : ""}${quantity}`;
 
   return (
     /* When clicked, it sends its specific 'id' back up the chain to the Page */
     <div
       className="activity-item"
-      onClick={() => onItemClick(id)}
+      onClick={() => onItemClick(data)}
       style={{ cursor: "pointer" }}
     >
       <div className="activity-status" style={{ color: statusColor }}>
@@ -46,15 +45,12 @@ const Recent_Activities_Item: React.FC<Recent_Activities_Item_Interface> = ({
       </div>
 
       <div className="activity-info">
-        <p className="activity-title">{title}</p>
-        <p className="activity-detail">{detail}</p>
+        <p className="activity-title">{data.name}</p>
+        <p className="activity-detail">{data.details}</p>
         <p className="activity-type">{type}</p>
       </div>
 
       <div className="activity-meta">
-        <span className="activity-quantity" style={{ color: statusColor }}>
-          {formattedQuantity}
-        </span>
         <span className="activity-time">{time}</span>
       </div>
     </div>
@@ -62,3 +58,10 @@ const Recent_Activities_Item: React.FC<Recent_Activities_Item_Interface> = ({
 };
 
 export default Recent_Activities_Item;
+
+/*
+
+        <span className="activity-quantity" style={{ color: statusColor }}>
+          {formattedQuantity}
+        </span>
+*/

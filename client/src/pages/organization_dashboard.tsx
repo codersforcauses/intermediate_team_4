@@ -11,7 +11,6 @@ import {
   organization_clean_backend_calls_return_interface,
   useRecentActivities,
 } from "@/hooks/organization_clean_backend_calls";
-import { generateRandomMockInventoryDetails } from "@/mocks/Inventory_Details_Interface_Mocks";
 
 import QuickActions from "../components/ui/button_quick_actions";
 import RecentActivityPanel from "../components/ui/card_organization_recent_activities_panel";
@@ -39,10 +38,15 @@ const Organization_Dashboard = () => {
 
   /* 
   We will need to have a function here as well to handle the getting of the data
+  the onCLick handler is at this level because the modal is here
   */
-  const handleItemClick = (itemId: number) => {
-    console.log("Item clicked with ID:", itemId);
-    setSelectedItemData(generateRandomMockInventoryDetails());
+  const handleItemClick = (data: Inventory_Details_Interface) => {
+    console.log("Item clicked: ", data);
+
+    // setSelectedItemData(generateRandomMockInventoryDetails());
+    setSelectedItemData(data);
+
+    // to open the modal
     setIsModalOpen(true);
 
     // PENDING, remove after figuring out how to pass the correct data
@@ -99,7 +103,7 @@ const Organization_Dashboard = () => {
           <div className="dashboard-content-layout">
             {/* LEFT COLUMN: Recent Activity, used section here to group some assets */}
             <section className="activity-panel">
-              <RecentActivityPanel onItemClick={handleItemClick} />
+              <RecentActivityPanel onItemClick={handleItemClick} data={data} />
             </section>
 
             {/* 2. RIGHT COLUMN: Quick Actions, aside here is used for accessibility, it does not make it appear on the right*/}
