@@ -1,5 +1,6 @@
 // src/components/button_quick_actions.tsx
 
+import Link from "next/link";
 import React from "react";
 
 const Quick_Actions = () => {
@@ -12,17 +13,21 @@ const Quick_Actions = () => {
         <aside className="actions-panel">
           {/* This is where the Quick_Actions component will go */}
           {/* Button 1: Add Product */}
-          <button className="action-button primary">
-            <span className="icon-plus">+</span>
-            Add Product
-          </button>
+          <Link href="/organization_add_product">
+            <button className="action-button primary">
+              <span className="icon-plus">+</span>
+              Add Product
+            </button>
+          </Link>
 
           {/* Button 2: View Whole Inventory */}
-          <button className="action-button secondary">
-            {/* Replace with an actual icon later */}
-            <span className="icon-box">📦</span>
-            View Whole Inventory
-          </button>
+          <Link href="/organization_inventory">
+            <button className="action-button secondary">
+              {/* Replace with an actual icon later */}
+              <span className="icon-box">📦</span>
+              View Whole Inventory
+            </button>
+          </Link>
         </aside>
       </div>
     </div>
