@@ -34,21 +34,25 @@ const users = ["Arush", "Cody", "Jane Doe", "Alex Smith", "System"];
  */
 
 // 1. Helper Function: Generates a random date string
-const getRandomDate = (start: Date, end: Date): string => {
+const getRandomDateTime = (start: Date, end: Date): string => {
   const date = new Date(
     start.getTime() + Math.random() * (end.getTime() - start.getTime()),
   );
 
-  // Formats to "DD MMM YYYY" (e.g., 10 Nov 2025)
-  return date.toLocaleDateString("en-GB", {
+  // Formats to e.g., "10 Nov 2025, 14:30"
+  return date.toLocaleString("en-GB", {
     day: "2-digit",
     month: "short",
     year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false, // Use true for AM/PM
   });
 };
 
 // 2. Mock data for the overlay fields
 const now = new Date();
+// const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
 const lastMonth = new Date(
   now.getFullYear(),
   now.getMonth() - 1,
@@ -56,14 +60,30 @@ const lastMonth = new Date(
 );
 const nextYear = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
 
+// --- Random time within TODAY ---
+// const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+// const endOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+
+// const startHour = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 10, 0);
+// const endHour = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 1, 59);
+
+// const oneHourAgo = new Date(now.getTime() - (60 * 60 * 1000)); // Current time minus 3,600,000 milliseconds
+const currentTime = now;
+
+const oneMinuteAgo = new Date(now.getTime() - 1 * 60 * 1000); // Current time minus 60,000 milliseconds
+
+// const randomTimeToday = getRandomDateTime(startOfToday, endOfToday);
+
 export const generateRandomMockInventoryDetails =
   (): Inventory_Details_Interface => {
     // Helper to pick a random item from an array
     const getRandom = (arr: string[]) =>
       arr[Math.floor(Math.random() * arr.length)];
 
+    const id = Math.floor(Math.random() * 10); // Random ID between 0-9
+
     return {
-      id: Math.floor(Math.random() * 10000), // Random ID between 0-9999
+      id: id, // Random ID between 0-9
       name: getRandom(names),
       details: getRandom(details),
       categories: getRandom(categories),
@@ -73,10 +93,11 @@ export const generateRandomMockInventoryDetails =
       borrowerName: getRandom(users),
 
       // RANDOMLY GENERATED DATES:
-      borrowedOn: getRandomDate(lastMonth, now), // Somewhere in the last 30 days
-      returnedOn: getRandomDate(now, now), // Today
-      dueOn: getRandomDate(now, nextYear), // Somewhere in the next year
-      expiryDate: getRandomDate(now, nextYear), // Somewhere in the next year
+      borrowedOn: getRandomDateTime(lastMonth, now), // Somewhere in the last 30 days
+      returnedOn: getRandomDateTime(now, now), // Today
+      dueOn: getRandomDateTime(now, nextYear), // Somewhere in the next year
+      expiryDate: getRandomDateTime(now, nextYear), // Somewhere in the next year
+      dateAdded: getRandomDateTime(oneMinuteAgo, currentTime), // Somewhere between yesteday and today
     };
   };
 

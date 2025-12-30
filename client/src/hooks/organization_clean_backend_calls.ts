@@ -92,7 +92,7 @@ export const useRecentActivities = (
     [`${BASE_URL}`, filterType], // The "Key" (Unique identifier)
     fetcher, // The "Fetcher" (Your function)
     {
-      refreshInterval: 30000, // Poll every 30 seconds 30000ms
+      refreshInterval: 30, // Poll every 30 seconds 30000ms
       revalidateOnFocus: true, // Refresh when user clicks back into the tab
     },
   );

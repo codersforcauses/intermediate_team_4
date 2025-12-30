@@ -8,6 +8,10 @@ How does it show all the components in the list?
 
 so what happens is, it will run the map and iterate over every item and then create a RecentActivityItem component 
 for each one, passing in the data and placing it under the div with class activity-list
+
+Note:
+the data must already be sorted from the backend before passing the data here. this componenet is just for display. no processing is done here
+
 */
 
 import Link from "next/link"; // For the 'View All' link
@@ -21,6 +25,19 @@ interface Recent_Activity_Panel_Interface {
   onItemClick: (data: Inventory_Details_Interface) => void;
   data: Inventory_Details_Interface[];
 }
+
+const calcTimeAgo = (dateString: string): string => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+  if (diffInSeconds < 60) return `${diffInSeconds} seconds ago`;
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  if (diffInMinutes < 60) return `${diffInMinutes} minutes ago`;
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  if (diffInHours < 24) return `${diffInHours} hours ago`;
+  const diffInDays = Math.floor(diffInHours / 24);
+  return `${diffInDays} days ago`;
+};
 
 const Recent_Activity_Panel: React.FC<Recent_Activity_Panel_Interface> = ({
   onItemClick,
@@ -46,7 +63,7 @@ const Recent_Activity_Panel: React.FC<Recent_Activity_Panel_Interface> = ({
               key={index}
               type={null} // Placeholder, adjust as needed
               status={Math.random() > 0.5 ? "up" : "down"} // Random status for demo
-              time="Just now" // Placeholder, adjust as needed
+              time={calcTimeAgo(item.dateAdded)} // Placeholder, adjust as needed
               data={item}
               // PASS THE HANDLER DOWN TO THE ITEM
               onItemClick={onItemClick}
