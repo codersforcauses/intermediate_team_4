@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const QuickActions = () => {
+const Quick_Actions = () => {
   return (
     <div className="quick-actions-card">
       <h3 className="quick-actions-title">Quick Actions</h3>
@@ -10,7 +10,7 @@ const QuickActions = () => {
       <div className="action-button-group">
         {/* 2. RIGHT COLUMN: Quick Actions */}
         <aside className="actions-panel">
-          {/* This is where the QuickActions component will go */}
+          {/* This is where the Quick_Actions component will go */}
           {/* Button 1: Add Product */}
           <button className="action-button primary">
             <span className="icon-plus">+</span>
@@ -29,4 +29,4 @@ const QuickActions = () => {
   );
 };
 
-export default QuickActions;
+export default Quick_Actions;

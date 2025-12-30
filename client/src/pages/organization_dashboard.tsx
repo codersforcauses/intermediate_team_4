@@ -12,7 +12,7 @@ import {
   useRecentActivities,
 } from "@/hooks/organization_clean_backend_calls";
 
-import QuickActions from "../components/ui/button_quick_actions";
+import Quick_Actions from "../components/ui/button_quick_actions";
 import Recent_Activity_Panel from "../components/ui/card_organization_recent_activities_panel";
 import Statistics_Card from "../components/ui/card_organization_statistics";
 import Header from "../components/ui/navbar_organization";
@@ -111,7 +111,7 @@ const Organization_Dashboard = () => {
 
             {/* 2. RIGHT COLUMN: Quick Actions, aside here is used for accessibility, it does not make it appear on the right*/}
             <aside className="actions-panel">
-              <QuickActions />
+              <Quick_Actions />
             </aside>
           </div>
         </main>
