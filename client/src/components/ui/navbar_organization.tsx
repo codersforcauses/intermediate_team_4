@@ -28,7 +28,7 @@ onMouseDown vs onClick
 */
 
 // this is for the dropdown menu from user profile side
-import Link from "next/dist/client/link";
+import Link from "next/link";
 import React, { useState } from "react"; // <-- Import useState
 
 const Header = () => {
