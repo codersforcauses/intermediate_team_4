@@ -13,8 +13,8 @@ import {
 } from "@/hooks/organization_clean_backend_calls";
 
 import QuickActions from "../components/ui/button_quick_actions";
-import RecentActivityPanel from "../components/ui/card_organization_recent_activities_panel";
-import StatisticsCard from "../components/ui/card_organization_statistics";
+import Recent_Activity_Panel from "../components/ui/card_organization_recent_activities_panel";
+import Statistics_Card from "../components/ui/card_organization_statistics";
 import Header from "../components/ui/navbar_organization";
 
 const Organization_Dashboard = () => {
@@ -67,31 +67,31 @@ const Organization_Dashboard = () => {
           <div className="stats-grid">
             {" "}
             {/* This class will control the layout of the 5 cards */}
-            <StatisticsCard
+            <Statistics_Card
               title="Total Inventory"
               value={30}
               delta="+3 this week"
               status="up"
             />
-            <StatisticsCard
+            <Statistics_Card
               title="Total Borrowed"
               value={50}
               delta="+3 this week"
               status="up"
             />
-            <StatisticsCard
+            <Statistics_Card
               title="Total Returned"
               value={40}
               delta="+3 this week"
               status="up"
             />
-            <StatisticsCard
+            <Statistics_Card
               title="Expiring Inventory"
               value={2}
               delta="-10 this week"
               status="down"
             />
-            <StatisticsCard
+            <Statistics_Card
               title="Inventory Due"
               value={2}
               delta="-10 this week"
@@ -103,7 +103,10 @@ const Organization_Dashboard = () => {
           <div className="dashboard-content-layout">
             {/* LEFT COLUMN: Recent Activity, used section here to group some assets */}
             <section className="activity-panel">
-              <RecentActivityPanel onItemClick={handleItemClick} data={data} />
+              <Recent_Activity_Panel
+                onItemClick={handleItemClick}
+                data={data}
+              />
             </section>
 
             {/* 2. RIGHT COLUMN: Quick Actions, aside here is used for accessibility, it does not make it appear on the right*/}

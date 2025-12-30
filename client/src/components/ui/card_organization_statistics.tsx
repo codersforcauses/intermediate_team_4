@@ -1,4 +1,4 @@
-// src/components/ui/StatisticsCard.tsx
+// src/components/ui/Statistics_Card.tsx
 
 import React from "react";
 
@@ -8,14 +8,14 @@ This component represents a single statistics card used in the organization dash
 So when you use this interaface, you can put in this data
 
 example usage:
-<StatisticsCard 
+<Statistics_Card 
     title="Total Borrowed" 
     value={50} 
     delta="+3 this week" 
     status="up" 
 />
 */
-interface StatisticsCardProps {
+interface Statistics_Card_Interface {
   title: string; // The card title (e.g., "Total Inventory")
   value: number; // The main numerical value (e.g., 30)
   delta: string; // The change string (e.g., "+3 this week")
@@ -23,13 +23,13 @@ interface StatisticsCardProps {
 }
 
 /*
-React.FC<StatisticsCardProps>
+React.FC<Statistics_Card_Interface>
 - React.FC<> stands for React Functional Component 
 
 { title, value, delta, status }
 - Destructuring the props object to directly access title, value, delta, and status
 */
-const StatisticsCard: React.FC<StatisticsCardProps> = ({
+const Statistics_Card: React.FC<Statistics_Card_Interface> = ({
   title,
   value,
   delta,
@@ -64,4 +64,4 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({
   );
 };
 
-export default StatisticsCard;
+export default Statistics_Card;
