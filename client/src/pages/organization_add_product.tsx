@@ -3,10 +3,15 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 // import { createItem } from '../hooks/organization_call_backend';
 
-const OrganizationAddProduct = () => {
-  // 2. Initialize the Next.js router
+const Organization_Add_Product = () => {
+  // it creates a page stack that we can use to navigate
+  // when to use and should we replace all href with router.push?
+  // we only use this when we want to have buttons that go back to certain pages or after finishing a task
+  // we use Link href when we want to move to static pages
   const router = useRouter();
 
+  // this is the form data management state
+  // so that meaans itsl like a clipboard, at the start its empty, but when the user writes, it updates
   const [formData, setFormData] = useState({
     name: "",
     details: "",
@@ -14,10 +19,19 @@ const OrganizationAddProduct = () => {
     expiryDate: "",
   });
 
+  // used whenever you type in the form fields
+  // e is event, and we get the name and value from the target of the event
   const handleChange = (
+    // so only handle changes in input or textarea elements
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
+    // name is the name of the element like details field
+    // value is the input
     const { name, value } = e.target;
+
+    // it copies the exisiting form data and updates the field that changed\
+    // use brackets to use a variable as the key name
+    // if no brackets, it would just update the name field
     setFormData({ ...formData, [name]: value });
   };
 
@@ -102,4 +116,4 @@ const OrganizationAddProduct = () => {
   );
 };
 
-export default OrganizationAddProduct;
+export default Organization_Add_Product;
