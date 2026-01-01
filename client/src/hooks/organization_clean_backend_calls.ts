@@ -2,7 +2,7 @@
 import useSWR, { KeyedMutator } from "swr";
 
 import type { Inventory_Details_Interface } from "../components/ui/card_organization_inventory_details_modal";
-import { BASE_URL, getItems } from "./organization_call_backend";
+import { BASE_URL, createItem, getItems } from "./organization_call_backend";
 
 // remember to
 // cd intermediate_team_4
@@ -14,6 +14,7 @@ export interface organization_clean_backend_calls_return_interface {
   data: Inventory_Details_Interface[];
   loading: boolean;
   error: Error | null;
+  isSuccess: boolean;
   refresh: KeyedMutator<Inventory_Details_Interface[]>; // Optional refresh function
 }
 
@@ -35,7 +36,7 @@ Even if we are calling mocks, we need to use useSWR
 filterType: used to add to backend url call
 isDev: true if we want to use mock data
 */
-export const useRecentActivities = (
+export const useOrganizationCallBackendCalls = (
   filterType: string,
 ): organization_clean_backend_calls_return_interface => {
   // 2. SWR handles the state, the effect, and the async logic
@@ -101,178 +102,53 @@ export const useRecentActivities = (
     data: data || [],
     loading: isLoading,
     error: error,
+    isSuccess: !isLoading && !error,
     refresh: mutate, // SWR calls its refresh function "mutate"
   };
 
   return res;
 };
 
-/* to put inside the _app.js, it will set a global fetch 
+// This is now a standard function, NOT a hook
+// if it is a hook, it will not work, a hook means swr
+export const createNewItemClean = async (
+  itemData: Inventory_Details_Interface,
+): Promise<boolean> => {
+  // 1. Send the data to Django using your existing createItem function
+  const response = await createItem(itemData);
 
-import { SWRConfig } from 'swr';
-
-function MyApp({ Component, pageProps }) {
-  return (
-    <SWRConfig 
-      value={{
-        fetcher: (resource, init) => fetch(resource, init).then(res => res.json()),
-        refreshInterval: 10000, // Optional: Poll for new data every 10 seconds globally
-      }}
-    >
-      <Component {...pageProps} />
-    </SWRConfig>
-  );
-}
-
-*/
-
-/*
-
-// filterType: used to add to backend url call
-// isDev: true if we want to use mock data
-
-export const getRecentActivities = (filterType: string, mode: string ) => {
-
-  if (isDev) 
-  {
-
-  }
-  else 
-  {
-    // 2. SWR handles the state, the effect, and the async logic
-    // useSWR(key, fetcher, options)
-    // why use it? shows cache data while it fetches new data 
-    // key: API url 
-    // fetcher: a function that returns a promise 
-    // options: common options are: refreshInterval, revalidateOnFocus, revalidateOnReconnect, dedumpingInterval
-
-    // more on fetcher 
-    // This is your fetcher normally 
-    // const fetcher = (url) => fetch(url).then(res => res.json());
-    // useSWR is like UberEats app 
-    // fetcher is delivery driver that fetches the data
-    // const { data } = useSWR('http://localhost:8000/api/data/', fetcher);
-
-    // returns: data, error, isLoading, isValidating, mutate
-    // data: the data returned by the fetcher function
-    // error: the error returned by the fetcher function
-    // isLoading: true if the data is being fetched, false otherwise
-    // isValidating: true if the data is being validated, false otherwise
-    // mutate: a function that triggers a new fetch
-
-    const { data, error, isLoading } = useSWR(
-      `/api/data?type=${filterType}`, 
-      fetcher,
-      { refreshInterval: 10000 } // This handles the "polling" automatically!
-    );
-
-    return { 
-      data: data || [], 
-      loading: isLoading,
-      error 
-    };
-  }
-};
-*/
-
-//   // 2. "Cleaning" and "Operations" (Sorting/Formatting)
-//   const cleanedData = json.map((item: any) => ({
-//     id: item.id,
-//     title: item.action_name, // Mapping Django snake_case to Frontend camelCase
-//     detail: item.target_object,
-//     time: formatMyDate(item.timestamp), // Formatting logic
-//     status: item.change_type === 'increase' ? 'up' : 'down'
-//   }));
-
-//   setData(cleanedData);
-
-/* How to use swr original without global fetch 
-
-import useSWR from 'swr';
-
-// 1. Define a simple fetcher function (standard for SWR)
-const fetcher = (url: string) => fetch(url).then(res => res.json());
-
-export const useActivities = (filterType: string) => {
-  // 2. SWR handles the state, the effect, and the async logic
-  // useSWR(key, fetcher, options)
-  // why use it? shows cache data while it fetches new data 
-  // key: API url 
-  // fetcher: a function that returns a promise 
-  // options: common options are: refreshInterval, revalidateOnFocus, revalidateOnReconnect, dedumpingInterval
-
-  // more on fetcher 
-  // This is your fetcher normally 
-  // const fetcher = (url) => fetch(url).then(res => res.json());
-  // useSWR is like UberEats app 
-  // fetcher is delivery driver that fetches the data
-  // const { data } = useSWR('http://localhost:8000/api/data/', fetcher);
-
-  // returns: data, error, isLoading, isValidating, mutate
-  // data: the data returned by the fetcher function
-  // error: the error returned by the fetcher function
-  // isLoading: true if the data is being fetched, false otherwise
-  // isValidating: true if the data is being validated, false otherwise
-  // mutate: a function that triggers a new fetch
-
-  const { data, error, isLoading } = useSWR(
-    `/api/data?type=${filterType}`, 
-    fetcher,
-    { refreshInterval: 10000 } // This handles the "polling" automatically!
-  );
-
-  return { 
-    data: data || [], 
-    loading: isLoading,
-    error 
-  };
+  // 2. Return the result
+  return response;
 };
 
+// export interface organization_clean_backend_calls_input_interface {
+//   data: Inventory_Details_Interface[];
+//   loading: boolean;
+//   error: Error | null;
+//   isSuccess: boolean; //
+//   refresh: KeyedMutator<Inventory_Details_Interface[]>; // Optional refresh function
+// }
 
+// export const createNewItemClean = (
+//   itemData: Inventory_Details_Interface,
+// ): organization_clean_backend_calls_return_interface => {
 
+//   // to use useSWR for PUT
+//   const { data, error, isLoading, mutate } = useSWR(
+//     [`${BASE_URL}`, "newItem"],
+//     () => createItem(itemData),
+//     {
+//       revalidateOnFocus: true,
+//     },
+//   );
 
+//   const res: organization_clean_backend_calls_return_interface = {
+//     data: data || [],
+//     loading: isLoading,
+//     error: error,
+//     isSuccess: !isLoading && !error,
+//     refresh: mutate,
+//   };
 
-
-//This function is used to invoke the get/post/put/delete calls to the backend for the data data
-const useActivities = (filterType: string) => {
-  // this is the data from the backend
-  const [data, setData] = useState([]);
-  
-  // this is to update the state of the data
-  const [loading, setLoading] = useState(true);
-
-  // runs code on the backend as a side effect 
-  // the idea is, to useEffect, is used to decide on the timing
-  // bridge between react rendering and calling backend 
-  // makes sure that the code rendering is not blocked by the backend call
-  // it will rerun if the second parameter changes useEffect(() => {}, [second parameter])
-  // it can also stop backend task 
-  useEffect(() => {
-
-    // async and await 
-    // tells js how to handle task that takes time to finish 
-    // so how does the 2 pair? 
-    // when the filterType ( second param ) changes, triggers useEffect
-    // useEffect calls fetchData
-    // fetchData is async, so it starts the task and moves on 
-    // when fetchData finishes, it updates the state of data and loading
-    const fetchData = async () => {
-      setLoading(true);
-
-      // 1. Fetch from Django
-      // const response = await fetch(`http://localhost:8000/api/data/?type=${filterType}`);
-      // const json = await response.json();
-
-      // setData(cleanedData);
-      // setLoading(false);
-
-
-      setLoading(false);
-    };
-
-    fetchData();
-  }, [filterType]); // Re-run if the filter changes
-
-  return { data, loading };
-};
-*/
+//   return res;
+// };

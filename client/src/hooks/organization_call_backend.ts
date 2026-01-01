@@ -44,13 +44,22 @@ export const getItems = async (
 // headers: { 'Content-Type': 'application/json' } determine, how the data will be dealt with by the server
 // possible types: text/plain, text/html application/json, images/jpeg, application/x-www-form-urlencoded ( form data ),
 // if you dont have this, might get error 400
-export const createItem = async (newData: Inventory_Details_Interface) => {
-  const response = await fetch(BASE_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newData),
-  });
-  return await response.json();
+export const createItem = async (
+  newData: Inventory_Details_Interface,
+): Promise<boolean> => {
+  if (isDev) {
+    console.log("Mock create item called with data:", newData);
+    return true; // Simulate successful creation
+  } else {
+    const response = await fetch(BASE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newData),
+    });
+
+    // must return true when coding backend
+    return await response.json();
+  }
 };
 
 // --- PATCH/PUT: Update an existing item ---

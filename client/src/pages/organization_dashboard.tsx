@@ -9,7 +9,7 @@ import Inventory_Details_Modal, {
 } from "@/components/ui/card_organization_inventory_details_modal";
 import {
   organization_clean_backend_calls_return_interface,
-  useRecentActivities,
+  useOrganizationCallBackendCalls,
 } from "@/hooks/organization_clean_backend_calls";
 
 import Quick_Actions from "../components/ui/button_quick_actions";
@@ -25,8 +25,8 @@ const Organization_Dashboard = () => {
     error,
     refresh,
   }: organization_clean_backend_calls_return_interface =
-    useRecentActivities("all");
-  console.log("Data from useRecentActivities:", data);
+    useOrganizationCallBackendCalls("all");
+  console.log("Data from useOrganizationCallBackendCalls:", data);
   console.log("Loading state:", loading);
   console.log("Error state:", error);
   console.log("Refresh function:", refresh);
