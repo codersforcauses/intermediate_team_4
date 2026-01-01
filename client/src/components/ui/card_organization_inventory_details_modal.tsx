@@ -18,20 +18,21 @@ Key components
 import React from "react";
 
 // Define the shape of the data this modal expects
+// id? means optional
 interface Inventory_Details_Interface {
-  id: number;
+  id?: number;
   name: string;
   details: string;
-  categories: string;
-  availability: string;
-  organization: string;
-  borrowLocation: string;
-  borrowerName: string;
-  borrowedOn: string;
-  returnedOn: string;
-  dueOn: string;
+  categories?: string;
+  availability?: string;
+  organization?: string;
+  collectionPoint: string;
+  borrowerName?: string;
+  borrowedOn?: string;
+  returnedOn?: string;
+  dueOn?: string;
   expiryDate: string;
-  dateAdded: string;
+  dateAdded?: string;
 }
 
 // to control the overlay modal visibility and data
@@ -61,7 +62,7 @@ const Inventory_Details_Modal: React.FC<Inventory_Details_Modal_Interface> = ({
           <p>Category: {itemData.categories}</p>
           <p>Availability: {itemData.availability}</p>
           <p>Organization: {itemData.organization}</p>
-          <p>Borrow Location: {itemData.borrowLocation}</p>
+          <p>Borrow Location: {itemData.collectionPoint}</p>
           <p>Borrower Name: {itemData.borrowerName}</p>
           <p>Borrowed On: {itemData.borrowedOn}</p>
           <p>Returned On: {itemData.returnedOn}</p>
