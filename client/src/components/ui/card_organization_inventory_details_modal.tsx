@@ -19,6 +19,7 @@ import React from "react";
 
 // Define the shape of the data this modal expects
 interface Inventory_Details_Interface {
+  id: number;
   name: string;
   details: string;
   categories: string;
@@ -30,6 +31,7 @@ interface Inventory_Details_Interface {
   returnedOn: string;
   dueOn: string;
   expiryDate: string;
+  dateAdded: string;
 }
 
 // to control the overlay modal visibility and data
@@ -52,7 +54,20 @@ const Inventory_Details_Modal: React.FC<Inventory_Details_Modal_Interface> = ({
     <div className="modal-overlay">
       <div className="modal-content">
         {/* ... Modal content rendered using itemData.name, itemData.details, etc. ... */}
-        <h1>{itemData.name}</h1>
+        <div className="modal-body">
+          <h1>Item ID: {itemData.id}</h1>
+          <h2>Item Name: {itemData.name}</h2>
+          <p>Description: {itemData.details}</p>
+          <p>Category: {itemData.categories}</p>
+          <p>Availability: {itemData.availability}</p>
+          <p>Organization: {itemData.organization}</p>
+          <p>Borrow Location: {itemData.borrowLocation}</p>
+          <p>Borrower Name: {itemData.borrowerName}</p>
+          <p>Borrowed On: {itemData.borrowedOn}</p>
+          <p>Returned On: {itemData.returnedOn}</p>
+          <p>Due On: {itemData.dueOn}</p>
+          <p>Expiry Date: {itemData.expiryDate}</p>
+        </div>
 
         {/* 3. CLOSING: When the close button is clicked, it calls the 'onClose' function 
               which updates the state in the ActivityPage (Step 1) */}
