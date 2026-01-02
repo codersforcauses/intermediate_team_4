@@ -21,7 +21,7 @@ const Quick_Actions = () => {
           </Link>
 
           {/* Button 2: View Whole Inventory */}
-          <Link href="/organization_inventory">
+          <Link href="/organization_whole_inventory">
             <button className="action-button secondary">
               {/* Replace with an actual icon later */}
               <span className="icon-box">📦</span>
