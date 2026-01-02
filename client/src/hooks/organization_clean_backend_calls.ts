@@ -36,7 +36,7 @@ Even if we are calling mocks, we need to use useSWR
 filterType: used to add to backend url call
 isDev: true if we want to use mock data
 */
-export const useOrganizationCallBackendCalls = (
+export const useOrganizationBackendGetItems = (
   filterType: string,
 ): organization_clean_backend_calls_return_interface => {
   // 2. SWR handles the state, the effect, and the async logic
