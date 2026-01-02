@@ -26,7 +26,10 @@ interface Recent_Activity_Panel_Interface {
   data: Inventory_Details_Interface[];
 }
 
-const calcTimeAgo = (dateString: string): string => {
+const calcTimeAgo = (dateString: string | undefined): string => {
+  // error control
+  if (!dateString) return "unknown time";
+
   const date = new Date(dateString);
   const now = new Date();
   const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
