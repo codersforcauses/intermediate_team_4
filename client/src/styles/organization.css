@@ -528,12 +528,10 @@ gap: 30px: adds space between the two columns
 .modal-content {
     background-color: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    padding: 30px 20px 20px 20px; /* Added more top padding to clear space for the X */
+    position: relative; /* REQUIRED for absolute positioning to work */
     width: 90%;
-    max-width: 500px; /* Limit the width for a comfortable read */
-    padding: 20px;
-    position: relative;
-    font-family: sans-serif;
+    max-width: 500px;
 }
 
 /* Header and Close Button */
@@ -550,18 +548,29 @@ gap: 30px: adds space between the two columns
     margin: 0;
 }
 
+/* Position the button exactly in the top right */
 .modal-close-button {
-    background: none;
+    position: absolute; /* Take it out of the normal flow */
+    top: 15px;          /* Distance from the top edge */
+    right: 15px;        /* Distance from the right edge */
+    
+    background-color: #dc3545;
+    color: white;
     border: none;
     cursor: pointer;
-    padding: 0;
-    font-size: 24px;
-    font-weight: 900;
+    font-size: 18px;
+    font-weight: bold;
     width: 30px;
     height: 30px;
-    background-color: #dc3545; /* Red background for the X */
-    color: white;
-    border-radius: 4px;
+    border-radius: 50%; /* Makes the button a circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.modal-close-button:hover {
+    background-color: #a71d2a; /* Darker red on hover */
 }
 
 /* Details Rows (Key-Value pairs) */

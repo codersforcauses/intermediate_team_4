@@ -54,6 +54,12 @@ const Inventory_Details_Modal: React.FC<Inventory_Details_Modal_Interface> = ({
     // 2. RENDER: When 'isOpen' is true, this entire structure is placed on the screen.
     <div className="modal-overlay">
       <div className="modal-content">
+        {/*CLOSING: When the close button is clicked, it calls the 'onClose' function 
+              which updates the state in the ActivityPage (Step 1) */}
+        <button className="modal-close-button" onClick={onClose}>
+          X
+        </button>
+
         {/* ... Modal content rendered using itemData.name, itemData.details, etc. ... */}
         <div className="modal-body">
           <h1>Item ID: {itemData.id}</h1>
@@ -69,12 +75,6 @@ const Inventory_Details_Modal: React.FC<Inventory_Details_Modal_Interface> = ({
           <p>Due On: {itemData.dueOn}</p>
           <p>Expiry Date: {itemData.expiryDate}</p>
         </div>
-
-        {/* 3. CLOSING: When the close button is clicked, it calls the 'onClose' function 
-              which updates the state in the ActivityPage (Step 1) */}
-        <button className="modal-close-button" onClick={onClose}>
-          X
-        </button>
       </div>
     </div>
   );
