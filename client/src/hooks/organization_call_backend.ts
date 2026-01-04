@@ -1,8 +1,10 @@
 // src/hooks/organization_call_backend.ts
 // Change this URL to match your backend API endpoint
 
+import { Member_Details_Interface } from "@/components/card_organization_member_details_modal";
 import { Inventory_Details_Interface } from "@/components/ui/card_organization_inventory_details_modal";
 import { generateRandomMockInventoryDetails } from "@/mocks/Inventory_Details_Interface_Mocks";
+import { generateMockMember } from "@/mocks/Members_Details_Interface_Mocks";
 
 // tha main URL
 export const BASE_URL = "http://localhost:8000/api/activities/";
@@ -83,4 +85,34 @@ export const deleteItem = async (id: number) => {
   });
   // DELETE usually returns a 204 No Content status, so we don't always .json() it
   return response.ok;
+};
+
+// MEMBERS SECTION
+
+export const getMembers = async (
+  filterType: string,
+): Promise<Member_Details_Interface[]> => {
+  if (isDev) {
+    // Mock data for development
+    const mockData: Member_Details_Interface[] = [];
+    for (let i = 0; i < 10; i++) {
+      mockData.push(generateMockMember());
+    }
+    console.log("Mock data generated:", mockData);
+    return mockData;
+  } else {
+    // 1. Fetch from Django
+    // fetch() is used to get the data from backend using URL
+    const response = await fetch(`${BASE_URL}?type=${filterType}`);
+
+    // 2. Check if the request was successful
+    if (!response.ok) throw new Error("Failed to fetch");
+
+    // 3. Parse the JSON data
+    // because fetcah returns a response, it isnt the data yet,
+    // its just the response header,
+    // you will need to use .json() to get the data
+    // it converts raw bytes to Javascript objects
+    return await response.json(); // Returns the list from Django
+  }
 };

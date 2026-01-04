@@ -62,7 +62,7 @@ const Header = () => {
           <Link href="/organization_activity">
             <li>Activity</li>
           </Link>
-          <Link href="/organization_management">
+          <Link href="/organization_member_management">
             <li>Management</li>
           </Link>
         </ul>

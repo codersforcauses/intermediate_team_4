@@ -1,8 +1,15 @@
 // src/hooks/organization_clean_backend_calls.ts
 import useSWR, { KeyedMutator } from "swr";
 
+import { Member_Details_Interface } from "@/components/card_organization_member_details_modal";
+
 import type { Inventory_Details_Interface } from "../components/ui/card_organization_inventory_details_modal";
-import { BASE_URL, createItem, getItems } from "./organization_call_backend";
+import {
+  BASE_URL,
+  createItem,
+  getItems,
+  getMembers,
+} from "./organization_call_backend";
 
 // remember to
 // cd intermediate_team_4
@@ -16,6 +23,14 @@ export interface organization_clean_backend_calls_return_interface {
   error: Error | null;
   isSuccess: boolean;
   refresh: KeyedMutator<Inventory_Details_Interface[]>; // Optional refresh function
+}
+
+export interface organization_clean_backend_calls_return_members_interface {
+  data: Member_Details_Interface[];
+  loading: boolean;
+  error: Error | null;
+  isSuccess: boolean;
+  refresh: KeyedMutator<Member_Details_Interface[]>; // Optional refresh function
 }
 
 /*
@@ -119,6 +134,38 @@ export const createNewItemClean = async (
 
   // 2. Return the result
   return response;
+};
+
+// MMEBERS section
+const fetcher2 = () => getMembers("all");
+
+/*
+Even if we are calling mocks, we need to use useSWR
+
+filterType: used to add to backend url call
+isDev: true if we want to use mock data
+*/
+export const useOrganizationBackendGetMembers = (
+  filterType: string,
+): organization_clean_backend_calls_return_members_interface => {
+  const { data, error, isLoading, mutate } = useSWR(
+    [`${BASE_URL}`, filterType], // The "Key" (Unique identifier)
+    fetcher2, // The "Fetcher" (Your function)
+    {
+      refreshInterval: 30, // Poll every 30 seconds 30000ms
+      revalidateOnFocus: true, // Refresh when user clicks back into the tab
+    },
+  );
+
+  const res: organization_clean_backend_calls_return_members_interface = {
+    data: data || [],
+    loading: isLoading,
+    error: error,
+    isSuccess: !isLoading && !error,
+    refresh: mutate, // SWR calls its refresh function "mutate"
+  };
+
+  return res;
 };
 
 // export interface organization_clean_backend_calls_input_interface {

@@ -89,7 +89,7 @@ export const generateRandomMockInventoryDetails =
       categories: getRandom(categories),
       availability: Math.random() > 0.5 ? "Available" : "Borrowed",
       organization: "Coders For Cause",
-      borrowLocation: getRandom(locations),
+      collectionPoint: getRandom(locations),
       borrowerName: getRandom(users),
 
       // RANDOMLY GENERATED DATES:
