@@ -17,6 +17,8 @@ the data must already be sorted from the backend before passing the data here. t
 import Link from "next/link"; // For the 'View All' link
 import React from "react";
 
+import { calcTime } from "@/helpers/helper_functions";
+
 import { Inventory_Details_Interface } from "./card_organization_inventory_details_modal";
 import Recent_Activities_Item from "./card_organization_recent_activities_item";
 
@@ -25,22 +27,6 @@ interface Recent_Activity_Panel_Interface {
   onItemClick: (data: Inventory_Details_Interface) => void;
   data: Inventory_Details_Interface[];
 }
-
-const calcTimeAgo = (dateString: string | undefined): string => {
-  // error control
-  if (!dateString) return "unknown time";
-
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-  if (diffInSeconds < 60) return `${diffInSeconds} seconds ago`;
-  const diffInMinutes = Math.floor(diffInSeconds / 60);
-  if (diffInMinutes < 60) return `${diffInMinutes} minutes ago`;
-  const diffInHours = Math.floor(diffInMinutes / 60);
-  if (diffInHours < 24) return `${diffInHours} hours ago`;
-  const diffInDays = Math.floor(diffInHours / 24);
-  return `${diffInDays} days ago`;
-};
 
 const Recent_Activity_Panel: React.FC<Recent_Activity_Panel_Interface> = ({
   onItemClick,
@@ -66,7 +52,7 @@ const Recent_Activity_Panel: React.FC<Recent_Activity_Panel_Interface> = ({
               key={index}
               type={null} // Placeholder, adjust as needed
               status={Math.random() > 0.5 ? "up" : "down"} // Random status for demo
-              time={calcTimeAgo(item.dateAdded)} // Placeholder, adjust as needed
+              time={calcTime(item.dateAdded)} // Placeholder, adjust as needed
               data={item}
               // PASS THE HANDLER DOWN TO THE ITEM
               onItemClick={onItemClick}
