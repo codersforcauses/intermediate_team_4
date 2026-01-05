@@ -752,3 +752,44 @@ gap: 30px: adds space between the two columns
   color: #666;
   margin-top: 10px;
 }
+
+
+.member-title {
+    font-size: 3xl;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.member-page {
+  padding: 40px;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  overflow-y: scroll;
+}
+
+.member-grid {
+  display: grid;
+  /* This creates 3 equal columns */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px; /* Space between cards */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.member-card {
+  background-color: #f0ebeb; /* Light grey like your image */
+  border-radius: 20px;      /* Rounded corners */
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.member-card:hover {
+  transform: translateY(-5px); /* Lift up slightly when hovering */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}

@@ -49,10 +49,10 @@ const Organization_Member_Management = () => {
     <>
       <main>
         <Header />
-        <div className="inventory-page">
-          <h1 className="inventory-title">All Inventory</h1>
+        <div className="member-page">
+          <h1 className="member-title">All Members</h1>
 
-          <div className="inventory-grid">
+          <div className="member-grid">
             {/* 3. Loop through your data and create a card for each item, the code tells the compiler to read it as js so it 
             does a condition check to make sure the data is not null then map all the items */}
             {data &&
