@@ -20,7 +20,7 @@ const Card_Organization_Member_Management: React.FC<
     >
       <h2 className="member-name">{itemData.name}</h2>
       <p className="member-detail">{itemData.email}</p>
-      <p className="member-detail">{itemData.email}</p>
+      <p className="member-detail">{itemData.joinedOn}</p>
       <span className="member-category">
         {itemData.permissionLevel || "Member"}
       </span>
