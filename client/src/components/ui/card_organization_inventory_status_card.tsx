@@ -10,20 +10,54 @@ This is to hold the inventory status summary cards like Expiring Inventory, Inve
 import Link from "next/link";
 import React from "react";
 
-import InventoryStatusItem, {
-  InventoryItemProps,
-} from "./card_organization_inventory_status_data";
+import { Inventory_Details_Interface } from "./card_organization_inventory_details_modal";
+import Inventory_Status_Data from "./card_organization_inventory_status_data";
 
-interface InventoryStatusCardProps {
+interface Inventory_Status_Card_Interface {
   title: string; // e.g., "Expiring Inventory"
   viewAllHref: string; // The link for the View All button
-  items: InventoryItemProps[]; // Array of the items to display (using the InventoryItemProps interface)
+  data: Inventory_Details_Interface[]; // Array of the items to display (using the Inventory_Details_Interface interface)
+  onItemClick: (data: Inventory_Details_Interface) => void; // Optional click handler for items
 }
 
-const InventoryStatusCard: React.FC<InventoryStatusCardProps> = ({
+const calcTimeAgo = (dateString: string | undefined): string => {
+  // error control
+  if (!dateString) return "unknown time";
+
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+  if (diffInSeconds < 60) return `${diffInSeconds} seconds ago`;
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  if (diffInMinutes < 60) return `${diffInMinutes} minutes ago`;
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  if (diffInHours < 24) return `${diffInHours} hours ago`;
+  const diffInDays = Math.floor(diffInHours / 24);
+  return `${diffInDays} days ago`;
+};
+
+const decideWhichDataField = (
+  data: Inventory_Details_Interface,
+  field: string,
+): string => {
+  if (field == "Expiring Inventory") {
+    return data.expiryDate ? data.expiryDate : "unknown expiry date";
+  } else if (field == "Inventory Due") {
+    return data.dueOn ? data.dueOn : "unknown due date";
+  } else if (field == "Borrowed Items") {
+    return data.borrowedOn ? data.borrowedOn : "unknown borrowed date";
+  } else if (field == "Returned Items") {
+    return data.returnedOn ? data.returnedOn : "unknown returned date";
+  } else {
+    return "unknown data";
+  }
+};
+
+const Inventory_Status_Card: React.FC<Inventory_Status_Card_Interface> = ({
   title,
   viewAllHref,
-  items,
+  data,
+  onItemClick,
 }) => {
   return (
     <div className="inv-status-card">
@@ -37,11 +71,13 @@ const InventoryStatusCard: React.FC<InventoryStatusCardProps> = ({
 
       {/* Item List */}
       <div className="inv-item-list">
-        {items.map((item, index) => (
-          <InventoryStatusItem
+        {data.map((item, index) => (
+          <Inventory_Status_Data
             key={index}
-            itemName={item.itemName}
-            statusDetail={item.statusDetail}
+            dataName={item.name}
+            dataStatus={calcTimeAgo(decideWhichDataField(item, title))} // Replace {wantedDataField} with the actual field name that holds the date/time info
+            data={item}
+            onItemClick={onItemClick}
           />
         ))}
       </div>
@@ -49,4 +85,4 @@ const InventoryStatusCard: React.FC<InventoryStatusCardProps> = ({
   );
 };
 
-export default InventoryStatusCard;
+export default Inventory_Status_Card;

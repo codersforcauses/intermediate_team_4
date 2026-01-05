@@ -1,27 +1,57 @@
 // src/pages/organization_activity.tsx
 
 import Head from "next/head";
+import { useState } from "react";
 
 import QuickActions from "@/components/ui/button_quick_actions";
-import InventoryStatusCard from "@/components/ui/card_organization_inventory_status_card";
-import RecentActivityPanel from "@/components/ui/card_organization_recent_activities_panel";
+import Inventory_Details_Modal, {
+  Inventory_Details_Interface,
+} from "@/components/ui/card_organization_inventory_details_modal";
+import Inventory_Status_Card from "@/components/ui/card_organization_inventory_status_card";
+import Recent_Activity_Panel from "@/components/ui/card_organization_recent_activities_panel";
+import {
+  organization_clean_backend_calls_return_interface,
+  useOrganizationBackendGetItems,
+} from "@/hooks/organization_clean_backend_calls";
 
 import NavbarOrganization from "../components/ui/navbar_organization";
 
-// --- MOCK DATA FOR THE SUMMARY CARDS ---
-const mockInventoryItems = [
-  { itemName: "Cool Potato", statusDetail: "In 2 days" },
-  { itemName: "Cool Potato", statusDetail: "In 2 days" },
-  { itemName: "Cool Potato", statusDetail: "In 2 days" },
-];
+const Organization_Activity_Page = () => {
+  // for the recent activity panel
+  const {
+    data,
+    loading,
+    error,
+    refresh,
+  }: organization_clean_backend_calls_return_interface =
+    useOrganizationBackendGetItems("all");
+  console.log("Data from useOrganizationBackendGetItems:", data);
+  console.log("Loading state:", loading);
+  console.log("Error state:", error);
+  console.log("Refresh function:", refresh);
 
-const mockBorrowedItems = [
-  { itemName: "Cool Potato", statusDetail: "5 mins ago" },
-  { itemName: "Cool Potato", statusDetail: "5 mins ago" },
-  { itemName: "Cool Potato", statusDetail: "5 mins ago" },
-];
+  // This is for the overlay modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItemData, setSelectedItemData] =
+    useState<Inventory_Details_Interface | null>(null);
 
-const ActivityPage = () => {
+  /* 
+  We will need to have a function here as well to handle the getting of the data
+  the onCLick handler is at this level because the modal is here
+  */
+  const handleItemClick = (data: Inventory_Details_Interface) => {
+    console.log("Item clicked: ", data);
+
+    // setSelectedItemData(generateRandomMockInventoryDetails());
+    setSelectedItemData(data);
+
+    // to open the modal
+    setIsModalOpen(true);
+
+    // PENDING, remove after figuring out how to pass the correct data
+    console.log("Selected Item Data:", selectedItemData);
+  };
+
   return (
     <>
       <Head>
@@ -35,25 +65,29 @@ const ActivityPage = () => {
         <main className="activity-page-main">
           {/* NEW SECTION: Inventory Status Cards (Summary/Filters) */}
           <div className="inv-cards-grid">
-            <InventoryStatusCard
+            <Inventory_Status_Card
               title="Expiring Inventory"
-              viewAllHref="/inventory/expiring"
-              items={mockInventoryItems}
+              viewAllHref="/organization_whole_inventory"
+              data={data}
+              onItemClick={handleItemClick}
             />
-            <InventoryStatusCard
+            <Inventory_Status_Card
               title="Inventory Due"
-              viewAllHref="/inventory/due"
-              items={mockInventoryItems}
+              viewAllHref="/organization_whole_inventory"
+              data={data}
+              onItemClick={handleItemClick}
             />
-            <InventoryStatusCard
+            <Inventory_Status_Card
               title="Borrowed Items"
-              viewAllHref="/inventory/borrowed"
-              items={mockBorrowedItems}
+              viewAllHref="/organization_whole_inventory"
+              data={data}
+              onItemClick={handleItemClick}
             />
-            <InventoryStatusCard
+            <Inventory_Status_Card
               title="Returned Items"
-              viewAllHref="/inventory/returned"
-              items={mockBorrowedItems}
+              viewAllHref="/organization_whole_inventory"
+              data={data}
+              onItemClick={handleItemClick}
             />
           </div>
 
@@ -61,7 +95,10 @@ const ActivityPage = () => {
           <div className="dashboard-content-layout">
             {/* LEFT COLUMN: Recent Activity, used section here to group some assets */}
             <section className="activity-panel">
-              <RecentActivityPanel />
+              <Recent_Activity_Panel
+                onItemClick={handleItemClick}
+                data={data}
+              />
             </section>
 
             {/* 2. RIGHT COLUMN: Quick Actions, aside here is used for accessibility, it does not make it appear on the right*/}
@@ -71,11 +108,17 @@ const ActivityPage = () => {
           </div>
         </main>
       </div>
+      {/* RENDER THE MODAL HERE, Remember to send the data of the item here as well*/}
+      <Inventory_Details_Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        itemData={selectedItemData}
+      />
     </>
   );
 };
 
-export default ActivityPage;
+export default Organization_Activity_Page;
 
 /*
             1. TOP SECTION: Filters and Search 

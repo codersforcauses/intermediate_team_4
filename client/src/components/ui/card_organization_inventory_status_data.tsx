@@ -12,22 +12,30 @@ card_organization_inventory_status_card.tsx
 
 import React from "react";
 
-interface InventoryItemProps {
-  itemName: string; // e.g., "Cool Potato"
-  statusDetail: string; // e.g., "In 2 days" or "5 mins ago"
+import { Inventory_Details_Interface } from "./card_organization_inventory_details_modal";
+
+interface Inventory_Status_Data_Interface {
+  dataName: string; // e.g., "Cool Potato"
+  dataStatus: string; // e.g., "In 2 days" or "5 mins ago"
+
+  // NEW: A prop that is the function passed from the parent component
+  onItemClick: (itemData: Inventory_Details_Interface) => void;
+  data: Inventory_Details_Interface; // The full data object for this specific item
 }
 
-const InventoryStatusItem: React.FC<InventoryItemProps> = ({
-  itemName,
-  statusDetail,
+const Inventory_Status_Data: React.FC<Inventory_Status_Data_Interface> = ({
+  dataName,
+  dataStatus,
+  onItemClick,
+  data,
 }) => {
   return (
-    <div className="inv-status-item">
-      <span className="inv-item-name">{itemName}</span>
-      <span className="inv-item-detail">{statusDetail}</span>
+    <div className="inv-status-item" onClick={() => onItemClick(data)}>
+      <span className="inv-item-name">{dataName}</span>
+      <span className="inv-item-detail">{dataStatus}</span>
     </div>
   );
 };
 
-export type { InventoryItemProps };
-export default InventoryStatusItem;
+export type { Inventory_Status_Data_Interface };
+export default Inventory_Status_Data;
