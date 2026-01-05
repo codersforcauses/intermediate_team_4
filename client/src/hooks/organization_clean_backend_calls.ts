@@ -127,10 +127,12 @@ export const useOrganizationBackendGetItems = (
 // This is now a standard function, NOT a hook
 // if it is a hook, it will not work, a hook means swr
 export const createNewItemClean = async (
-  itemData: Inventory_Details_Interface,
+  itemData: Partial<Inventory_Details_Interface> | Inventory_Details_Interface,
 ): Promise<boolean> => {
+  itemData.organization = "Demo Organization"; // Temporary hardcoded value
+
   // 1. Send the data to Django using your existing createItem function
-  const response = await createItem(itemData);
+  const response = await createItem(itemData as Inventory_Details_Interface);
 
   // 2. Return the result
   return response;
