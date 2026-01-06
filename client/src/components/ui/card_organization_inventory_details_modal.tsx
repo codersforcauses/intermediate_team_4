@@ -18,6 +18,8 @@ Key components
 import Link from "next/link";
 import React from "react";
 
+import { deleteItemClean } from "./backend/organization_clean_backend_calls";
+
 // Define the shape of the data this modal expects
 // id? means optional
 interface Inventory_Details_Interface {
@@ -104,6 +106,13 @@ const Inventory_Details_Modal: React.FC<Inventory_Details_Modal_Interface> = ({
           >
             <div className="modal-action-button secondary">Modify</div>
           </Link>
+
+          <button
+            onClick={() => deleteItemClean(itemData.id || 0)}
+            className="modal-action-button secondary"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>

@@ -15,7 +15,10 @@ Key components
 3. The overlay component itself
 */
 
+import Link from "next/dist/client/link";
 import React from "react";
+
+import { deleteItemClean } from "./backend/organization_clean_backend_calls";
 
 // Define the shape of the data this modal expects
 // id? means optional
@@ -104,6 +107,28 @@ export const Member_Details_Modal: React.FC<Member_Details_Modal_Interface> = ({
                 ))}
             </ul>
           </div>
+        </div>
+
+        {/* NEW ACTION BUTTONS */}
+        <div className="modal-actions">
+          <Link
+            href={{
+              pathname: "/organization_add_member",
+              query: {
+                mode: "modify",
+                data: JSON.stringify(itemData),
+              },
+            }}
+          >
+            <div className="modal-action-button secondary">Modify</div>
+          </Link>
+
+          <button
+            onClick={() => deleteItemClean(itemData.id || 0)}
+            className="modal-action-button secondary"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
