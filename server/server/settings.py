@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "healthcheck",
-    "user_profile"
+    "user_profile",
+    "friend"
 ]
 
 MIDDLEWARE = [
