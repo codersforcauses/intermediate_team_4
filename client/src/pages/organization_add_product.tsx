@@ -98,7 +98,10 @@ const Organization_Add_Product = () => {
     <main>
       <Header />
       <div className="form-container">
-        <h2 className="form-title">Add New Product</h2>
+        <h2 className="form-title">
+          {" "}
+          {mode === "add" ? "Add new" : "Edit"} Product
+        </h2>
 
         <form onSubmit={handleSave}>
           <div className="form-group">
