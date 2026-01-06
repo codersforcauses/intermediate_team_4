@@ -83,7 +83,7 @@ const Inventory_Details_Modal: React.FC<Inventory_Details_Modal_Interface> = ({
             href={{
               pathname: "/organization_add_product",
               query: {
-                mode: "lend",
+                mode: "modify",
                 data: JSON.stringify(itemData),
               },
             }}
