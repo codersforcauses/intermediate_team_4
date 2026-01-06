@@ -15,6 +15,7 @@ Key components
 3. The overlay component itself
 */
 
+import Link from "next/link";
 import React from "react";
 
 // Define the shape of the data this modal expects
@@ -74,6 +75,35 @@ const Inventory_Details_Modal: React.FC<Inventory_Details_Modal_Interface> = ({
           <p>Returned On: {itemData.returnedOn}</p>
           <p>Due On: {itemData.dueOn}</p>
           <p>Expiry Date: {itemData.expiryDate}</p>
+        </div>
+
+        {/* NEW ACTION BUTTONS */}
+        <div className="modal-actions">
+          <Link
+            href={{
+              pathname: "/organization_add_product",
+              query: {
+                mode: "lend",
+                data: JSON.stringify(itemData),
+              },
+            }}
+          >
+            <div className="modal-action-button secondary">
+              Returned? <br /> Click me
+            </div>
+          </Link>
+
+          <Link
+            href={{
+              pathname: "/organization_add_product",
+              query: {
+                mode: "modify",
+                data: JSON.stringify(itemData),
+              },
+            }}
+          >
+            <div className="modal-action-button secondary">Modify</div>
+          </Link>
         </div>
       </div>
     </div>

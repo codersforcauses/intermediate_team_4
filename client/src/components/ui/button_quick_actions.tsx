@@ -3,6 +3,8 @@
 import Link from "next/link";
 import React from "react";
 
+// tmr night, wed night, friday night, sat mornign and sun morning
+
 const Quick_Actions = () => {
   return (
     <div className="quick-actions-card">
@@ -12,8 +14,16 @@ const Quick_Actions = () => {
         {/* 2. RIGHT COLUMN: Quick Actions */}
         <aside className="actions-panel">
           {/* This is where the Quick_Actions component will go */}
-          {/* Button 1: Add Product */}
-          <Link href="/organization_add_product">
+          {/* Button 1: Add Product, this is to pass some mode to the add page to tell what mode and data to do*/}
+          <Link
+            href={{
+              pathname: "/organization_add_product",
+              query: {
+                mode: "add",
+                data: null,
+              },
+            }}
+          >
             <button className="action-button primary">
               <span className="icon-plus">+</span>
               Add Product

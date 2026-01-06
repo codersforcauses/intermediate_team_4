@@ -32,3 +32,12 @@ export const calcTime = (dateString: string | undefined): string => {
     return "invalid date: " + error;
   }
 };
+
+export const formatDateForInput = (dateString: string | undefined): string => {
+  if (!dateString) return "";
+  const d = new Date(dateString);
+  if (isNaN(d.getTime())) return "";
+
+  // This extracts the "2026-01-07" part of an ISO string
+  return d.toISOString().split("T")[0];
+};
