@@ -3,11 +3,14 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useSWRConfig } from "swr/_internal";
 
+import { BASE_URL } from "@/components/ui/backend/organization_call_backend";
+import {
+  createItemClean,
+  updateItemClean,
+} from "@/components/ui/backend/organization_clean_backend_calls";
 import { Inventory_Details_Interface } from "@/components/ui/card_organization_inventory_details_modal";
 import Header from "@/components/ui/navbar_organization";
 import { formatDateForInput } from "@/helpers/helper_functions";
-import { BASE_URL } from "@/hooks/organization_call_backend";
-import { createNewItemClean } from "@/hooks/organization_clean_backend_calls";
 // import { createItem } from '../hooks/organization_call_backend';
 
 const Organization_Add_Product = () => {
@@ -77,14 +80,25 @@ const Organization_Add_Product = () => {
     e.preventDefault();
 
     try {
-      // 2. Call the action (The "Messenger")
-      await createNewItemClean(formData);
+      if (mode === "add" && parsedData) {
+        // 2. Call the action (The "Messenger")
+        await createItemClean(formData);
 
-      // 3. Tell SWR to refresh the Dashboard data
-      // This tells SWR: "The data at BASE_URL is old, please go get the new list!"
-      mutate([`${BASE_URL}`, "all"]);
+        // 3. Tell SWR to refresh the Dashboard data
+        // This tells SWR: "The data at BASE_URL is old, please go get the new list!"
+        mutate([`${BASE_URL}`, "all"]);
 
-      alert("Product Saved!");
+        alert("Product Saved!");
+      } else {
+        // 2. Call the action (The "Messenger")
+        await updateItemClean(formData);
+
+        // 3. Tell SWR to refresh the Dashboard data
+        // This tells SWR: "The data at BASE_URL is old, please go get the new list!"
+        mutate([`${BASE_URL}`, "all"]);
+
+        alert("Product updated!");
+      }
 
       // go back to dashboard
       // router.push('/organization_dashboard');

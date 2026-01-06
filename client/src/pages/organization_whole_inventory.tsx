@@ -6,7 +6,7 @@ import Inventory_Details_Modal, {
 import Card_Organization_Whole_Inventroy from "@/components/ui/card_organization_whole_inventory";
 import Header from "@/components/ui/navbar_organization";
 
-import { useOrganizationBackendGetItems } from "../hooks/organization_clean_backend_calls";
+import { useOrganizationBackendGetItems } from "../components/ui/backend/organization_clean_backend_calls";
 
 const Organization_Whole_Inventory = () => {
   // 1. Fetch the data using your custom hook

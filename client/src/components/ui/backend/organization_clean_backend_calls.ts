@@ -8,8 +8,10 @@ import {
   BASE_URL,
   createItem,
   createMember,
+  deleteItem,
   getItems,
   getMembers,
+  updateItem,
   updateMember,
 } from "./organization_call_backend";
 
@@ -136,7 +138,7 @@ export const useOrganizationBackendGetItems = (
 
 // This is now a standard function, NOT a hook
 // if it is a hook, it will not work, a hook means swr
-export const createNewItemClean = async (
+export const createItemClean = async (
   itemData: Partial<Inventory_Details_Interface> | Inventory_Details_Interface,
 ): Promise<boolean> => {
   itemData.organization = "Demo Organization"; // Temporary hardcoded value
@@ -146,6 +148,28 @@ export const createNewItemClean = async (
 
   // 2. Return the result
   return response;
+};
+
+export const updateItemClean = async (
+  itemData: Partial<Inventory_Details_Interface> | Inventory_Details_Interface,
+): Promise<boolean> => {
+  const id = itemData.id ? itemData.id : 0;
+
+  // 1. Send the data to Django using your existing updateItem function
+  const response = await updateItem(
+    id,
+    itemData as Inventory_Details_Interface,
+  );
+
+  // 2. Return the result
+  return response;
+};
+
+export const deleteItemClean = async (itemId: number): Promise<boolean> => {
+  console.log("Deleting item with ID:", itemId);
+  // Replace with your actual delete backend call:
+  return await deleteItem(itemId);
+  return Promise.resolve(true);
 };
 
 // MMEBERS section
