@@ -16,19 +16,82 @@ import {
 
 import NavbarOrganization from "../components/ui/navbar_organization";
 
+// destructuring with colons will rename the variables
 const Organization_Activity_Page = () => {
   // for the recent activity panel
   const {
-    data,
-    loading,
-    error,
-    refresh,
-  }: organization_clean_backend_calls_return_interface =
-    useOrganizationBackendGetItems("all");
-  console.log("Data from useOrganizationBackendGetItems:", data);
-  console.log("Loading state:", loading);
-  console.log("Error state:", error);
-  console.log("Refresh function:", refresh);
+    // renmaes data -> allData
+    data: allData,
+    loading: allLoading,
+    error: allError,
+    refresh: allRefresh,
+  }: organization_clean_backend_calls_return_interface = useOrganizationBackendGetItems(
+    "all",
+  );
+
+  console.log("Data from useOrganizationBackendGetItems:", allData);
+  console.log("Loading state:", allLoading);
+  console.log("Error state:", allError);
+  console.log("Refresh function:", allRefresh);
+
+  //  for the statistic cards //
+  const {
+    data: expiringData,
+    loading: expiringLoading,
+    error: expiringError,
+    refresh: expiringRefresh,
+  }: organization_clean_backend_calls_return_interface = useOrganizationBackendGetItems(
+    "Expiring",
+  );
+
+  console.log("Data from useOrganizationBackendGetItems:", expiringData);
+  console.log("Loading state:", expiringLoading);
+  console.log("Error state:", expiringError);
+  console.log("Refresh function:", expiringRefresh);
+
+  const {
+    data: dueData,
+    loading: dueLoading,
+    error: dueError,
+    refresh: dueRefresh,
+  }: organization_clean_backend_calls_return_interface = useOrganizationBackendGetItems(
+    "Due",
+  );
+
+  console.log("Data from useOrganizationBackendGetItems:", dueData);
+  console.log("Loading state:", dueLoading);
+  console.log("Error state:", dueError);
+  console.log("Refresh function:", dueRefresh);
+
+  const {
+    data: borrowedData,
+    loading: borrowedLoading,
+    error: borrowedError,
+    refresh: borrowedRefresh,
+  }: organization_clean_backend_calls_return_interface = useOrganizationBackendGetItems(
+    "Borrowed",
+  );
+
+  console.log("Data from useOrganizationBackendGetItems:", borrowedData);
+  console.log("Loading state:", borrowedLoading);
+  console.log("Error state:", borrowedError);
+  console.log("Refresh function:", borrowedRefresh);
+
+  const {
+    data: returnedData,
+    loading: returnedLoading,
+    error: returnedError,
+    refresh: returnedRefresh,
+  }: organization_clean_backend_calls_return_interface = useOrganizationBackendGetItems(
+    "Returned",
+  );
+
+  console.log("Data from useOrganizationBackendGetItems:", returnedData);
+  console.log("Loading state:", returnedLoading);
+  console.log("Error state:", returnedError);
+  console.log("Refresh function:", returnedRefresh);
+
+  // end of statistic cards //
 
   // This is for the overlay modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,25 +131,25 @@ const Organization_Activity_Page = () => {
             <Inventory_Status_Card
               title="Expiring Inventory"
               viewAllHref="/organization_whole_inventory"
-              data={data}
+              data={expiringData}
               onItemClick={handleItemClick}
             />
             <Inventory_Status_Card
               title="Inventory Due"
               viewAllHref="/organization_whole_inventory"
-              data={data}
+              data={dueData}
               onItemClick={handleItemClick}
             />
             <Inventory_Status_Card
               title="Borrowed Items"
               viewAllHref="/organization_whole_inventory"
-              data={data}
+              data={borrowedData}
               onItemClick={handleItemClick}
             />
             <Inventory_Status_Card
               title="Returned Items"
               viewAllHref="/organization_whole_inventory"
-              data={data}
+              data={returnedData}
               onItemClick={handleItemClick}
             />
           </div>
@@ -97,7 +160,7 @@ const Organization_Activity_Page = () => {
             <section className="activity-panel">
               <Recent_Activity_Panel
                 onItemClick={handleItemClick}
-                data={data}
+                data={allData}
               />
             </section>
 
