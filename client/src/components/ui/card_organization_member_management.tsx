@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Member_Details_Interface } from "../card_organization_member_details_modal";
+import { Member_Details_Interface } from "./card_organization_member_details_modal";
 
 // 1. Define the shape of the data this modal expects
 interface Member_Management_Interface {

@@ -1,8 +1,8 @@
 // src/hooks/organization_call_backend.ts
 // Change this URL to match your backend API endpoint
 
-import { Member_Details_Interface } from "@/components/card_organization_member_details_modal";
 import { Inventory_Details_Interface } from "@/components/ui/card_organization_inventory_details_modal";
+import { Member_Details_Interface } from "@/components/ui/card_organization_member_details_modal";
 import { generateRandomMockInventoryDetails } from "@/mocks/Inventory_Details_Interface_Mocks";
 import { generateMockMember } from "@/mocks/Members_Details_Interface_Mocks";
 

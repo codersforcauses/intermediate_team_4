@@ -1,7 +1,7 @@
 // src/hooks/organization_clean_backend_calls.ts
 import useSWR, { KeyedMutator } from "swr";
 
-import { Member_Details_Interface } from "@/components/card_organization_member_details_modal";
+import { Member_Details_Interface } from "@/components/ui/card_organization_member_details_modal";
 
 import type { Inventory_Details_Interface } from "../components/ui/card_organization_inventory_details_modal";
 import {

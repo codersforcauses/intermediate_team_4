@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import {
   Member_Details_Interface,
   Member_Details_Modal,
-} from "@/components/card_organization_member_details_modal";
+} from "@/components/ui/card_organization_member_details_modal";
 import Card_Organization_Member_Management from "@/components/ui/card_organization_member_management";
 import Header from "@/components/ui/navbar_organization";
 
