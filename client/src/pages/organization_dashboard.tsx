@@ -4,13 +4,13 @@
 // so the path is '../components/Header'
 import { useState } from "react";
 
-import Inventory_Details_Modal, {
-  Inventory_Details_Interface,
-} from "@/components/ui/card_organization_inventory_details_modal";
 import {
   organization_clean_backend_calls_return_interface,
   useOrganizationBackendGetItems,
-} from "@/hooks/organization_clean_backend_calls";
+} from "@/components/ui/backend/organization_clean_backend_calls";
+import Inventory_Details_Modal, {
+  Inventory_Details_Interface,
+} from "@/components/ui/card_organization_inventory_details_modal";
 
 import Quick_Actions from "../components/ui/button_quick_actions";
 import Recent_Activity_Panel from "../components/ui/card_organization_recent_activities_panel";

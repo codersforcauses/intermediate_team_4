@@ -7,7 +7,7 @@ import {
 import Card_Organization_Member_Management from "@/components/ui/card_organization_member_management";
 import Header from "@/components/ui/navbar_organization";
 
-import { useOrganizationBackendGetMembers } from "../hooks/organization_clean_backend_calls";
+import { useOrganizationBackendGetMembers } from "../components/ui/backend/organization_clean_backend_calls";
 
 const Organization_Member_Management = () => {
   // 1. Fetch the data using your custom hook

@@ -3,16 +3,16 @@
 import Head from "next/head";
 import { useState } from "react";
 
+import {
+  organization_clean_backend_calls_return_interface,
+  useOrganizationBackendGetItems,
+} from "@/components/ui/backend/organization_clean_backend_calls";
 import QuickActions from "@/components/ui/button_quick_actions";
 import Inventory_Details_Modal, {
   Inventory_Details_Interface,
 } from "@/components/ui/card_organization_inventory_details_modal";
 import Inventory_Status_Card from "@/components/ui/card_organization_inventory_status_card";
 import Recent_Activity_Panel from "@/components/ui/card_organization_recent_activities_panel";
-import {
-  organization_clean_backend_calls_return_interface,
-  useOrganizationBackendGetItems,
-} from "@/hooks/organization_clean_backend_calls";
 
 import NavbarOrganization from "../components/ui/navbar_organization";
 

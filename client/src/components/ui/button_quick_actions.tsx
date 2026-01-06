@@ -30,6 +30,21 @@ const Quick_Actions = () => {
             </button>
           </Link>
 
+          <Link
+            href={{
+              pathname: "/organization_add_member",
+              query: {
+                mode: "add",
+                data: null,
+              },
+            }}
+          >
+            <button className="action-button primary">
+              <span className="icon-plus">+</span>
+              Add Member
+            </button>
+          </Link>
+
           {/* Button 2: View Whole Inventory */}
           <Link href="/organization_whole_inventory">
             <button className="action-button secondary">
