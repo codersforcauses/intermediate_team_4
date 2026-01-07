@@ -7,6 +7,7 @@ type InventoryItem = {
   id: number;
   name: string;
   date: string;
+  dateNew: Date;
 };
 
 type ItemModalProps = {
@@ -65,7 +66,10 @@ function UserInventorySelectPopup({
             <strong>Description:</strong> (description here) {item.id}
           </p>
           <p>
-            <strong>Date Due:</strong> {item.date}
+            {/* <strong>Date Due:</strong> {item.date} */}
+            {/* <strong>Date Due (New):</strong> {item.dateNew.toDateString()} */}
+            <strong>Date Due (New):</strong>{" "}
+            {item.dateNew.toISOString().split("T")[0]}
           </p>
         </div>
 
