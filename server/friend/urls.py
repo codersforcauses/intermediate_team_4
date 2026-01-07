@@ -9,5 +9,7 @@ urlpatterns = [
     path("requests_sent/", views.MySentRequests.as_view()),
     path("requests/", views.MyFriendRequests.as_view()),
     path("list/", views.MyFriends.as_view()),
-    path("remove/<int:user_id>/", views.RemoveFriends.as_view()), # added here
+    path("remove/<int:user_id>/", views.RemoveFriends.as_view()),
+    path("search/", views.UserSearch.as_view(), name="user-search"),
+
 ]
