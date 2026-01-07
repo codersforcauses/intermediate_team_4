@@ -64,10 +64,7 @@ function UserGroupsSelectPopup({ isOpen, item, onClose }: ItemModalProps) {
         {/* Footer */}
         <div className="flex justify-end gap-3 border-t pt-4">
           <Link href="/user_groups">
-            <button
-              // onClick={Link}
-              className="rounded bg-blue-200 px-4 py-2 hover:bg-blue-300"
-            >
+            <button className="rounded bg-blue-200 px-4 py-2 hover:bg-blue-300">
               <div className="flex items-center justify-between">
                 <svg
                   viewBox="0 0 24 24"
