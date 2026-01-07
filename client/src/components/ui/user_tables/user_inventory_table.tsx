@@ -1,7 +1,8 @@
 // src/pages/user_dashboard.tsx (Update the import path)
 //import "";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
+import UserInventoryEditPopup from "../popups/user_inventory_edit_popup";
 import InventoryItemModal from "../popups/user_inventory_select_popup";
 
 export type InventoryItem = {
@@ -14,6 +15,7 @@ const UserInventoryTable = () => {
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   // Mock data (replace with Django API call later)
   useEffect(() => {
@@ -67,6 +69,16 @@ const UserInventoryTable = () => {
         isOpen={isModalOpen}
         item={selectedItem}
         onClose={() => setIsModalOpen(false)}
+        onEdit={(item) => {
+          setIsModalOpen(false);
+          setSelectedItem(item);
+          setIsEditModalOpen(true);
+        }}
+      />
+      <UserInventoryEditPopup
+        isOpen={isEditModalOpen}
+        item={selectedItem}
+        onClose={() => setIsEditModalOpen(false)}
       />
     </>
   );

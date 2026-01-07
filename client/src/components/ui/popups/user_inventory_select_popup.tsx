@@ -13,15 +13,19 @@ type ItemModalProps = {
   isOpen: boolean;
   item: InventoryItem | null;
   onClose: () => void;
+  onEdit: (item: InventoryItem) => void;
 };
 
-function UserInventorySelectPopup({ isOpen, item, onClose }: ItemModalProps) {
+function UserInventorySelectPopup({
+  isOpen,
+  item,
+  onClose,
+  onEdit,
+}: ItemModalProps) {
   if (!isOpen || !item) return null;
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      {/* onClick={onClose} */}
       <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-lg">
         {/* Header */}
         <div className="mb-3 flex items-center justify-between">
@@ -67,11 +71,20 @@ function UserInventorySelectPopup({ isOpen, item, onClose }: ItemModalProps) {
 
         {/* Footer */}
         <div className="flex justify-end gap-3 border-t pt-4">
-          <Link href="/user_inventory">
+          {/* <Link href="/user_inventory">
             <button className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
               Edit
             </button>
-          </Link>
+          </Link> */}
+          <button
+            className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+            onClick={() => {
+              onClose(); // close current modal
+              onEdit(item); // tell parent to open edit modal
+            }}
+          >
+            Edit
+          </button>
           <button
             onClick={onClose}
             className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300"
