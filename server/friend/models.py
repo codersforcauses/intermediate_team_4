@@ -1,12 +1,21 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth import get_user_model
 # Create your models here.
+
+User = get_user_model()
+
 
 class FriendList(models.Model):
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user")
-    friends = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="friends")
+    # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user")
+    # friends = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="friends")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="friend_list")
+    friends = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="friends_of")
+
 
     def __str__(self):
         return self.user.username
@@ -24,10 +33,11 @@ class FriendList(models.Model):
         """
         if account in self.friends.all():
             self.friends.remove(account)
+            # self.save()
 
     def unfriend(self, removee):
         """
-        Initiate action of infriending someone
+        Initiate action of unfriending someone
         """
         remover_friends_list = self # person terminating friendship
 
