@@ -20,17 +20,7 @@ function UserInventoryEditPopup({ isOpen, item, onClose }: ItemModalProps) {
   if (!isOpen || !item) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      {/* <div className="absolute bg-red-40 w-full" onClick={onClose}></div> */}
-      {/* <div
-      className="absolute inset-0 bg-red-500/40 z-0"
-      onClick={onClose}
-      /> */}
-      {/* <div className="absolute inset-0" onClick={onClose}/> */}
       <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-lg">
-        {/* <div className="absolute w-full max-w-md rounded-xl bg-white p-6 shadow-lg"> */}
-        {/* Header */}
-        {/* <div className="mb-3 flex items-center justify-between"> */}
-
         <div className="flex gap-4">
           {/* Avatar */}
           <div className="relative flex justify-between">
@@ -45,8 +35,7 @@ function UserInventoryEditPopup({ isOpen, item, onClose }: ItemModalProps) {
             <h2 className="cursor-pointer truncate pl-8 pt-3 text-2xl font-bold hover:text-gray-900 hover:underline">
               {item.name}
             </h2>
-
-            {/* Meta row */}
+            {/* other */}
             <div className="mt-1 grid grid-cols-2 gap-4 pl-6 pt-1">
               <p className="truncate text-gray-500"> Category: {item.id}</p>
               <p className="cursor-pointer truncate text-gray-500 hover:text-gray-800 hover:underline">
@@ -63,23 +52,40 @@ function UserInventoryEditPopup({ isOpen, item, onClose }: ItemModalProps) {
           </button>
         </div>
         {/* Body */}
+        {/* Date Change */}
         <div className="space-y-2 py-4">
           <p>
             <strong>Extend/Reduce Return Date:</strong>
           </p>{" "}
-          {/* <strong>Extend Date Due:</strong> {item.date}  */}
           <input
             type="date"
-            className="form-input"
+            className="form-input rounded-md border border-gray-300 pl-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             name="expiryDate"
             // value={item.dateNew.toDateString()}
             defaultValue={item.dateNew.toISOString().split("T")[0]}
             // onChange={handleChange}
           />
+          {/* Description */}
+          <div className="mt-4 pt-3">
+            <label
+              htmlFor="notes"
+              className="text-medium block pb-3 font-bold text-gray-700"
+            >
+              Notes
+            </label>
+            <textarea
+              id="notes"
+              name="notes"
+              placeholder="Add notes (e.g. book damaged on spine)…"
+              rows={3}
+              className="w-full resize-none rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              maxLength={300}
+            />
+            <p className="text-right text-xs text-gray-400">
+              Max 300 characters
+            </p>
+          </div>
         </div>
-        {/* Description */}
-
-        {/* Body */}
 
         {/* Footer */}
         <div className="flex justify-end gap-3 border-t pt-4">
