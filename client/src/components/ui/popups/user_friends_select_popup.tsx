@@ -17,42 +17,42 @@ type ItemModalProps = {
 function UserFriendsSelectPopup({ isOpen, item, onClose }: ItemModalProps) {
   if (!isOpen || !item) return null;
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-lg">
-        {/* Header */}
-        <div className="mb-3 flex items-center justify-between">
-          <div className="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-blue-500">
-            <div className="absolute top-5 h-12 w-12 rounded-full bg-blue-200"></div>
-            <div className="absolute -bottom-2 left-1/2 h-12 w-16 -translate-x-1/2 rounded-full bg-blue-200"></div>
+        <div className="flex gap-4 pb-4">
+          {/* Header */}
+          {/* Avatar */}
+          <div className="relative flex justify-between">
+            <div className="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-blue-500">
+              <div className="absolute top-5 h-12 w-12 rounded-full bg-blue-200"></div>
+              <div className="absolute -bottom-2 left-1/2 h-12 w-16 -translate-x-1/2 rounded-full bg-blue-200"></div>
+            </div>
           </div>
-          {/* <div className="flex justify-between items-center border-b pb-3"> */}
-          {/* Body */}
-          <div className="space-y-2 py-4">
+          {/* Text column */}
+          <div className="flex min-w-0 flex-1 flex-col">
+            {/* Name */}
             <Link href="/user_friends">
-              <h2 className="cursor-pointer text-2xl font-bold hover:text-gray-900 hover:underline">
+              <h2 className="cursor-pointer truncate pl-5 pt-3 text-2xl font-bold hover:text-gray-900 hover:underline">
                 {item.name}
               </h2>
             </Link>
-            <div className="mb-3 flex items-center justify-between">
-              <p className="text-gray-500">User: {item.id} </p> &nbsp; &nbsp;{" "}
-              {/* Unique Profile Identifier */}
-              <p className="cursor-pointer text-gray-500 hover:text-gray-900 hover:underline">
-                Mutual Groups: {item.id}
-              </p>{" "}
-              {/* Add link/popup here? */}
+            {/* other */}
+            <div className="mt-1 grid grid-cols-2 pl-5 pt-1">
+              <p className="truncate text-gray-500"> User: {item.id}</p>
+              <Link href="/user_groups">
+                <p className="cursor-pointer truncate text-gray-500 hover:text-gray-800 hover:underline">
+                  {" "}
+                  Mutual Groups: {item.id}
+                </p>
+              </Link>
             </div>
           </div>
-          <div></div>
           <button
             onClick={onClose}
             className="-translate-y-10 text-gray-500 hover:text-gray-800"
           >
             ✕
           </button>
-          {/* </div> */}
         </div>
 
         {/* Footer */}
