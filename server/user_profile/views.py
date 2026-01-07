@@ -14,7 +14,8 @@ from .permissions import IsUserOrReadOnly
 
 
 class UserList(APIView): 
-    permission_classes = (permissions.IsAuthenticated) 
+    permission_classes = (permissions.IsAuthenticated, ) 
+    
 
     def get(self, request): 
         users = User.objects.all()
@@ -27,7 +28,7 @@ class UserProfileList(generics.ListAPIView):
     serializer_class = ProfileSerializer 
 
 class UserProfileDetail(generics.RetrieveUpdateAPIView): 
-    permission_classes = (permissions.IsAuthenticated, IsUserOrReadOnly) 
+    permission_classes = (permissions.IsAuthenticated, IsUserOrReadOnly, ) 
     queryset = Profile.objects.all() 
     serializer_class = ProfileSerializer 
     
