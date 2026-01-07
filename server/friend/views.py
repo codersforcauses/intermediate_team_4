@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
+from django.views.generic import ListView
+
 
 from .models import FriendList, FriendRequest
 from .serializers import FriendRequestSerializer, FriendListSerializer
@@ -85,22 +87,7 @@ class RemoveFriends(APIView):
 
 
         friend_list.unfriend(removee)
-        # friend_list.remove_friend(removee)
-        # serializer = FriendListSerializer(friend_list)
         return Response({"success": "Friend removed"})
-
-
-    # def post(self, request, user_id):
-    #     receiver = get_object_or_404(User, id=user_id)
-
-    #     if receiver == request.user:
-    #         return Response({"error": "You cannot friend yourself"}, status=400)
-
-    #     if FriendRequest.objects.filter(sender=request.user, receiver=receiver, is_active=True).exists():
-    #         return Response({"error": "Friend request already sent"}, status=400)
-
-    #     FriendRequest.objects.create(sender=request.user, receiver=receiver)
-    #     return Response({"success": "Friend request sent"})
 
 
 class MyFriends(APIView):
@@ -110,3 +97,32 @@ class MyFriends(APIView):
         friend_list = FriendList.objects.get(user=request.user)
         serializer = FriendListSerializer(friend_list)
         return Response(serializer.data)
+
+
+class UserSearch(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        query = request.query_params.get("q", "").strip()
+        if not query:
+            return Response([])
+
+        results = User.objects.filter(username__icontains=query)
+        friend_list = FriendList.objects.get(user=request.user)
+
+        friends = set(friend_list.friends.values_list("id", flat=True))
+        sent_requests = FriendRequest.objects.filter(sender=request.user, is_active=True).values_list("receiver_id", flat=True)
+        received_requests = FriendRequest.objects.filter(receiver=request.user,is_active=True).values_list("sender_id", flat=True)
+        
+        data = []
+        for u in results:
+            data.append({
+                "id": u.id,
+                "username": u.username,
+                "is_me": u == request.user,
+                "is_friend": u.id in friends,
+                "request_sent": u.id in sent_requests,
+                "request_received": u.id in received_requests,
+            })
+
+        return Response(data)
