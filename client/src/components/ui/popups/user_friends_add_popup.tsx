@@ -16,11 +16,9 @@ type ItemModalProps = {
 function UserFriendsAddPopup({ isOpen, onClose }: ItemModalProps) {
   if (!isOpen) return null;
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-      onClick={onClose}
-    >
-      <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-lg">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div className="absolute inset-0" onClick={onClose} />
+      <div className="absolute w-full max-w-md rounded-xl bg-white p-6 shadow-lg">
         {/* Header */}
         <div className="flex items-center justify-between border-b pb-3">
           <h2 className="text-lg font-semibold">Add Friends</h2>
@@ -72,12 +70,6 @@ function UserFriendsAddPopup({ isOpen, onClose }: ItemModalProps) {
               Expand
             </button>
           </Link>
-
-          {/* <button
-                onClick={onClose}
-                className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
-              >Expand
-              </button> */}
           <button
             onClick={onClose}
             className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300"
