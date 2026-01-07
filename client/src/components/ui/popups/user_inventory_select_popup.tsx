@@ -39,11 +39,11 @@ function UserInventorySelectPopup({
           {/* Text column */}
           <div className="flex min-w-0 flex-1 flex-col">
             {/* Name */}
-            <h2 className="cursor-pointer truncate pl-8 pt-3 text-2xl font-bold hover:text-gray-900 hover:underline">
+            <h2 className="cursor-pointer truncate pl-5 pt-3 text-2xl font-bold hover:text-gray-900 hover:underline">
               {item.name}
             </h2>
             {/* other */}
-            <div className="mt-1 grid grid-cols-2 gap-4 pl-6 pt-1">
+            <div className="mt-1 grid grid-cols-2 gap-4 pl-5 pt-1">
               <p className="truncate text-gray-500"> Category: {item.id}</p>
               <p className="cursor-pointer truncate text-gray-500 hover:text-gray-800 hover:underline">
                 {" "}
