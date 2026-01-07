@@ -9,6 +9,8 @@ export type InventoryItem = {
   id: number;
   name: string;
   date: string;
+  dateNew: Date;
+  // dateNew: Date = new Date(date);
 };
 
 const UserInventoryTable = () => {
@@ -21,15 +23,23 @@ const UserInventoryTable = () => {
   useEffect(() => {
     const mockInventory: InventoryItem[] = Array.from(
       { length: 30 },
-      (_, i) => ({
-        id: i + 1,
-        name: `Item ${i + 1}`,
-        date:
+      (_, i) => {
+        const dateStr =
           ((Math.floor(Math.random() * 10) % 11) + 1).toString() +
-          "/" +
+          "-" +
           (Math.floor(Math.random() * 10) + 1).toString() +
-          "/2026",
-      }),
+          "-2026";
+
+        // Parse MM-DD-YYYY safely
+        const [month, day, year] = dateStr.split("-").map(Number);
+
+        return {
+          id: i + 1,
+          name: `Item ${i + 1}`,
+          date: dateStr,
+          dateNew: new Date(year, month - 1, day), // month is 0-based
+        };
+      },
     );
     {
       /* have 
@@ -59,7 +69,9 @@ const UserInventoryTable = () => {
             >
               <span className="font-medium text-gray-800">{item.name}</span>
               <span className="font-medium text-gray-800">
-                date:{item.date}
+                {/* date:{item.date} */}
+                {/* date(New): {item.dateNew.toDateString()} */}
+                date(New): {item.dateNew.toISOString().split("T")[0]}
               </span>
             </div>
           ))
