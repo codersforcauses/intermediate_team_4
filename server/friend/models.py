@@ -103,4 +103,7 @@ class FriendRequest(models.Model):
         self.is_active = False
         self.save()
 
-
+@receiver(post_save, sender=User)
+def create_friend_list(sender, instance, created, **kwargs):
+    if created:
+        FriendList.objects.create(user=instance)
