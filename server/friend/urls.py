@@ -11,5 +11,4 @@ urlpatterns = [
     path("list/", views.MyFriends.as_view()),
     path("remove/<int:user_id>/", views.RemoveFriends.as_view()),
     path("search/", views.UserSearch.as_view(), name="user-search"),
-
 ]
