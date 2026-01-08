@@ -3,9 +3,12 @@
 import Link from "next/link";
 import React from "react";
 
+import ProfilePicture from "../profile_picture";
+
 type MyFriends = {
   id: number;
-  name: string;
+  // name: string;
+  username: string;
 };
 
 type ItemModalProps = {
@@ -23,18 +26,20 @@ function UserFriendsSelectPopup({ isOpen, item, onClose }: ItemModalProps) {
         <div className="flex gap-4 pb-4">
           {/* Header */}
           {/* Avatar */}
-          <div className="relative flex justify-between">
-            <div className="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-blue-500">
-              <div className="absolute top-5 h-12 w-12 rounded-full bg-blue-200"></div>
-              <div className="absolute -bottom-2 left-1/2 h-12 w-16 -translate-x-1/2 rounded-full bg-blue-200"></div>
-            </div>
-          </div>
+          <ProfilePicture />
+          {/* {profile_picture === Null ? ( 
+            <ProfilePicture/>
+          ) : (
+            item.profile_picture
+           )}
+          } */}
+
           {/* Text column */}
           <div className="flex min-w-0 flex-1 flex-col">
             {/* Name */}
             <Link href="/user_friends">
               <h2 className="cursor-pointer truncate pl-5 pt-3 text-2xl font-bold hover:text-gray-900 hover:underline">
-                {item.name}
+                {item.username}
               </h2>
             </Link>
             {/* other */}
