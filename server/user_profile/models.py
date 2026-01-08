@@ -11,7 +11,9 @@ from django.dispatch import receiver
 User = get_user_model() 
 
 class Profile(models.Model): 
-    user = models.OneToOneField(User, on_delete=models.CASCADE) 
+    user = models.OneToOneField(User, 
+    on_delete=models.CASCADE, 
+    related_name='profile') 
     bio = models.TextField(blank=True) 
     age = models.PositiveIntegerField(null=True, blank=True) 
 
