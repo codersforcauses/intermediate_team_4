@@ -26,9 +26,9 @@ class InventoryItem(models.Model):
     returnedOn = models.DateTimeField(blank=True, null=True)
 
     # Dates
-    borrowed_on = models.DateTimeField(blank=True, null=True)
-    due_on = models.DateTimeField(blank=True, null=True)
-    expiry_date = models.DateField(blank=True, null=True)
+    borrowedOn = models.DateTimeField(blank=True, null=True)
+    dueOn = models.DateTimeField(blank=True, null=True)
+    expiryDate = models.DateField(blank=True, null=True)
     
     # auto_now_add sets the time automatically when the item is first created
     date_added = models.DateTimeField(auto_now_add=True)
