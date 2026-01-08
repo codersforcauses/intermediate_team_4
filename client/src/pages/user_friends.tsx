@@ -5,12 +5,13 @@ import Head from "next/head";
 import { useState } from "react";
 
 // import {useState, useEffect} from "react";
-import UserFriendsAddPopup from "../components/ui/popups/user_friends_add_popup";
+import UserFriendsSearchPopup from "../components/ui/popups/user_friends_search_popup";
 import UserNavbar from "../components/ui/user_navbar";
 import UserFriendsTable from "../components/ui/user_tables/user_friends_table";
 
 const UserFriendsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
       <Head>
@@ -40,16 +41,11 @@ const UserFriendsPage = () => {
                   + Friends{" "}
                 </button>
               </div>
-              {/* <Link href="/user_inventory">
-                  <button className="text-sm font-semibold cursor-pointer text-blue-600 hover:underline">
-                    View My Inventory
-                  </button>
-                </Link> */}
               <UserFriendsTable />
             </div>
           </div>
         </main>
-        <UserFriendsAddPopup
+        <UserFriendsSearchPopup
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
         />
