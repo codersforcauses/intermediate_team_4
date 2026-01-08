@@ -1,27 +1,42 @@
 // src/pages/user_dashboard.tsx (Update the import path)
 //import "";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
+import { getFriends } from "../../../lib/api/friends";
+import { Friend } from "../../../types/friends";
 import FriendItemModal from "../popups/user_friends_select_popup";
 
-export type MyFriends = {
-  id: number;
-  name: string;
-};
+// export type MyFriends = {
+//   id: number;
+//   username: string;
+
+// };
+//   profile_picture?: string | null;
 
 const UserFriendsTable = () => {
-  const [selectedItem, setSelectedItem] = useState<MyFriends | null>(null);
+  // const [selectedItem, setSelectedItem] = useState<MyFriends | null>(null);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [friends, SetFriends] = useState<MyFriends[]>([]);
+  const [selectedItem, setSelectedItem] = useState<Friend | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [friends, setFriends] = useState<Friend[]>([]);
 
   // Mock data (replace with Django API call later)
-  const [friends, SetFriends] = useState<MyFriends[]>([]);
-  // Mock data (replace with Django API call later)
+  // useEffect(() => {
+  //   getFriends().then((res) => {
+  //     const normalized = res.data.friends.map((f: any) => ({
+  //       id: f.id,
+  //       username: f.username,
+  //       // profile_picture: f.profile_picture,
+  //     }));
+
+  //     SetFriends(normalized);
+  //   });
+  // }, []);
   useEffect(() => {
-    const mockFriend: MyFriends[] = Array.from({ length: 30 }, (_, i) => ({
-      id: i + 1,
-      name: `Friend ${i + 1}`,
-    }));
-    SetFriends(mockFriend);
+    getFriends().then((res) => {
+      setFriends(res.data.friends);
+    });
   }, []);
 
   return (
@@ -42,7 +57,7 @@ const UserFriendsTable = () => {
               }}
               className="flex items-center justify-between border-b px-3 py-3 last:border-b-0 hover:bg-gray-50"
             >
-              <span className="font-medium text-gray-800">{item.name}</span>
+              <span className="font-medium text-gray-800">{item.username}</span>
             </div>
           ))
         )}
