@@ -31,7 +31,7 @@ class InventoryItem(models.Model):
     expiryDate = models.DateField(blank=True, null=True)
     
     # auto_now_add sets the time automatically when the item is first created
-    date_added = models.DateTimeField(auto_now_add=True)
+    dateAdded = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
