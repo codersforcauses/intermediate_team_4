@@ -2,8 +2,27 @@
 //import "";
 
 import Link from "next/link";
+import { useState } from "react";
+
+import { useAuth } from "../../context/AuthContext";
+import UserFriendsRecieved from "../ui/popups/user_friends_recieved_popup";
+import UserFriendsSent from "../ui/popups/user_friends_sent_popup";
 
 const UserNavbar = () => {
+  const { user, logout } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState<"recieved" | "sent" | null>(
+    null,
+  );
+
+  // modal logic
+  // const handleOpen = () => {
+  //   setIsModalOpen(true);
+  // };
+  // const handleClose = () => {
+  //   setIsModalOpen(false);
+  // };
+
   return (
     <>
       {/* 1. Navigation Bar */}
@@ -72,17 +91,74 @@ const UserNavbar = () => {
                 My Inventory
               </button>
             </Link>
-            <Link href="/user_page">
-              <button className="rounded bg-blue-200 px-4 py-2 hover:bg-blue-300">
-                Profile
-              </button>
-            </Link>
+
+            {user ? (
+              <div className="flex items-center gap-4">
+                <div className="group relative">
+                  <Link href="/user_page">
+                    <button className="rounded bg-blue-200 px-4 py-2 hover:bg-blue-300">
+                      Hello, {user.username}
+                    </button>
+                  </Link>
+                  {/* Dropdown */}
+                  <div className="pointer-events-auto absolute left-0 top-full hidden w-56 rounded bg-white shadow-lg group-hover:block">
+                    <button
+                      className="rounded px-4 py-2 hover:bg-blue-100"
+                      onClick={() => {
+                        setActiveModal("recieved");
+                        setIsModalOpen(true);
+                      }}
+                    >
+                      Friend Requests Recieved
+                    </button>
+                    <button
+                      className="rounded px-4 py-2 hover:bg-blue-100"
+                      onClick={() => {
+                        setActiveModal("sent");
+                        setIsModalOpen(true);
+                      }}
+                    >
+                      Friend Requests Sent
+                    </button>
+                  </div>
+                </div>
+                <button
+                  onClick={logout}
+                  className="rounded bg-red-200 px-4 py-2 hover:bg-red-300"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div>
+                <Link href="/user_login">
+                  <button
+                    onClick={logout}
+                    className="rounded bg-blue-200 px-4 py-2 hover:bg-blue-300"
+                  >
+                    Login
+                  </button>
+                  {/* <a href="/user_login">Login</a> */}
+                </Link>
+              </div>
+            )}
           </div>
+          {activeModal === "recieved" && (
+            <UserFriendsRecieved
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+            />
+          )}
+          {activeModal === "sent" && (
+            <UserFriendsSent
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+            />
+          )}
         </nav>
       </div>
     </>
   );
 };
 
-// export to make the function available to other parts of the app
 export default UserNavbar;
