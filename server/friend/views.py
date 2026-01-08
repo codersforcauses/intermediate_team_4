@@ -46,7 +46,6 @@ class DeclineFriendRequest(APIView):
         friend_request.decline()
         return Response({"success": "Friend request declined"})
     
-# TESTING OUT
 class CancelFriendRequest(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -72,7 +71,6 @@ class MySentRequests(APIView):
         serializer = FriendRequestSerializer(requests, many=True)
         return Response(serializer.data)
 
-# TESTING OUT
 class RemoveFriends(APIView):
     permission_classes = [IsAuthenticated]
 

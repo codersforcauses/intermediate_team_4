@@ -7,15 +7,6 @@ import UserNavbar from "../components/ui/user_navbar";
 // import {useState, useEffect} from "react";
 import UserGroupsTable from "../components/ui/user_tables/user_groups_table";
 
-// type MyGroups = {
-//   id: number;
-//   name: string;
-// }
-
-{
-  /* optional: later have a list for friends in said groups or something in above "my groups" */
-}
-
 // The Header component is now one directory level up from 'pages',
 // so the path is '../components/Header'
 //import Header from '../components/Header';

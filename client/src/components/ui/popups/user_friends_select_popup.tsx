@@ -27,6 +27,8 @@ function UserFriendsSelectPopup({ isOpen, item, onClose }: ItemModalProps) {
           {/* Header */}
           {/* Avatar */}
           <ProfilePicture />
+          {/* Implement below when we implement a profile picture field */}
+
           {/* {profile_picture === Null ? ( 
             <ProfilePicture/>
           ) : (

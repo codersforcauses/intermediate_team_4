@@ -33,10 +33,10 @@ const UserFriendsPage = () => {
                 <h2 className="mb-2 text-xl font-semibold">My Friends</h2>
 
                 <button
-                  className="cursor-pointer text-sm font-semibold text-blue-600 hover:underline"
                   onClick={() => {
                     setIsModalOpen(true);
                   }}
+                  className="cursor-pointer text-sm font-semibold text-blue-600 hover:underline"
                 >
                   + Friends{" "}
                 </button>

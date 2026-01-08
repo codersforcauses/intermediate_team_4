@@ -15,14 +15,6 @@ const UserNavbar = () => {
     null,
   );
 
-  // modal logic
-  // const handleOpen = () => {
-  //   setIsModalOpen(true);
-  // };
-  // const handleClose = () => {
-  //   setIsModalOpen(false);
-  // };
-
   return (
     <>
       {/* 1. Navigation Bar */}
@@ -54,8 +46,8 @@ const UserNavbar = () => {
                 placeholder="Eg., Ky Kiske"
               />
               <button
-                className="absolute right-1 top-1 flex items-center rounded border border-transparent bg-slate-800 px-2.5 py-1 text-center text-sm text-white shadow-sm transition-all hover:bg-slate-700 hover:shadow focus:bg-slate-700 focus:shadow-none active:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button"
+                className="absolute right-1 top-1 flex items-center rounded border border-transparent bg-slate-800 px-2.5 py-1 text-center text-sm text-white shadow-sm transition-all hover:bg-slate-700 hover:shadow focus:bg-slate-700 focus:shadow-none active:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +130,6 @@ const UserNavbar = () => {
                   >
                     Login
                   </button>
-                  {/* <a href="/user_login">Login</a> */}
                 </Link>
               </div>
             )}

@@ -1,4 +1,4 @@
-import { removeFriend,sendFriendRequest } from "../../../lib/api/friends";
+import { removeFriend, sendFriendRequest } from "../../../lib/api/friends";
 import { OtherUsers } from "../user_tables/user_friends_add_table";
 
 const FriendAddItemModal = ({

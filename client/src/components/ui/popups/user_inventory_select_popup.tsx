@@ -3,6 +3,8 @@
 // import Link from "next/link";
 import React from "react";
 
+import ProfilePicture from "../profile_picture"; // Replace with item image when available
+
 type InventoryItem = {
   id: number;
   name: string;
@@ -31,12 +33,7 @@ function UserInventorySelectPopup({
         <div className="flex gap-4">
           {/* Header */}
           {/* Avatar */}
-          <div className="relative flex justify-between">
-            <div className="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-blue-500">
-              <div className="absolute top-5 h-12 w-12 rounded-full bg-blue-200"></div>
-              <div className="absolute -bottom-2 left-1/2 h-12 w-16 -translate-x-1/2 rounded-full bg-blue-200"></div>
-            </div>
-          </div>
+          <ProfilePicture />
           {/* Text column */}
           <div className="flex min-w-0 flex-1 flex-col">
             {/* Name */}
