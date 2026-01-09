@@ -1,8 +1,8 @@
 # Create your models here.
-# this is the db models 
+# this is the db models
 # you can have multiple tables here
 # whenever you make changes here do this
-# python manage.py makemigrations   
+# python manage.py makemigrations
 # python manage.py migrate
 
 from django.db import models
