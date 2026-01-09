@@ -87,7 +87,10 @@ const Header = () => {
             // to prevent the blur event from firing when they are clicked.
             onMouseDown={(e) => e.preventDefault()}
           >
-            <button className="dropdown-item">Switch to Client</button>
+            <Link href="/user_dashboard" className="dropdown-item">
+              {/* <button className="dropdown-item">Switch to Client</button> */}
+              <button>Switch to Client</button>
+            </Link>
             <button className="dropdown-item">Logout</button>
           </div>
         )}
