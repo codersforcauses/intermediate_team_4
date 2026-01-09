@@ -2,23 +2,31 @@ export const calcTime = (dateString: string | undefined): string => {
   if (!dateString) return "unknown time";
 
   try {
-    const date = new Date(dateString);
+    // 1. If the string contains 'T' but doesn't have a timezone offset,
+    // or if we want to treat the 'Z' as local time to match the user's intent:
+    let formattedString = dateString;
+    if (dateString.includes("T") && dateString.endsWith("Z")) {
+      // Remove the 'Z' so the browser interprets this as LOCAL time, not UTC
+      formattedString = dateString.slice(0, -1);
+    }
+
+    const date = new Date(formattedString);
     if (isNaN(date.getTime())) throw new Error("Invalid date");
 
     const now = new Date();
+
+    // 2. Standardize both to ignore milliseconds for cleaner math
     const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-    // 1. Check if the date is in the FUTURE
     const isFuture = diffInSeconds < 0;
-    const absDiff = Math.abs(diffInSeconds); // Use Absolute Value to remove the '-'
+    const absDiff = Math.abs(diffInSeconds);
 
-    // 2. Helper to format the string
     const formatLabel = (value: number, unit: string) => {
       return isFuture ? `in ${value} ${unit}` : `${value} ${unit} ago`;
     };
 
-    // 3. Logic for relative time using the absolute difference
-    if (absDiff < 60) return formatLabel(absDiff, "seconds");
+    // 3. Logic (Same as before)
+    if (absDiff < 60) return isFuture ? "due now" : "just now";
 
     const diffInMinutes = Math.floor(absDiff / 60);
     if (diffInMinutes < 60) return formatLabel(diffInMinutes, "minutes");
@@ -29,7 +37,7 @@ export const calcTime = (dateString: string | undefined): string => {
     const diffInDays = Math.floor(diffInHours / 24);
     return formatLabel(diffInDays, "days");
   } catch (error) {
-    return "invalid date: " + error;
+    return "invalid date" + error;
   }
 };
 

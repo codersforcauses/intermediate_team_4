@@ -26,7 +26,8 @@ const Organization_Activity_Page = () => {
     error: allError,
     refresh: allRefresh,
   }: organization_clean_backend_calls_return_interface = useOrganizationBackendGetItems(
-    "all",
+    "",
+    "",
   );
 
   console.log("Data from useOrganizationBackendGetItems:", allData);
@@ -41,7 +42,8 @@ const Organization_Activity_Page = () => {
     error: expiringError,
     refresh: expiringRefresh,
   }: organization_clean_backend_calls_return_interface = useOrganizationBackendGetItems(
-    "Expiring",
+    "",
+    "expiryDate",
   );
 
   console.log("Data from useOrganizationBackendGetItems:", expiringData);
@@ -55,7 +57,8 @@ const Organization_Activity_Page = () => {
     error: dueError,
     refresh: dueRefresh,
   }: organization_clean_backend_calls_return_interface = useOrganizationBackendGetItems(
-    "Due",
+    "",
+    "dueOn",
   );
 
   console.log("Data from useOrganizationBackendGetItems:", dueData);
@@ -69,7 +72,8 @@ const Organization_Activity_Page = () => {
     error: borrowedError,
     refresh: borrowedRefresh,
   }: organization_clean_backend_calls_return_interface = useOrganizationBackendGetItems(
-    "Borrowed",
+    "",
+    "borrowedOn",
   );
 
   console.log("Data from useOrganizationBackendGetItems:", borrowedData);
@@ -83,7 +87,8 @@ const Organization_Activity_Page = () => {
     error: returnedError,
     refresh: returnedRefresh,
   }: organization_clean_backend_calls_return_interface = useOrganizationBackendGetItems(
-    "Returned",
+    "",
+    "returnedOn",
   );
 
   console.log("Data from useOrganizationBackendGetItems:", returnedData);
