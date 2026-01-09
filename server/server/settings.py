@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "healthcheck",
     "user_profile",
     "friend"
+    "inventory",
 ]
 
 MIDDLEWARE = [
