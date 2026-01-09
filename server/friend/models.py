@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.utils import timezone
+# from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
@@ -13,18 +13,17 @@ class FriendList(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="friend_list")
     friends = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="friends_of")
-
-
     def __str__(self):
         return self.user.username
+        
     def add_friend(self, account):
         """
         Add a new friend
         """
-        if not account in self.friends.all():
+        if account not in self.friends.all():
             self.friends.add(account)
             self.save()
-    
+
     def remove_friend(self, account):
         """
         Remove a friend
@@ -37,7 +36,7 @@ class FriendList(models.Model):
         """
         Initiate action of unfriending someone
         """
-        remover_friends_list = self # person terminating friendship
+        remover_friends_list = self  # person terminating friendship
 
         # Remove friend from remover friend list
         remover_friends_list.remove_friend(removee)
@@ -55,9 +54,10 @@ class FriendList(models.Model):
             return True
         return False
 
+
 class FriendRequest(models.Model):
     """
-    Friend consists of two parts, 
+    Friend consists of two parts,
     1. Sender -- Person sending friend request
     2. Reciever -- Person recieving friend request
     """
@@ -69,7 +69,7 @@ class FriendRequest(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.sender.username
-    
+
     def accept(self):
         """
         Accept a friend request
