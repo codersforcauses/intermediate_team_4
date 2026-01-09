@@ -98,14 +98,19 @@ export const createItem = async (
 export const updateItem = async (
   id: number,
   newData: Inventory_Details_Interface,
-) => {
-  // Django usually expects a trailing slash after the ID
+): Promise<boolean> => {
   const response = await fetch(`${BASE_INVENTORY_URL}${id}/`, {
-    method: "PATCH",
+    method: "PATCH", // PATCH is better than PUT for Partial updates
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newData),
   });
-  return await response.json();
+
+  if (response.ok) return true;
+
+  // If it's not OK, let's see why
+  const errorText = await response.text();
+  console.error("Server Error Response:", errorText);
+  return false;
 };
 
 // --- DELETE: Remove an item ---
