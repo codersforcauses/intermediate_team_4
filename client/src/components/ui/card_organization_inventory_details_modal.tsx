@@ -45,6 +45,11 @@ interface Inventory_Details_Modal_Interface {
   itemData: Inventory_Details_Interface | null; // Data of the item to display
 }
 
+const deleteHelper = (id: number, onclose: () => void) => {
+  deleteItemClean(id || 0);
+  onclose();
+};
+
 const Inventory_Details_Modal: React.FC<Inventory_Details_Modal_Interface> = ({
   isOpen,
   onClose,
@@ -108,7 +113,7 @@ const Inventory_Details_Modal: React.FC<Inventory_Details_Modal_Interface> = ({
           </Link>
 
           <button
-            onClick={() => deleteItemClean(itemData.id || 0)}
+            onClick={() => deleteHelper(itemData.id || 0, onClose)}
             className="modal-action-button secondary"
           >
             Delete
