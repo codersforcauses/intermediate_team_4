@@ -56,11 +56,13 @@ function UserFriendsSelectPopup({
           {/* Text column */}
           <div className="flex min-w-0 flex-1 flex-col">
             {/* Name */}
-            <Link href="/user_friends">
+            {/* Replace below with logic to forward to unique profile of other user */}
+            <Link href="/user_profile_page">
               <h2 className="cursor-pointer truncate pl-5 pt-3 text-2xl font-bold hover:text-gray-900 hover:underline">
                 {item.username}
               </h2>
             </Link>
+
             {/* other */}
             <div className="mt-1 grid grid-cols-2 pl-5 pt-1">
               <p className="truncate text-gray-500"> User: {item.id}</p>
