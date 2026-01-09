@@ -55,3 +55,18 @@ class InventoryItemViewSet(viewsets.ModelViewSet):
         
         # 3. Return a simple response
         return Response({'count': count})
+    
+    # url = GET /api/inventory/countDueThisWeek/
+    @action(detail=False, methods=['get'])
+    def countDueLastWeek(self, request):
+        # 1. Define the time range
+        now = timezone.now()
+        one_week_ago = now - timedelta(days=7)
+        
+        # 2. Filter and count in the database (efficient!)
+        count = InventoryItem.objects.filter(
+            dueOn__range=[one_week_ago, now]
+        ).count()
+        
+        # 3. Return a simple response
+        return Response({'count': count})

@@ -21,7 +21,6 @@ import Header from "../components/ui/navbar_organization";
 
 const Organization_Dashboard = () => {
   // calling backend starts //
-
   // this is for calling the data for the modal
   const {
     data,
@@ -51,6 +50,22 @@ const Organization_Dashboard = () => {
   console.log("Error state:", countItemsDueThisWeekError);
   console.log("Refresh function:", countItemsDueThisWeekRefresh);
 
+  const {
+    data: countItemsDueLastWeekData,
+    loading: countItemsDueLastWeekLoading,
+    error: countItemsDueLastWeekError,
+    refresh: countItemsDueLastWeekRefresh,
+  }: organization_clean_backend_calls_return_number_interface = useOrganizationBackendCountItemsDueThisWeek();
+
+  console.log(
+    "Data from useOrganizationBackendCountItemsDueThisWeek:",
+    countItemsDueLastWeekData,
+  );
+  console.log("Loading state:", countItemsDueLastWeekLoading);
+  console.log("Error state:", countItemsDueLastWeekError);
+  console.log("Refresh function:", countItemsDueLastWeekRefresh);
+
+  const dueDifference = countItemsDueThisWeekData - countItemsDueLastWeekData;
   // calling backend ends //
 
   // This is for the overlay modal
@@ -116,7 +131,7 @@ const Organization_Dashboard = () => {
             <Statistics_Card
               title="Inventory Due"
               value={countItemsDueThisWeekData}
-              delta="-10 this week"
+              delta={`${dueDifference} this week`}
               status="down"
             />
           </div>
