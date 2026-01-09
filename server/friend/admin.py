@@ -3,6 +3,7 @@ from django.contrib import admin
 from friend.models import FriendRequest, FriendList
 # Register your models here.
 
+
 class FriendListAdmin(admin.ModelAdmin):
     list_filter = ['user']
     list_display = ['user']
@@ -12,7 +13,9 @@ class FriendListAdmin(admin.ModelAdmin):
     class Meta:
         model = FriendList
 
+
 admin.site.register(FriendList, FriendListAdmin)
+
 
 class FriendRequestAdmin(admin.ModelAdmin):
     list_filter = ['sender', 'receiver']
@@ -22,4 +25,6 @@ class FriendRequestAdmin(admin.ModelAdmin):
 
     class Meta:
         model = FriendRequest
+
+
 admin.site.register(FriendRequest, FriendRequestAdmin)
