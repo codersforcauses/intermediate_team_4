@@ -134,7 +134,7 @@ const Organization_Add_Product = () => {
   };
 
   return (
-    <main>
+    <main className="luxury-page-container">
       <Header />
       <div className="form-container">
         <h2 className="form-title">

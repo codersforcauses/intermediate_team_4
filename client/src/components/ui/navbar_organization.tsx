@@ -78,7 +78,7 @@ const Header = () => {
       >
         <div className="header-user">
           <div className="user-avatar-placeholder"></div>
-          <span>User</span>
+          <p className="user-avatar-user">User</p>
         </div>
 
         {isDropdownOpen && (
