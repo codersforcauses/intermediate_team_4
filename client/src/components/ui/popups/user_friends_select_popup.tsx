@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React from "react";
 
+import { removeFriend } from "../../../lib/api/friends";
 import ProfilePicture from "../profile_picture";
 
 type MyFriends = {
@@ -15,9 +16,25 @@ type ItemModalProps = {
   isOpen: boolean;
   item: MyFriends | null;
   onClose: () => void;
+  onFriendRemoved: (id: number) => void;
 };
 
-function UserFriendsSelectPopup({ isOpen, item, onClose }: ItemModalProps) {
+function UserFriendsSelectPopup({
+  isOpen,
+  item,
+  onClose,
+  onFriendRemoved,
+}: ItemModalProps) {
+  if (!item) return;
+  const handleRemoveFriend = async () => {
+    try {
+      await removeFriend(item.id);
+      onFriendRemoved(item.id);
+      onClose();
+    } catch (err) {
+      console.error("Failed to remove friend", err);
+    }
+  };
   if (!isOpen || !item) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
@@ -80,7 +97,7 @@ function UserFriendsSelectPopup({ isOpen, item, onClose }: ItemModalProps) {
             </button>
           </Link>
           <button
-            onClick={onClose}
+            onClick={handleRemoveFriend}
             className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700"
           >
             <div className="flex items-center justify-between">

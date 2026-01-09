@@ -11,6 +11,10 @@ const UserFriendsTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [friends, setFriends] = useState<Friend[]>([]);
 
+  const handleFriendRemoved = (id: number) => {
+    setFriends((prev) => prev.filter((friend) => friend.id !== id));
+  };
+
   useEffect(() => {
     getFriends().then((res) => {
       setFriends(res.data.friends);
@@ -44,6 +48,7 @@ const UserFriendsTable = () => {
         isOpen={isModalOpen}
         item={selectedItem}
         onClose={() => setIsModalOpen(false)}
+        onFriendRemoved={handleFriendRemoved}
       />
     </>
   );
