@@ -1,16 +1,19 @@
+// @author sylee212
 // src/hooks/organization_clean_backend_calls.ts
-import SWR, { KeyedMutator } from "swr";
+import useSWR, { KeyedMutator } from "swr";
 
 import { Member_Details_Interface } from "@/components/ui/card_organization_member_details_modal";
 
 import type { Inventory_Details_Interface } from "../card_organization_inventory_details_modal";
 import {
-  BASE_URL,
+  BASE_INVENTORY_URL,
   createItem,
   createMember,
   deleteItem,
+  django_count_response_interface,
   getItems,
   getMembers,
+  getWeeklyReportByField,
   updateItem,
   updateMember,
 } from "./organization_call_backend";
@@ -45,6 +48,17 @@ export interface organization_clean_backend_calls_return_boolean_members_interfa
   refresh: KeyedMutator<boolean>; // Optional refresh function
 }
 
+export interface organization_clean_backend_calls_return_count_interface {
+  // data? means "if data exists". ?? 0 means "otherwise use 0"
+  thisWeek: number;
+  lastWeek: number;
+  difference: number;
+  loading: boolean;
+  error: Error | null;
+  isSuccess: boolean;
+  refresh: KeyedMutator<django_count_response_interface>; // Optional refresh function
+}
+
 /*
 This is the class that will call the backend to get the item data / set the item data / update the item data/ delete the item data
 
@@ -54,9 +68,6 @@ Remember, this will only be invoked once, when its mounted, if you want to call 
 // 1. Define a simple fetcher function (standard for SWR)
 // const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-// this is the one that will work with the clean function from api call
-const fetcher = () => getItems("all");
-
 /*
 Even if we are calling mocks, we need to  SWR
 
@@ -64,7 +75,8 @@ filterType: d to add to backend url call
 isDev: true if we want to  mock data
 */
 export const useOrganizationBackendGetItems = (
-  filterType: string,
+  category: string,
+  sortBy: string,
 ): organization_clean_backend_calls_return_interface => {
   // 2. SWR handles the state, the effect, and the async logic
   // SWR(key, fetcher, options)
@@ -116,9 +128,27 @@ export const useOrganizationBackendGetItems = (
   // mutate? what is that, so lets say we do polling every 30seconds and
   // ther is an inventory update that happened in between the 30seconds
   // SWR will immediately
-  const { data, error, isLoading, mutate } = SWR(
-    [`${BASE_URL}`, filterType], // The "Key" (Unique identifier)
-    fetcher, // The "Fetcher" (Your function)
+
+  // generate the URL
+  // 1. GENERATE THE URL STRING
+  // Instead of complex if/else, we use URLSearchParams
+  const params = new URLSearchParams();
+  if (category && category !== "") params.append("categories", category); // Django expects 'categories'
+  if (sortBy && sortBy !== "") params.append("ordering", sortBy); // Django expects 'ordering'
+
+  // If params exist, add '?' and the params, otherwise just the base URL
+  const queryString = params.toString();
+
+  // 2. Fix the URL construction
+  // We need backticks ` ` to use ${}
+  // We need to add 'items/' because the router is registered there
+  const finalUrl = queryString
+    ? `${BASE_INVENTORY_URL}?${queryString}`
+    : `${BASE_INVENTORY_URL}`;
+
+  const { data, error, isLoading, mutate } = useSWR(
+    finalUrl, // The "Key" (Unique identifier)
+    getItems, // The "Fetcher" (Your function)
     {
       refreshInterval: 30, // Poll every 30 seconds 30000ms
       revalidateOnFocus: true, // Refresh when r clicks back into the tab
@@ -127,6 +157,32 @@ export const useOrganizationBackendGetItems = (
 
   const res: organization_clean_backend_calls_return_interface = {
     data: data || [],
+    loading: isLoading,
+    error: error,
+    isSuccess: !isLoading && !error,
+    refresh: mutate, // SWR calls its refresh function "mutate"
+  };
+
+  return res;
+};
+
+export const useOrganizationBackendGetWeeklyReportByField = (
+  URL: string,
+): organization_clean_backend_calls_return_count_interface => {
+  const { data, error, isLoading, mutate } = useSWR(
+    URL, // The "Key" (Unique identifier)
+    getWeeklyReportByField, // The "Fetcher" (Your function)
+    {
+      refreshInterval: 30, // Poll every 30 seconds 30000ms
+      revalidateOnFocus: true, // Refresh when r clicks back into the tab
+    },
+  );
+
+  const res: organization_clean_backend_calls_return_count_interface = {
+    thisWeek: data?.thisWeek || 0,
+    lastWeek: data?.lastWeek || 0,
+    difference: data?.difference || 0,
+
     loading: isLoading,
     error: error,
     isSuccess: !isLoading && !error,
@@ -180,12 +236,13 @@ Even if we are calling mocks, we need to  SWR
 
 filterType: d to add to backend url call
 isDev: true if we want to  mock data
+  // PENDING
 */
 export const useOrganizationBackendGetMembers = (
   filterType: string,
 ): organization_clean_backend_calls_return_get_members_interface => {
-  const { data, error, isLoading, mutate } = SWR(
-    [`${BASE_URL}`, filterType], // The "Key" (Unique identifier)
+  const { data, error, isLoading, mutate } = useSWR(
+    [`${BASE_INVENTORY_URL}`, filterType], // The "Key" (Unique identifier)
     fetcher2, // The "Fetcher" (Your function)
     {
       refreshInterval: 30, // Poll every 30 seconds 30000ms
@@ -246,7 +303,7 @@ export const deleteMemberClean = async (memberId: number): Promise<boolean> => {
 
 //   // to  SWR for PUT
 //   const { data, error, isLoading, mutate } = SWR(
-//     [`${BASE_URL}`, "newItem"],
+//     [`${BASE_INVENTORY_URL}`, "newItem"],
 //     () => createItem(itemData),
 //     {
 //       revalidateOnFocus: true,

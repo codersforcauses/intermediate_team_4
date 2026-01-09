@@ -1,3 +1,4 @@
+// @author sylee212
 // src/hooks/organization_call_backend.ts
 // Change this URL to match your backend API endpoint
 
@@ -7,14 +8,23 @@ import { generateRandomMockInventoryDetails } from "@/mocks/Inventory_Details_In
 import { generateMockMember } from "@/mocks/Members_Details_Interface_Mocks";
 
 // tha main URL
-export const BASE_URL = "http://localhost:8000/api/activities/";
+export const BASE_INVENTORY_URL = "http://localhost:8000/api/inventory/";
+export const WEEKLY_REPORT_BY_FIELD =
+  "http://localhost:8000/api/inventory/weeklyReportByField/";
+
+export interface django_count_response_interface {
+  field: number;
+  thisWeek: number;
+  lastWeek: number;
+  difference: number;
+}
 
 // change when backend is ready
-const isDev: boolean = true;
+const isDev: boolean = false;
 
 // --- GET: Fetch all items ---
 export const getItems = async (
-  filterType: string,
+  URL: string,
 ): Promise<Inventory_Details_Interface[]> => {
   if (isDev) {
     // Mock data for development
@@ -27,7 +37,8 @@ export const getItems = async (
   } else {
     // 1. Fetch from Django
     // fetch() is used to get the data from backend using URL
-    const response = await fetch(`${BASE_URL}?type=${filterType}`);
+    // `${}` is place holders for code, anything inside the curly braces is code
+    const response = await fetch(`${URL}`);
 
     // 2. Check if the request was successful
     if (!response.ok) throw new Error("Failed to fetch");
@@ -39,6 +50,22 @@ export const getItems = async (
     // it converts raw bytes to Javascript objects
     return await response.json(); // Returns the list from Django
   }
+};
+
+export const getWeeklyReportByField = async (
+  URL: string,
+): Promise<django_count_response_interface> => {
+  const response = await fetch(`${URL}`);
+
+  // 2. Check if the request was successful
+  if (!response.ok) throw new Error("Failed to fetch");
+
+  // 3. Parse the JSON data
+  // because fetcah returns a response, it isnt the data yet,
+  // its just the response header,
+  // you will need to use .json() to get the data
+  // it converts raw bytes to Javascript objects
+  return await response.json(); // Returns the list from Django
 };
 
 // --- POST: Create a new item ---
@@ -53,14 +80,18 @@ export const createItem = async (
     console.log("Mock create item called with data:", newData);
     return true; // Simulate successful creation
   } else {
-    const response = await fetch(BASE_URL, {
+    const response = await fetch(BASE_INVENTORY_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newData),
     });
 
-    // must return true when coding backend
-    return await response.json();
+    if (response.ok) return true;
+
+    // If it's not OK, let's see why
+    const errorText = await response.text();
+    console.error("Server Error Response:", errorText);
+    return false;
   }
 };
 
@@ -68,19 +99,24 @@ export const createItem = async (
 export const updateItem = async (
   id: number,
   newData: Inventory_Details_Interface,
-) => {
-  // Django usually expects a trailing slash after the ID
-  const response = await fetch(`${BASE_URL}${id}/`, {
-    method: "PATCH",
+): Promise<boolean> => {
+  const response = await fetch(`${BASE_INVENTORY_URL}${id}/`, {
+    method: "PATCH", // PATCH is better than PUT for Partial updates
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newData),
   });
-  return await response.json();
+
+  if (response.ok) return true;
+
+  // If it's not OK, let's see why
+  const errorText = await response.text();
+  console.error("Server Error Response:", errorText);
+  return false;
 };
 
 // --- DELETE: Remove an item ---
 export const deleteItem = async (id: number) => {
-  const response = await fetch(`${BASE_URL}${id}/`, {
+  const response = await fetch(`${BASE_INVENTORY_URL}${id}/`, {
     method: "DELETE",
   });
   // DELETE usually returns a 204 No Content status, so we don't always .json() it
@@ -89,6 +125,7 @@ export const deleteItem = async (id: number) => {
 
 // MEMBERS SECTION
 
+// PENDING
 export const getMembers = async (
   filterType: string,
 ): Promise<Member_Details_Interface[]> => {
@@ -103,7 +140,7 @@ export const getMembers = async (
   } else {
     // 1. Fetch from Django
     // fetch() is used to get the data from backend using URL
-    const response = await fetch(`${BASE_URL}?type=${filterType}`);
+    const response = await fetch(`${BASE_INVENTORY_URL}?type=${filterType}`);
 
     // 2. Check if the request was successful
     if (!response.ok) throw new Error("Failed to fetch");
@@ -124,7 +161,7 @@ export const createMember = async (
     console.log("Mock create Member called with data:", newData);
     return true; // Simulate successful creation
   } else {
-    const response = await fetch(BASE_URL, {
+    const response = await fetch(BASE_INVENTORY_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -141,7 +178,7 @@ export const updateMember = async (
   newData: Member_Details_Interface,
 ) => {
   // Django usually expects a trailing slash after the ID
-  const response = await fetch(`${BASE_URL}${id}/`, {
+  const response = await fetch(`${BASE_INVENTORY_URL}${id}/`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newData),
@@ -151,7 +188,7 @@ export const updateMember = async (
 
 // --- DELETE: Remove an Member ---
 export const deleteMember = async (id: number) => {
-  const response = await fetch(`${BASE_URL}${id}/`, {
+  const response = await fetch(`${BASE_INVENTORY_URL}${id}/`, {
     method: "DELETE",
   });
   // DELETE usually returns a 204 No Content status, so we don't always .json() it

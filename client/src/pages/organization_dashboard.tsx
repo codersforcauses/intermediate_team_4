@@ -1,12 +1,16 @@
+// @author sylee212
 // src/pages/organization_dashboard.tsx
 
 // The Header component is now one directory level up from 'pages',
 // so the path is '../components/Header'
 import { useState } from "react";
 
+import { WEEKLY_REPORT_BY_FIELD } from "@/components/ui/backend/organization_call_backend";
 import {
+  organization_clean_backend_calls_return_count_interface,
   organization_clean_backend_calls_return_interface,
   useOrganizationBackendGetItems,
+  useOrganizationBackendGetWeeklyReportByField,
 } from "@/components/ui/backend/organization_clean_backend_calls";
 import Inventory_Details_Modal, {
   Inventory_Details_Interface,
@@ -18,6 +22,7 @@ import Statistics_Card from "../components/ui/card_organization_statistics";
 import Header from "../components/ui/navbar_organization";
 
 const Organization_Dashboard = () => {
+  // calling backend starts //
   // this is for calling the data for the modal
   const {
     data,
@@ -25,11 +30,148 @@ const Organization_Dashboard = () => {
     error,
     refresh,
   }: organization_clean_backend_calls_return_interface =
-    useOrganizationBackendGetItems("all");
+    useOrganizationBackendGetItems("", "");
   console.log("Data from useOrganizationBackendGetItems:", data);
   console.log("Loading state:", loading);
   console.log("Error state:", error);
   console.log("Refresh function:", refresh);
+
+  const {
+    thisWeek: countItemsDueThisWeek,
+    lastWeek: countItemsDueLastWeek,
+    difference: countItemsDueDifference,
+    loading: countItemsDueLoading,
+    error: countItemsDueError,
+    refresh: countItemsDueRefresh,
+  }: organization_clean_backend_calls_return_count_interface = useOrganizationBackendGetWeeklyReportByField(
+    `${WEEKLY_REPORT_BY_FIELD}?field=dueOn`,
+  );
+
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsDueThisWeek,
+  );
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsDueLastWeek,
+  );
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsDueDifference,
+  );
+  console.log("Loading state:", countItemsDueLoading);
+  console.log("Error state:", countItemsDueError);
+  console.log("Refresh function:", countItemsDueRefresh);
+
+  const {
+    thisWeek: countItemsExpiringThisWeek,
+    lastWeek: countItemsExpiringLastWeek,
+    difference: countItemsExpiringDifference,
+    loading: countItemsExpiringLoading,
+    error: countItemsExpiringError,
+    refresh: countItemsExpiringRefresh,
+  }: organization_clean_backend_calls_return_count_interface = useOrganizationBackendGetWeeklyReportByField(
+    `${WEEKLY_REPORT_BY_FIELD}?field=expiryDate`,
+  );
+
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsExpiringThisWeek,
+  );
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsExpiringLastWeek,
+  );
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsExpiringDifference,
+  );
+  console.log("Loading state:", countItemsExpiringLoading);
+  console.log("Error state:", countItemsExpiringError);
+  console.log("Refresh function:", countItemsExpiringRefresh);
+
+  const {
+    thisWeek: countItemsBorrowedThisWeek,
+    lastWeek: countItemsBorrowedLastWeek,
+    difference: countItemsBorrowedDifference,
+    loading: countItemsBorrowedLoading,
+    error: countItemsBorrowedError,
+    refresh: countItemsBorrowedRefresh,
+  }: organization_clean_backend_calls_return_count_interface = useOrganizationBackendGetWeeklyReportByField(
+    `${WEEKLY_REPORT_BY_FIELD}?field=borrowedOn`,
+  );
+
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsBorrowedThisWeek,
+  );
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsBorrowedLastWeek,
+  );
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsBorrowedDifference,
+  );
+  console.log("Loading state:", countItemsBorrowedLoading);
+  console.log("Error state:", countItemsBorrowedError);
+  console.log("Refresh function:", countItemsBorrowedRefresh);
+
+  const {
+    thisWeek: countItemsReturnedThisWeek,
+    lastWeek: countItemsReturnedLastWeek,
+    difference: countItemsReturnedDifference,
+    loading: countItemsReturnedLoading,
+    error: countItemsReturnedError,
+    refresh: countItemsReturnedRefresh,
+  }: organization_clean_backend_calls_return_count_interface = useOrganizationBackendGetWeeklyReportByField(
+    `${WEEKLY_REPORT_BY_FIELD}?field=returnedOn`,
+  );
+
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsReturnedThisWeek,
+  );
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsReturnedLastWeek,
+  );
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsReturnedDifference,
+  );
+  console.log("Loading state:", countItemsReturnedLoading);
+  console.log("Error state:", countItemsReturnedError);
+  console.log("Refresh function:", countItemsReturnedRefresh);
+
+  const {
+    thisWeek: countItemsDateAddedThisWeek,
+    lastWeek: countItemsDateAddedLastWeek,
+    difference: countItemsDateAddedDifference,
+    loading: countItemsDateAddedLoading,
+    error: countItemsDateAddedError,
+    refresh: countItemsDateAddedRefresh,
+  }: organization_clean_backend_calls_return_count_interface = useOrganizationBackendGetWeeklyReportByField(
+    `${WEEKLY_REPORT_BY_FIELD}?field=dateAdded`,
+  );
+
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsDateAddedThisWeek,
+  );
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsDateAddedLastWeek,
+  );
+  console.log(
+    "Data from useOrganizationBackendGetItems:",
+    countItemsDateAddedDifference,
+  );
+  console.log("Loading state:", countItemsDateAddedLoading);
+  console.log("Error state:", countItemsDateAddedError);
+  console.log("Refresh function:", countItemsDateAddedRefresh);
+
+  // calling backend ends //
 
   // This is for the overlay modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,32 +211,32 @@ const Organization_Dashboard = () => {
             {/* This class will control the layout of the 5 cards */}
             <Statistics_Card
               title="Total Inventory"
-              value={30}
-              delta="+3 this week"
+              value={countItemsDateAddedThisWeek}
+              delta={`${countItemsDateAddedDifference} this week`}
               status="up"
             />
             <Statistics_Card
               title="Total Borrowed"
-              value={50}
-              delta="+3 this week"
+              value={countItemsBorrowedThisWeek}
+              delta={`${countItemsBorrowedDifference} this week`}
               status="up"
             />
             <Statistics_Card
               title="Total Returned"
-              value={40}
-              delta="+3 this week"
+              value={countItemsReturnedThisWeek}
+              delta={`${countItemsReturnedDifference} this week`}
               status="up"
             />
             <Statistics_Card
               title="Expiring Inventory"
-              value={2}
-              delta="-10 this week"
+              value={countItemsExpiringThisWeek}
+              delta={`${countItemsExpiringDifference} this week`}
               status="down"
             />
             <Statistics_Card
               title="Inventory Due"
-              value={2}
-              delta="-10 this week"
+              value={countItemsDueThisWeek}
+              delta={`${countItemsDueDifference} this week`}
               status="down"
             />
           </div>

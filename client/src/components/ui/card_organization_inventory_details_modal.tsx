@@ -1,3 +1,4 @@
+// @author sylee212
 // src/components/card_organization_inventory_details_modal.tsx
 
 /*
@@ -27,7 +28,7 @@ interface Inventory_Details_Interface {
   name: string;
   details: string;
   categories?: string;
-  availability?: string;
+  availability?: boolean;
   organization?: string;
   collectionPoint: string;
   borrowerName?: string;
@@ -44,6 +45,11 @@ interface Inventory_Details_Modal_Interface {
   onClose: () => void;
   itemData: Inventory_Details_Interface | null; // Data of the item to display
 }
+
+const deleteHelper = (id: number, onclose: () => void) => {
+  deleteItemClean(id || 0);
+  onclose();
+};
 
 const Inventory_Details_Modal: React.FC<Inventory_Details_Modal_Interface> = ({
   isOpen,
@@ -108,7 +114,7 @@ const Inventory_Details_Modal: React.FC<Inventory_Details_Modal_Interface> = ({
           </Link>
 
           <button
-            onClick={() => deleteItemClean(itemData.id || 0)}
+            onClick={() => deleteHelper(itemData.id || 0, onClose)}
             className="modal-action-button secondary"
           >
             Delete

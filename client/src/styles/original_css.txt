@@ -31,32 +31,12 @@ color-error: #dc3545;   Red for down/negative trends
 color-card-background: #eeeeee; Light gray for the card body 
 color-text-dark: #333333;
  */
+ 
 :root {
-    /* Base Colors */
-    --color-bg-deep: #0a0a0a;         /* Pitch Black */
-    --color-bg-card: #161616;         /* obsidian */
-    --color-bg-alt: #1f1f1f;          /* Charcoal */
-    
-    /* Luxury Gold Palette */
-    --color-gold-primary: #d4af37;    /* Classic Metallic Gold */
-    --color-gold-bright: #f1c40f;     /* Champagne Gold */
-    --color-gold-muted: #8c6d1d;      /* Bronze Shadow */
-    
-    /* Functional Colors (Noir Style) */
-    --color-success: #27ae60;        /* Emerald Green (for trends) */
-    --color-error: #c0392b;          /* Deep Crimson (for trends) */
-    
-    /* Text & Borders */
-    --color-text-main: #f5f5f5;       /* Off-White */
-    --color-text-muted: #888888;      /* Dimmed Gray */
-    --color-text-subtitle: #a68d5d;   /* Champagne Muted - Best for subtitles */
-    --color-border: #2a2a2a;          /* Subtle Slate Border */
-    --color-border-gold: rgba(212, 175, 55, 0.3);
-
-    /* Gradients & Shadows */
-    --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%);
-    --gold-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-    --shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.7);
+    --color-success: #198754; /* Green for up/positive trends */
+    --color-error: #dc3545;   /* Red for down/negative trends */
+    --color-card-background: #eeeeee; /* Light gray for the card body */
+    --color-text-dark: #333333;
 }
 
 .dashboard-container {
@@ -149,10 +129,6 @@ This is for the logo section
     background-color: #4a77e5; 
     border: 2px solid #ffffff; 
     box-shadow: 0 0 0 2px #4a77e5; 
-}
-
-.user-avatar-user {
-    color: var(--color-text-main);
 }
 
 /* 1. Wrapper for Relative Positioning */
@@ -387,16 +363,14 @@ gap: 30px: adds space between the two columns
     font-size: 20px;
     font-weight: 600;
     margin: 0;
-    color: var(--color-text-main)
 }
 
 .activity-view-all {
+    color: #4a77e5; /* Blue color */
+    text-decoration: none;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-}
-.activity-view-all:hover {
-  color: #4a77e5; /* Blue color */
 }
 
 /* --- SCROLLABLE RECENT ACTIVITY LIST CONTAINER --- */
@@ -452,7 +426,6 @@ gap: 30px: adds space between the two columns
 }
 
 .activity-title {
-    color: var(--color-text-main);
     font-size: 15px;
     font-weight: 500;
     margin: 0;
@@ -461,14 +434,14 @@ gap: 30px: adds space between the two columns
 
 .activity-detail {
     font-size: 13px;
-    color: var(--color-text-subtitle);
+    color: #888;
     margin: 0;
     line-height: 1.2;
 }
 
 .activity-type {
     font-size: 13px;
-    color: var(--color-text-subtitle);
+    color: #888;
     margin: 0;
     line-height: 1.2;
 }
@@ -515,7 +488,6 @@ gap: 30px: adds space between the two columns
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    color: var(--color-gold-primary); 
 }
 
 .inv-card-title {
@@ -525,17 +497,15 @@ gap: 30px: adds space between the two columns
 }
 
 .inv-view-all {
+    color: #4a77e5; /* Blue color */
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
 }
 
-.inv-view-all:hover {
-  color: #4a77e5; /* Blue color */
-}
-
 /* --- INVENTORY STATUS ITEM STYLES --- */
 .inv-status-item {
+    background-color: #ffffff; /* White background for the item box */
     border-radius: 8px;
     padding: 10px 15px;
     margin-bottom: 8px;
@@ -551,12 +521,12 @@ gap: 30px: adds space between the two columns
 
 .inv-item-name {
     font-weight: 500;
-    color: var(--color-text-main);
+    color: var(--color-text-dark);
 }
 
 .inv-item-detail {
     font-weight: 400;
-    color: var(--color-text-subtitle); /* Make the status detail blue for visibility */
+    color: #4a77e5; /* Make the status detail blue for visibility */
 }
 
 .inv-item-list {
@@ -735,6 +705,7 @@ gap: 30px: adds space between the two columns
   max-width: 450px;
   margin: 40px auto;
   padding: 24px;
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -791,7 +762,6 @@ gap: 30px: adds space between the two columns
 }
 
 .inventory-title {
-    color: var(--color-text-main);
     font-size: 3xl;
     font-weight: bold;
     text-align: center;
@@ -859,7 +829,6 @@ gap: 30px: adds space between the two columns
 
 
 .member-title {
-    color: var(--color-text-main);
     font-size: 3xl;
     font-weight: bold;
     text-align: center;
@@ -897,219 +866,4 @@ gap: 30px: adds space between the two columns
 .member-card:hover {
   transform: translateY(-5px); /* Lift up slightly when hovering */
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* --- NOIR & GOLD LUXURY THEME --- */
-
-
-
-/* --- BASE LAYOUT --- */
-.dashboard-container {
-    background-color: var(--color-bg-deep);
-}
-
-.dashboard-content {
-    background-color: var(--color-bg-deep);
-    color: var(--color-text-main);
-}
-
-/* --- HEADER --- */
-.app-header {
-    background-color: #000000;
-    border-bottom: 1px solid var(--color-border-gold);
-    padding: 15px 40px;
-}
-
-.header-logo span {
-    color: var(--color-gold-primary);
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-weight: 800;
-}
-
-.header-nav ul li {
-    color: var(--color-text-muted);
-}
-
-.header-nav li:hover {
-    color: var(--color-gold-bright);
-    text-shadow: var(--gold-shadow);
-}
-
-.user-avatar-placeholder {
-    background-color: var(--color-gold-primary);
-    border: 2px solid #000;
-    box-shadow: 0 0 0 2px var(--color-gold-primary);
-}
-
-/* --- STATISTICS CARDS --- */
-.stat-card {
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-}
-
-.stat-card:hover {
-    border-color: var(--color-gold-primary);
-    box-shadow: var(--gold-shadow);
-    transform: translateY(-2px);
-    transition: all 0.3s ease;
-}
-
-.stat-title { color: var(--color-text-muted); }
-.stat-value { color: var(--color-gold-primary); }
-
-/* --- QUICK ACTIONS (The Gold Panel) --- */
-.quick-actions-card {
-    background: var(--gold-gradient);
-    color: #000; /* Black text on gold is more luxurious */
-    box-shadow: var(--shadow-premium);
-}
-
-.quick-actions-title {
-    color: #000;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.action-button.primary {
-    background-color: rgba(0, 0, 0, 0.1);
-    color: #000;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.action-button.primary:hover {
-    background-color: #000;
-    color: var(--color-gold-bright);
-}
-
-.action-button.secondary {
-    background-color: #000;
-    color: var(--color-gold-primary);
-}
-
-.action-button.secondary:hover {
-    background-color: var(--color-bg-alt);
-    color: var(--color-gold-bright);
-}
-
-/* --- PANELS & LISTS --- */
-.recent-activity-card, .inv-status-card {
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-}
-
-.activity-card-header, .activity-item, .inv-status-item {
-    border-bottom: 1px solid var(--color-border);
-}
-
-.activity-item:hover, .inv-status-item:hover {
-    background-color: var(--color-bg-alt);
-}
-
-.activity-view-all, .inv-view-all {
-    color: var(--color-gold-primary);
-}
-
-.activity-view-all:hover {
-    color: var(--color-gold-bright);
-    text-decoration: underline;
-}
-
-/* --- MODALS --- */
-.modal-overlay {
-    background-color: rgba(0, 0, 0, 0.9);
-}
-
-.modal-content {
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-gold-primary);
-    box-shadow: var(--gold-shadow);
-    color: var(--color-text-main);
-}
-
-.modal-detail-label { color: var(--color-gold-primary); }
-.modal-detail-value { color: var(--color-text-main); }
-
-.modal-action-button.secondary {
-    background-color: var(--color-bg-alt);
-    color: var(--color-text-main);
-    border: 1px solid var(--color-border);
-}
-
-.modal-action-button.secondary:hover {
-    border-color: var(--color-gold-primary);
-    color: var(--color-gold-primary);
-}
-
-/* --- FORMS --- */
-.form-container {
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border-gold);
-}
-
-.form-label, .form-title { color: var(--color-gold-primary); }
-
-.form-input, .form-textarea {
-    background-color: var(--color-bg-deep);
-    border: 1px solid var(--color-border);
-    color: var(--color-text-main);
-}
-
-.form-input:focus {
-    border-color: var(--color-gold-primary);
-    box-shadow: var(--gold-shadow);
-}
-
-.btn-save {
-    background: var(--gold-gradient);
-    color: #000;
-    font-weight: 800;
-    text-transform: uppercase;
-}
-
-.btn-cancel {
-    background-color: var(--color-bg-alt);
-    color: var(--color-text-main);
-}
-
-/* --- INVENTORY & MEMBER PAGES --- */
-.inventory-page, .member-page {
-    background-color: var(--color-bg-deep);
-}
-
-.inventory-card, .member-card {
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    color: var(--color-text-main);
-}
-
-.inventory-card:hover, .member-card:hover {
-    border-color: var(--color-gold-primary);
-    transform: translateY(-5px);
-    box-shadow: var(--gold-shadow);
-}
-
-.item-name, .member-name { color: var(--color-gold-primary); }
-.item-detail, .member-detail { color: var(--color-text-muted); }
-
-/* --- CUSTOM SCROLLBAR --- */
-.activity-list::-webkit-scrollbar, .inv-item-list::-webkit-scrollbar {
-    width: 6px;
-}
-.activity-list::-webkit-scrollbar-thumb, .inv-item-list::-webkit-scrollbar-thumb {
-    background: var(--color-gold-muted);
-    border-radius: 10px;
-}
-
-.luxury-page-container {
-    /* Deep gradient to give the background depth rather than just flat black */
-    background: radial-gradient(circle at top, #1a1a1a 0%, #050505 100%);
-}
-
-html, body {
-    background-color: var(--color-bg-deep); /* Use the pitch black variable */
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
 }
