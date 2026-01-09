@@ -123,6 +123,7 @@ export const Member_Details_Modal: React.FC<Member_Details_Modal_Interface> = ({
             <div className="modal-action-button secondary">Modify</div>
           </Link>
 
+          {/*   // PENDING */}
           <button
             onClick={() => deleteItemClean(itemData.id || 0)}
             className="modal-action-button secondary"

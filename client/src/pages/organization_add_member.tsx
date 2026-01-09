@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useSWRConfig } from "swr/_internal";
 
-import { BASE_URL } from "@/components/ui/backend/organization_call_backend";
+// PENDING
+import { BASE_INVENTORY_URL } from "@/components/ui/backend/organization_call_backend";
 // import { createItem } from '../hooks/organization_call_backend';
 import {
   createMemberClean,
@@ -95,8 +96,8 @@ const Organization_Add_Member = () => {
         await createMemberClean({ ...formData } as Member_Details_Interface);
 
         // 3. Tell SWR to refresh the Dashboard data
-        // This tells SWR: "The data at BASE_URL is old, please go get the new list!"
-        mutate([`${BASE_URL}`, "all"]);
+        // This tells SWR: "The data at BASE_INVENTORY_URL is old, please go get the new list!"
+        mutate([`${BASE_INVENTORY_URL}`, "all"]);
 
         alert("Member created!");
       } else {
@@ -104,8 +105,8 @@ const Organization_Add_Member = () => {
         await updateMemberClean(formData);
 
         // 3. Tell SWR to refresh the Dashboard data
-        // This tells SWR: "The data at BASE_URL is old, please go get the new list!"
-        mutate([`${BASE_URL}`, "all"]);
+        // This tells SWR: "The data at BASE_INVENTORY_URL is old, please go get the new list!"
+        mutate([`${BASE_INVENTORY_URL}`, "all"]);
 
         alert("Member updated!");
       }
