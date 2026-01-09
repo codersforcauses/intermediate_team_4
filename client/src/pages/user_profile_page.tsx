@@ -1,8 +1,21 @@
 import Head from "next/head";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import User_Navbar from "../components/ui/user_navbar";
+import { useAuth } from "../context/AuthContext";
+import { getFriends } from "../lib/api/friends";
+import { Friend } from "../types/friends";
 
 export default function UserPage() {
+  const [friends, setFriends] = useState<Friend[]>([]);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    getFriends().then((res) => {
+      setFriends(res.data.friends);
+    });
+  }, []);
   return (
     <>
       <Head>
@@ -54,7 +67,11 @@ export default function UserPage() {
 
           {/* User details */}
           <h2 style={{ marginTop: "25px", fontSize: "28px" }}>
-            New User 12345678
+            {user?.username}
+
+            {/* Should instead be an api call for friends name of curent user profile viewed, 
+              not necessarily the current logged in user, update later in backend and frontend, 
+              (could update existing views with permissions of auth allowing interactivity ?? ) */}
           </h2>
           <p style={{ color: "#666", marginBottom: "40px", fontSize: "18px" }}>
             Perth, Western Australia
@@ -69,10 +86,24 @@ export default function UserPage() {
             }}
           >
             <Stat label="Borrowed" value={0} />
-            <Stat label="Friends" value={0} />
+            <Link href="./user_friends">
+              <Stat label="Friends" value={friends.length} />
+            </Link>
+
+            {/* Should instead be an api call for friends number of curent user profile viewed, 
+            not necessarily the current logged in user, update later in backend and frontend, 
+            and link should also point to specific page for friends of user being viewed 
+            (could update existing views with permissions of auth allowing interactivity ?? ) */}
+
             <Stat label="Mutual friends" value={0} />
             <Stat label="Clubs joined" value={0} />
           </div>
+          {/* { user === profile_user (
+
+            ) : (
+              <Stat label="Mutual friends" value={0} />
+            )
+            } */}
         </div>
       </div>
     </>

@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-
+from datetime import timedelta
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -46,13 +46,16 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # "django_extensions",
     "rest_framework",
+    "rest_framework_simplejwt",
     "corsheaders",
     "healthcheck",
     "user_profile",
+    "friend",
     "inventory",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -60,22 +63,33 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 
 CORS_ALLOWED_ORIGINS: list[str] = []
 if DEBUG:
-    CORS_ALLOWED_ORIGINS.extend(["http://localhost:3000", "http://127.0.0.1:3000"])
+    # CORS_ALLOWED_ORIGINS.extend(["http://localhost:3000", "http://127.0.0.1:3000", "http://127.0.0.1:8000", "http://192.168.0.157:3000/"])
+    CORS_ALLOWED_ORIGINS.extend(["http://localhost:3000", "http://127.0.0.1:3000", "http://127.0.0.1:8000", "http://192.168.0.157:3000", "http://192.168.1.247:3000"])
 if FRONTEND_URL:
-    CORS_ALLOWED_ORIGINS.append(FRONTEND_URL)
+    # CORS_ALLOWED_ORIGINS.append(FRONTEND_URL, "http://192.168.0.157:3000/")
+    CORS_ALLOWED_ORIGINS.extend(FRONTEND_URL, "http://192.168.0.157:3000/", "http://localhost:3000", "http://127.0.0.1:3000", "http://127.0.0.1:8000", "http://192.168.1.247:3000" )
+
+# Testing
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
 
 ROOT_URLCONF = "server.urls"
 
 REST_FRAMEWORK= { 
     "DEFAULT_AUTHENTICATION_CLASSES": ( 
-        "rest_framework.authentication.SessionAuthentication", 
         "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.SessionAuthentication", 
     ),
 }
 
@@ -169,3 +183,12 @@ STATICFILES_DIRS = ("static",)
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("Bearer",), # This means your header will be "Authorization: Bearer <token>"
+}
+
+LOGIN_REDIRECT_URL = "/api/user/"
+LOGOUT_REDIRECT_URL = "/api-auth/login/"
