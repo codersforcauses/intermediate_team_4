@@ -6,15 +6,13 @@ import { Member_Details_Interface } from "@/components/ui/card_organization_memb
 import type { Inventory_Details_Interface } from "../card_organization_inventory_details_modal";
 import {
   BASE_INVENTORY_URL,
-  COUNT_ITEMS_DUE_LAST_WEEK_URL,
-  COUNT_ITEMS_DUE_THIS_WEEK_URL,
   createItem,
   createMember,
   deleteItem,
   django_count_response_interface,
   getItems,
-  getItemsDueThisWeek,
   getMembers,
+  getWeeklyReportByField,
   updateItem,
   updateMember,
 } from "./organization_call_backend";
@@ -49,8 +47,11 @@ export interface organization_clean_backend_calls_return_boolean_members_interfa
   refresh: KeyedMutator<boolean>; // Optional refresh function
 }
 
-export interface organization_clean_backend_calls_return_number_interface {
-  data: number;
+export interface organization_clean_backend_calls_return_count_interface {
+  // data? means "if data exists". ?? 0 means "otherwise use 0"
+  thisWeek: number;
+  lastWeek: number;
+  difference: number;
   loading: boolean;
   error: Error | null;
   isSuccess: boolean;
@@ -164,49 +165,31 @@ export const useOrganizationBackendGetItems = (
   return res;
 };
 
-export const useOrganizationBackendCountItemsDueThisWeek =
-  (): organization_clean_backend_calls_return_number_interface => {
-    const { data, error, isLoading, mutate } = useSWR(
-      COUNT_ITEMS_DUE_THIS_WEEK_URL, // The "Key" (Unique identifier)
-      getItemsDueThisWeek, // The "Fetcher" (Your function)
-      {
-        refreshInterval: 30, // Poll every 30 seconds 30000ms
-        revalidateOnFocus: true, // Refresh when r clicks back into the tab
-      },
-    );
+export const useOrganizationBackendGetWeeklyReportByField = (
+  URL: string,
+): organization_clean_backend_calls_return_count_interface => {
+  const { data, error, isLoading, mutate } = useSWR(
+    URL, // The "Key" (Unique identifier)
+    getWeeklyReportByField, // The "Fetcher" (Your function)
+    {
+      refreshInterval: 30, // Poll every 30 seconds 30000ms
+      revalidateOnFocus: true, // Refresh when r clicks back into the tab
+    },
+  );
 
-    const res: organization_clean_backend_calls_return_number_interface = {
-      data: data?.count || 0,
-      loading: isLoading,
-      error: error,
-      isSuccess: !isLoading && !error,
-      refresh: mutate, // SWR calls its refresh function "mutate"
-    };
+  const res: organization_clean_backend_calls_return_count_interface = {
+    thisWeek: data?.thisWeek || 0,
+    lastWeek: data?.lastWeek || 0,
+    difference: data?.difference || 0,
 
-    return res;
+    loading: isLoading,
+    error: error,
+    isSuccess: !isLoading && !error,
+    refresh: mutate, // SWR calls its refresh function "mutate"
   };
 
-export const useOrganizationBackendCountItemsDueLastWeek =
-  (): organization_clean_backend_calls_return_number_interface => {
-    const { data, error, isLoading, mutate } = useSWR(
-      COUNT_ITEMS_DUE_LAST_WEEK_URL, // The "Key" (Unique identifier)
-      getItemsDueThisWeek, // The "Fetcher" (Your function)
-      {
-        refreshInterval: 30, // Poll every 30 seconds 30000ms
-        revalidateOnFocus: true, // Refresh when r clicks back into the tab
-      },
-    );
-
-    const res: organization_clean_backend_calls_return_number_interface = {
-      data: data?.count || 0,
-      loading: isLoading,
-      error: error,
-      isSuccess: !isLoading && !error,
-      refresh: mutate, // SWR calls its refresh function "mutate"
-    };
-
-    return res;
-  };
+  return res;
+};
 
 // This is now a standard function, NOT a hook
 // if it is a hook, it will not work, a hook means swr

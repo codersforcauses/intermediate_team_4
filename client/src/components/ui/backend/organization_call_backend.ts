@@ -8,13 +8,14 @@ import { generateMockMember } from "@/mocks/Members_Details_Interface_Mocks";
 
 // tha main URL
 export const BASE_INVENTORY_URL = "http://localhost:8000/api/inventory/";
-export const COUNT_ITEMS_DUE_THIS_WEEK_URL =
-  "http://localhost:8000/api/inventory/countDueThisWeek/";
-export const COUNT_ITEMS_DUE_LAST_WEEK_URL =
-  "http://localhost:8000/api/inventory/countDueLastWeek/";
+export const WEEKLY_REPORT_BY_FIELD =
+  "http://localhost:8000/api/inventory/weeklyReportByField/";
 
 export interface django_count_response_interface {
-  count: number;
+  field: number;
+  thisWeek: number;
+  lastWeek: number;
+  difference: number;
 }
 
 // change when backend is ready
@@ -50,35 +51,21 @@ export const getItems = async (
   }
 };
 
-export const getItemsDueThisWeek =
-  async (): Promise<django_count_response_interface> => {
-    const response = await fetch(`${COUNT_ITEMS_DUE_THIS_WEEK_URL}`);
+export const getWeeklyReportByField = async (
+  URL: string,
+): Promise<django_count_response_interface> => {
+  const response = await fetch(`${URL}`);
 
-    // 2. Check if the request was successful
-    if (!response.ok) throw new Error("Failed to fetch");
+  // 2. Check if the request was successful
+  if (!response.ok) throw new Error("Failed to fetch");
 
-    // 3. Parse the JSON data
-    // because fetcah returns a response, it isnt the data yet,
-    // its just the response header,
-    // you will need to use .json() to get the data
-    // it converts raw bytes to Javascript objects
-    return await response.json(); // Returns the list from Django
-  };
-
-export const getItemsDueLastWeek =
-  async (): Promise<django_count_response_interface> => {
-    const response = await fetch(`${COUNT_ITEMS_DUE_LAST_WEEK_URL}`);
-
-    // 2. Check if the request was successful
-    if (!response.ok) throw new Error("Failed to fetch");
-
-    // 3. Parse the JSON data
-    // because fetcah returns a response, it isnt the data yet,
-    // its just the response header,
-    // you will need to use .json() to get the data
-    // it converts raw bytes to Javascript objects
-    return await response.json(); // Returns the list from Django
-  };
+  // 3. Parse the JSON data
+  // because fetcah returns a response, it isnt the data yet,
+  // its just the response header,
+  // you will need to use .json() to get the data
+  // it converts raw bytes to Javascript objects
+  return await response.json(); // Returns the list from Django
+};
 
 // --- POST: Create a new item ---
 // .stringify, flattens the object

@@ -41,32 +41,63 @@ class InventoryItemViewSet(viewsets.ModelViewSet):
 #     queryset = InventoryItem.objects.all()
 #     serializer_class = InventoryItemSerializer
 
-    # url = GET /api/inventory/countDueThisWeek/
+    ### calls for dashboard starts ###
+
+    # url = GET /api/inventory/weeklyReportByField/
     @action(detail=False, methods=['get'])
-    def countDueThisWeek(self, request):
-        # 1. Define the time range
+    def weeklyReportByField(self, request):
+        # 1. Get the field name from the URL (e.g., ?field=dueOn)
+        field_name = request.query_params.get('field', 'dueOn')
+        
+        # 2. Calculate Calendar Week Boundaries
         now = timezone.now()
-        one_week_later = now + timedelta(days=7)
-        
-        # 2. Filter and count in the database (efficient!)
-        count = InventoryItem.objects.filter(
-            dueOn__range=[now, one_week_later]
-        ).count()
-        
-        # 3. Return a simple response
-        return Response({'count': count})
+        days_since_monday = now.weekday()
+        this_monday = (now - timedelta(days=days_since_monday)).replace(hour=0, minute=0, second=0, microsecond=0)
+        last_monday = this_monday - timedelta(days=7)
+        last_sunday = this_monday - timedelta(microseconds=1)
+
+        # 3. Build the dynamic filter keys
+        # Example: if field_name is 'borrowedOn', this becomes 'borrowedOn__range'
+        this_week_filter = {f"{field_name}__range": [this_monday, now]}
+        last_week_filter = {f"{field_name}__range": [last_monday, last_sunday]}
+
+        # 4. Execute counts
+        this_week_count = InventoryItem.objects.filter(**this_week_filter).count()
+        last_week_count = InventoryItem.objects.filter(**last_week_filter).count()
+
+        return Response({
+            'field': field_name,
+            'thisWeek': this_week_count,
+            'lastWeek': last_week_count,
+            'difference': this_week_count - last_week_count
+        })
+
+
+# old mat method
+# # 1. Define the time range
+# now = timezone.now()
+# one_week_ago = now - timedelta(days=7)
+
+# # 2. Filter and count in the database (efficient!)
+# count = InventoryItem.objects.filter(
+#     dueOn__range=[one_week_ago, now]
+# ).count()
+
+# @action(detail=False, methods=['get'])
+# def dueSummary(self, request):
+#     now = timezone.now()
+#     days_since_monday = now.weekday()
+#     this_monday = (now - timedelta(days=days_since_monday)).replace(hour=0, minute=0, second=0, microsecond=0)
     
-    # url = GET /api/inventory/countDueThisWeek/
-    @action(detail=False, methods=['get'])
-    def countDueLastWeek(self, request):
-        # 1. Define the time range
-        now = timezone.now()
-        one_week_ago = now - timedelta(days=7)
-        
-        # 2. Filter and count in the database (efficient!)
-        count = InventoryItem.objects.filter(
-            dueOn__range=[one_week_ago, now]
-        ).count()
-        
-        # 3. Return a simple response
-        return Response({'count': count})
+#     last_monday = this_monday - timedelta(days=7)
+#     last_sunday = this_monday - timedelta(microseconds=1)
+
+#     # Database does both counts
+#     this_week_count = InventoryItem.objects.filter(dueOn__range=[this_monday, now]).count()
+#     last_week_count = InventoryItem.objects.filter(dueOn__range=[last_monday, last_sunday]).count()
+
+#     return Response({
+#         'thisWeek': this_week_count,
+#         'lastWeek': last_week_count,
+#         'difference': this_week_count - last_week_count
+#     })
