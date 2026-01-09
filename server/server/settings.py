@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "healthcheck",
     "user_profile",
-    "friend"
+    "friend",
     "inventory",
 ]
 
