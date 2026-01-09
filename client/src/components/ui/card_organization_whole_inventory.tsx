@@ -1,3 +1,4 @@
+// @author sylee212
 import React from "react";
 
 import { Inventory_Details_Interface } from "./card_organization_inventory_details_modal";

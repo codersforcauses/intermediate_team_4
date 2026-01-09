@@ -1,3 +1,4 @@
+// @author sylee212
 // src/components/card_organization_recent_activities_item.tsx
 
 import React from "react";

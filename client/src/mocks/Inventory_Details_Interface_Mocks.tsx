@@ -1,3 +1,4 @@
+// @author sylee212
 import { Inventory_Details_Interface } from "../components/ui/card_organization_inventory_details_modal";
 
 const names = [

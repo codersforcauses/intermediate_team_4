@@ -1,3 +1,4 @@
+// @author sylee212
 // --- MOCK DATA FOR THE SUMMARY CARDS ---
 export const mockInventoryItems = [
   { itemName: "Cool Potato", statusDetail: "In 2 days" },

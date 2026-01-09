@@ -1,3 +1,4 @@
+// @author sylee212
 // src/components/card_organization_inventory_details_modal.tsx
 
 /*

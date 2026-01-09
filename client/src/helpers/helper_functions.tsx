@@ -1,3 +1,4 @@
+// @author sylee212
 export const calcTime = (dateString: string | undefined): string => {
   if (!dateString) return "unknown time";
 
