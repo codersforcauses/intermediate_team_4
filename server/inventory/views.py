@@ -6,6 +6,10 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .models import InventoryItem
 from .serializers import InventoryItemSerializer
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from django.utils import timezone
+from datetime import timedelta
 
 class InventoryItemViewSet(viewsets.ModelViewSet):
     serializer_class = InventoryItemSerializer
@@ -36,3 +40,18 @@ class InventoryItemViewSet(viewsets.ModelViewSet):
 #     # This tells the view where to get the data and how to translate it
 #     queryset = InventoryItem.objects.all()
 #     serializer_class = InventoryItemSerializer
+
+    # url = GET /api/inventory/countDueThisWeek/
+    @action(detail=False, methods=['get'])
+    def countDueThisWeek(self, request):
+        # 1. Define the time range
+        now = timezone.now()
+        one_week_later = now + timedelta(days=7)
+        
+        # 2. Filter and count in the database (efficient!)
+        count = InventoryItem.objects.filter(
+            dueOn__range=[now, one_week_later]
+        ).count()
+        
+        # 3. Return a simple response
+        return Response({'count': count})

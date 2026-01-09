@@ -6,10 +6,13 @@ import { Member_Details_Interface } from "@/components/ui/card_organization_memb
 import type { Inventory_Details_Interface } from "../card_organization_inventory_details_modal";
 import {
   BASE_INVENTORY_URL,
+  COUNT_ITEMS_DUE_THIS_WEEK_URL,
   createItem,
   createMember,
   deleteItem,
+  django_count_response_interface,
   getItems,
+  getITemsDueThisWeek,
   getMembers,
   updateItem,
   updateMember,
@@ -43,6 +46,14 @@ export interface organization_clean_backend_calls_return_boolean_members_interfa
   error: Error | null;
   isSuccess: boolean;
   refresh: KeyedMutator<boolean>; // Optional refresh function
+}
+
+export interface organization_clean_backend_calls_return_number_interface {
+  data: number;
+  loading: boolean;
+  error: Error | null;
+  isSuccess: boolean;
+  refresh: KeyedMutator<django_count_response_interface>; // Optional refresh function
 }
 
 /*
@@ -151,6 +162,28 @@ export const useOrganizationBackendGetItems = (
 
   return res;
 };
+
+export const useOrganizationBackendCountItemsDueThisWeek =
+  (): organization_clean_backend_calls_return_number_interface => {
+    const { data, error, isLoading, mutate } = useSWR(
+      COUNT_ITEMS_DUE_THIS_WEEK_URL, // The "Key" (Unique identifier)
+      getITemsDueThisWeek, // The "Fetcher" (Your function)
+      {
+        refreshInterval: 30, // Poll every 30 seconds 30000ms
+        revalidateOnFocus: true, // Refresh when r clicks back into the tab
+      },
+    );
+
+    const res: organization_clean_backend_calls_return_number_interface = {
+      data: data?.count || 0,
+      loading: isLoading,
+      error: error,
+      isSuccess: !isLoading && !error,
+      refresh: mutate, // SWR calls its refresh function "mutate"
+    };
+
+    return res;
+  };
 
 // This is now a standard function, NOT a hook
 // if it is a hook, it will not work, a hook means swr

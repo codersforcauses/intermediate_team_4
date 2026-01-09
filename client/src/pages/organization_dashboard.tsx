@@ -6,6 +6,8 @@ import { useState } from "react";
 
 import {
   organization_clean_backend_calls_return_interface,
+  organization_clean_backend_calls_return_number_interface,
+  useOrganizationBackendCountItemsDueThisWeek,
   useOrganizationBackendGetItems,
 } from "@/components/ui/backend/organization_clean_backend_calls";
 import Inventory_Details_Modal, {
@@ -18,6 +20,8 @@ import Statistics_Card from "../components/ui/card_organization_statistics";
 import Header from "../components/ui/navbar_organization";
 
 const Organization_Dashboard = () => {
+  // calling backend starts //
+
   // this is for calling the data for the modal
   const {
     data,
@@ -30,6 +34,24 @@ const Organization_Dashboard = () => {
   console.log("Loading state:", loading);
   console.log("Error state:", error);
   console.log("Refresh function:", refresh);
+
+  // this is for calling the data for the modal
+  const {
+    data: countItemsDueThisWeekData,
+    loading: countItemsDueThisWeekLoading,
+    error: countItemsDueThisWeekError,
+    refresh: countItemsDueThisWeekRefresh,
+  }: organization_clean_backend_calls_return_number_interface = useOrganizationBackendCountItemsDueThisWeek();
+
+  console.log(
+    "Data from useOrganizationBackendCountItemsDueThisWeek:",
+    countItemsDueThisWeekData,
+  );
+  console.log("Loading state:", countItemsDueThisWeekLoading);
+  console.log("Error state:", countItemsDueThisWeekError);
+  console.log("Refresh function:", countItemsDueThisWeekRefresh);
+
+  // calling backend ends //
 
   // This is for the overlay modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -93,7 +115,7 @@ const Organization_Dashboard = () => {
             />
             <Statistics_Card
               title="Inventory Due"
-              value={2}
+              value={countItemsDueThisWeekData}
               delta="-10 this week"
               status="down"
             />
