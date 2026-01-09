@@ -85,8 +85,12 @@ export const createItem = async (
       body: JSON.stringify(newData),
     });
 
-    // must return true when coding backend
-    return await response.json();
+    if (response.ok) return true;
+
+    // If it's not OK, let's see why
+    const errorText = await response.text();
+    console.error("Server Error Response:", errorText);
+    return false;
   }
 };
 

@@ -27,7 +27,7 @@ interface Inventory_Details_Interface {
   name: string;
   details: string;
   categories?: string;
-  availability?: string;
+  availability?: boolean;
   organization?: string;
   collectionPoint: string;
   borrowerName?: string;
