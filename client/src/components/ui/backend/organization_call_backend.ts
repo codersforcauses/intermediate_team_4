@@ -7,14 +7,14 @@ import { generateRandomMockInventoryDetails } from "@/mocks/Inventory_Details_In
 import { generateMockMember } from "@/mocks/Members_Details_Interface_Mocks";
 
 // tha main URL
-export const BASE_URL = "http://localhost:8000/api/activities/";
+export const BASE_INVENTORY_URL = "http://localhost:8000/api/inventory/";
 
 // change when backend is ready
-const isDev: boolean = true;
+const isDev: boolean = false;
 
 // --- GET: Fetch all items ---
 export const getItems = async (
-  filterType: string,
+  URL: string,
 ): Promise<Inventory_Details_Interface[]> => {
   if (isDev) {
     // Mock data for development
@@ -27,7 +27,8 @@ export const getItems = async (
   } else {
     // 1. Fetch from Django
     // fetch() is used to get the data from backend using URL
-    const response = await fetch(`${BASE_URL}?type=${filterType}`);
+    // `${}` is place holders for code, anything inside the curly braces is code
+    const response = await fetch(`${URL}`);
 
     // 2. Check if the request was successful
     if (!response.ok) throw new Error("Failed to fetch");
@@ -53,7 +54,7 @@ export const createItem = async (
     console.log("Mock create item called with data:", newData);
     return true; // Simulate successful creation
   } else {
-    const response = await fetch(BASE_URL, {
+    const response = await fetch(BASE_INVENTORY_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -70,7 +71,7 @@ export const updateItem = async (
   newData: Inventory_Details_Interface,
 ) => {
   // Django usually expects a trailing slash after the ID
-  const response = await fetch(`${BASE_URL}${id}/`, {
+  const response = await fetch(`${BASE_INVENTORY_URL}${id}/`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newData),
@@ -80,7 +81,7 @@ export const updateItem = async (
 
 // --- DELETE: Remove an item ---
 export const deleteItem = async (id: number) => {
-  const response = await fetch(`${BASE_URL}${id}/`, {
+  const response = await fetch(`${BASE_INVENTORY_URL}${id}/`, {
     method: "DELETE",
   });
   // DELETE usually returns a 204 No Content status, so we don't always .json() it
@@ -103,7 +104,7 @@ export const getMembers = async (
   } else {
     // 1. Fetch from Django
     // fetch() is used to get the data from backend using URL
-    const response = await fetch(`${BASE_URL}?type=${filterType}`);
+    const response = await fetch(`${BASE_INVENTORY_URL}?type=${filterType}`);
 
     // 2. Check if the request was successful
     if (!response.ok) throw new Error("Failed to fetch");
@@ -124,7 +125,7 @@ export const createMember = async (
     console.log("Mock create Member called with data:", newData);
     return true; // Simulate successful creation
   } else {
-    const response = await fetch(BASE_URL, {
+    const response = await fetch(BASE_INVENTORY_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -141,7 +142,7 @@ export const updateMember = async (
   newData: Member_Details_Interface,
 ) => {
   // Django usually expects a trailing slash after the ID
-  const response = await fetch(`${BASE_URL}${id}/`, {
+  const response = await fetch(`${BASE_INVENTORY_URL}${id}/`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newData),
@@ -151,7 +152,7 @@ export const updateMember = async (
 
 // --- DELETE: Remove an Member ---
 export const deleteMember = async (id: number) => {
-  const response = await fetch(`${BASE_URL}${id}/`, {
+  const response = await fetch(`${BASE_INVENTORY_URL}${id}/`, {
     method: "DELETE",
   });
   // DELETE usually returns a 204 No Content status, so we don't always .json() it

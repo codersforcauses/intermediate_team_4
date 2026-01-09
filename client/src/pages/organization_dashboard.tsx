@@ -25,7 +25,7 @@ const Organization_Dashboard = () => {
     error,
     refresh,
   }: organization_clean_backend_calls_return_interface =
-    useOrganizationBackendGetItems("all");
+    useOrganizationBackendGetItems("", "");
   console.log("Data from useOrganizationBackendGetItems:", data);
   console.log("Loading state:", loading);
   console.log("Error state:", error);
