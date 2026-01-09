@@ -7,13 +7,16 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import UserFriendsRecieved from "../ui/popups/user_friends_recieved_popup";
 import UserFriendsSent from "../ui/popups/user_friends_sent_popup";
+// import UserOwnedOrganizations from "../ui/popups/user_owned_organizations_popup";
+import UserOwnedOrganizations from "../ui/popups/user_owned_organizations_popup";
 
 const UserNavbar = () => {
   const { user, logout } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeModal, setActiveModal] = useState<"recieved" | "sent" | null>(
-    null,
-  );
+  // const [activeModal, setActiveModal] = useState<"recieved" | "sent" | null>(
+  const [activeModal, setActiveModal] = useState<
+    "recieved" | "sent" | "organizations" | null
+  >(null);
 
   return (
     <>
@@ -87,7 +90,8 @@ const UserNavbar = () => {
             {user ? (
               <div className="flex items-center gap-4">
                 <div className="group relative">
-                  <Link href="/user_page">
+                  <Link href="/user_profile_page">
+                    {/* <Link href="/user_page"> */}
                     <button className="rounded bg-blue-200 px-4 py-2 hover:bg-blue-300">
                       Hello, {user.username}
                     </button>
@@ -111,6 +115,15 @@ const UserNavbar = () => {
                       }}
                     >
                       Friend Requests Sent
+                    </button>
+                    <button
+                      className="rounded px-4 py-2 hover:bg-blue-100"
+                      onClick={() => {
+                        setActiveModal("organizations");
+                        setIsModalOpen(true);
+                      }}
+                    >
+                      My Organizations
                     </button>
                   </div>
                 </div>
@@ -142,6 +155,12 @@ const UserNavbar = () => {
           )}
           {activeModal === "sent" && (
             <UserFriendsSent
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+            />
+          )}
+          {activeModal === "organizations" && (
+            <UserOwnedOrganizations
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
             />
