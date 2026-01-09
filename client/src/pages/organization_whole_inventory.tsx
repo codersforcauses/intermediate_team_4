@@ -10,8 +10,10 @@ import { useOrganizationBackendGetItems } from "../components/ui/backend/organiz
 
 const Organization_Whole_Inventory = () => {
   // 1. Fetch the data using your custom hook
-  const { data, loading, error, refresh } =
-    useOrganizationBackendGetItems("all");
+  const { data, loading, error, refresh } = useOrganizationBackendGetItems(
+    "",
+    "",
+  );
   console.log("Refresh function:", refresh);
 
   // for the overlay model state management
