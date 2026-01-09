@@ -68,10 +68,10 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS: list[str] = []
 if DEBUG:
     # CORS_ALLOWED_ORIGINS.extend(["http://localhost:3000", "http://127.0.0.1:3000", "http://127.0.0.1:8000", "http://192.168.0.157:3000/"])
-    CORS_ALLOWED_ORIGINS.extend(["http://localhost:3000", "http://127.0.0.1:3000", "http://127.0.0.1:8000", "http://192.168.0.157:3000"])
+    CORS_ALLOWED_ORIGINS.extend(["http://localhost:3000", "http://127.0.0.1:3000", "http://127.0.0.1:8000", "http://192.168.0.157:3000", "http://192.168.1.247:3000"])
 if FRONTEND_URL:
     # CORS_ALLOWED_ORIGINS.append(FRONTEND_URL, "http://192.168.0.157:3000/")
-    CORS_ALLOWED_ORIGINS.extend(FRONTEND_URL, "http://192.168.0.157:3000/", "http://localhost:3000", "http://127.0.0.1:3000", "http://127.0.0.1:8000" )
+    CORS_ALLOWED_ORIGINS.extend(FRONTEND_URL, "http://192.168.0.157:3000/", "http://localhost:3000", "http://127.0.0.1:3000", "http://127.0.0.1:8000", "http://192.168.1.247:3000" )
 
 # Testing
 CORS_ALLOW_HEADERS = [

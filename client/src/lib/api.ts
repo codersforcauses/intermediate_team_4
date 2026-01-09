@@ -26,12 +26,15 @@ api.interceptors.response.use(
       if (refreshToken) {
         try {
           // Attempt to get a new access token
-          const res = await axios.post(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/token/refresh/`,
-            {
-              refresh: refreshToken,
-            },
-          );
+          //   const res = await axios.post(
+          //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/token/refresh/`,
+          //     {
+          //       refresh: refreshToken,
+          //     },
+          //   );
+          const res = await api.post("/token/refresh/", {
+            refresh: refreshToken,
+          });
 
           if (res.status === 200) {
             localStorage.setItem("access", res.data.access);
